@@ -25,7 +25,7 @@ const HeroSection = () => {
     <div className="w-full h-[calc(100vh-50px)] md:h-[calc(100vh-60px)] grid grid-rows-2 gap-2 md:flex md:flex-col md:gap-8">
       {/* mobile version */}
       <div className="w-full h-full bg-mobileHomeHero bg-cover bg-right-center md:hidden">
-        <div className="w-11/12 h-full mx-auto flex flex-col justify-center gap-4">
+        <div className="w-10/12 h-full mx-auto flex flex-col justify-center gap-4">
           <div className="flex flex-col gap-2">
             <h1 className="font-bold font-nunito text-2xl">
               Not Only People Need a House
@@ -45,7 +45,7 @@ const HeroSection = () => {
       {/* desktop version */}
       <div className="hidden md:grid md:grid-rows-5 md:w-full md:h-full">
         <div className="md:w-full md:h-full md:row-span-4 md:gap-2 md:bg-homeHero md:bg-cover md:bg-center">
-          <div className="md:w-11/12 md:h-full md:mx-auto md:max-w-[1280px] flex flex-col justify-center gap-4">
+          <div className="md:w-10/12 md:h-full md:mx-auto md:max-w-[1280px] flex flex-col justify-center gap-4">
             <div className="flex flex-col gap-2">
               <h1 className="font-bold font-nunito text-4xl xl:text-5xl">
                 Not Only People Need a House
@@ -62,7 +62,7 @@ const HeroSection = () => {
             </Link>
           </div>
         </div>
-        <div className="md:h-full md:grid md:grid-cols-6 md:items-center container max-w-[1280px] w-11/12 mx-auto">
+        <div className="md:h-full md:grid md:grid-cols-6 md:items-center container max-w-[1280px] w-10/12 mx-auto">
           <div className="flex flex-col gap-4 col-span-2">
             <h4 className="font-bold font-mono text-2xl">Rescue & Rehome</h4>
             <Link

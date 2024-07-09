@@ -1,0 +1,85 @@
+import { ReactNode } from "react";
+import DonateRouter from "@/components/donate/DonateRouter";
+import Image from "next/image";
+const DonateLayout = ({ children }: { children: ReactNode }) => {
+  return (
+    <div className="w-10/12 max-w-[1280px] xl:w-full mx-auto flex flex-col gap-8 md:gap-12">
+      <div className="">
+        <div className="flex flex-col gap-12 md:gap-20">
+          <div className="flex flex-col gap-4">
+            <h1 className="font-bold font-nunito text-4xl text-center">
+              Donate
+            </h1>
+            <p className="text-xs text-dark-60 w-4/5 md:w-3/5 mx-auto text-center">
+              Discover the vital role local animal shelters play in rescuing and
+              caring for abandoned pets. Your donation helps provide food,
+              medical care, and a safe environment for these animals, giving
+              them a second chance at life. Join us in making a difference and
+              supporting these shelters today.
+            </p>
+          </div>
+          <DonateRouter />
+        </div>
+        <div>{children}</div>
+      </div>
+      <div className="flex flex-col gap-4">
+        <h1 className="font-bold font-nunito text-2xl text-center">
+          Your Donation Makes a Difference
+        </h1>
+        <div className="grid grid-cols-2 grid-rows-[150px_150px_150px_150px_150px] md:grid-cols-4 md:grid-rows-[150px_150px_150px] gap-4">
+          <Image
+            src="/images/donate_proven6.jpg"
+            alt="donate-proven"
+            className="col-span-2 row-span-2 w-full h-full object-cover object-center"
+            width={1920}
+            height={1080}
+          ></Image>
+          <Image
+            src="/images/donate_proven4.jpg"
+            alt="donate-proven"
+            className="col-span-1 row-span-1 w-full h-full object-cover object-center"
+            width={1920}
+            height={1080}
+          ></Image>
+          <Image
+            src="/images/donate_proven5.jpg"
+            alt="donate-proven"
+            className="row-span-2 w-full h-full object-cover object-center"
+            width={1920}
+            height={1080}
+          ></Image>
+          <Image
+            src="/images/donate_proven7.jpg"
+            alt="donate-proven"
+            className="w-full h-full object-cover object-center"
+            width={1920}
+            height={1080}
+          ></Image>
+          <Image
+            src="/images/donate_proven1.jpg"
+            alt="donate-proven"
+            className="col-span-2 w-full h-full object-cover object-center"
+            width={1920}
+            height={1080}
+          ></Image>
+          <Image
+            src="/images/donate_proven2.jpg"
+            alt="donate-proven"
+            className="col-span-1 w-full h-full object-cover object-center"
+            width={1920}
+            height={1080}
+          ></Image>
+          <Image
+            src="/images/donate_proven3.jpg"
+            alt="donate-proven"
+            className="col-span-1 w-full h-full object-cover object-center"
+            width={1920}
+            height={1080}
+          ></Image>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default DonateLayout;
