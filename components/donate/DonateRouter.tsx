@@ -3,7 +3,6 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 const DonateRouter = () => {
   const pathname = usePathname();
-  console.log(pathname);
   return (
     <div className="flex gap-2 justify-center md:justify-start">
       <Link
