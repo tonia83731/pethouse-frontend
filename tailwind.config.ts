@@ -8,10 +8,18 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      fontFamily: {
+        nunito: ["Nunito", "sans-serif"],
+        "nunito-san": ["Nunito Sans", "sans-serif"],
+      },
+      colors: {
+        dark: "#0B0014",
+        "dark-80": "rgb(11, 0, 20, .8)",
+        taro: "#BCAFC9",
+        skin: "#F5E9E2",
+        "milk-tea": "#E3B5A4",
+        heart: "#D44D5C",
+        wine: "#773344",
       },
     },
   },
