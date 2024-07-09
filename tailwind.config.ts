@@ -14,12 +14,17 @@ const config: Config = {
       },
       colors: {
         dark: "#0B0014",
-        "dark-80": "rgb(11, 0, 20, .8)",
+        "dark-60": "rgb(11, 0, 20, .60)",
         taro: "#BCAFC9",
         skin: "#F5E9E2",
         "milk-tea": "#E3B5A4",
         heart: "#D44D5C",
         wine: "#773344",
+        "wine-20": "rgb(119, 51, 68, .2)",
+      },
+      backgroundImage: {
+        mobileHomeHero: "url('/images/home_hero_mobile.png')",
+        homeHero: "url('/images/home_hero.png')",
       },
     },
   },

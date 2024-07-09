@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { adoptsteps } from "@/data/adoptsteps";
 const animallist = [
   {
     id: "dog",
@@ -21,16 +22,10 @@ const animallist = [
 const HeroSection = () => {
   // Not Only People Need a House
   return (
-    <div className="h-[calc(100vh-60px)]">
-      <div className="relative md:hidden">
-        <Image
-          src="/images/home_hero_mobile.png"
-          alt="home hero"
-          className="md:hidden w-full h-auto object-cover"
-          width={400}
-          height={185}
-        ></Image>
-        <div className="w-4/6 sm:w-full flex flex-col gap-6 absolute left-4 top-1/2 -translate-y-1/2 2xl:left-52">
+    <div className="w-full h-[calc(100vh-50px)] md:h-[calc(100vh-60px)] grid grid-rows-2 gap-2 md:flex md:flex-col md:gap-8">
+      {/* mobile version */}
+      <div className="w-full h-full bg-mobileHomeHero bg-cover bg-right-center md:hidden">
+        <div className="w-11/12 h-full mx-auto flex flex-col justify-center gap-4">
           <div className="flex flex-col gap-2">
             <h1 className="font-bold font-nunito text-2xl">
               Not Only People Need a House
@@ -47,18 +42,12 @@ const HeroSection = () => {
           </Link>
         </div>
       </div>
-      <div className="hidden md:block md:w-full md:h-full">
-        <div className="w-full h-[83%] relative">
-          <Image
-            src="/images/home_hero.png"
-            alt="home hero"
-            className="md:h-full md:object-cover md:object-center"
-            width={2160}
-            height={996}
-          ></Image>
-          <div className="flex flex-col gap-4 absolute left-4 top-1/2 -translate-y-1/2 2xl:left-52">
+      {/* desktop version */}
+      <div className="hidden md:grid md:grid-rows-5 md:w-full md:h-full">
+        <div className="md:w-full md:h-full md:row-span-4 md:gap-2 md:bg-homeHero md:bg-cover md:bg-center">
+          <div className="md:w-11/12 md:h-full md:mx-auto md:max-w-[1280px] flex flex-col justify-center gap-4">
             <div className="flex flex-col gap-2">
-              <h1 className="font-bold font-nunito text-4xl">
+              <h1 className="font-bold font-nunito text-4xl xl:text-5xl">
                 Not Only People Need a House
               </h1>
               <p className="text-lg font-medium font-nunito-san">
@@ -69,11 +58,11 @@ const HeroSection = () => {
               href="/adopt"
               className="bg-dark text-white text-center w-52 px-2 py-0.5 md:px-4 md:py-2 rounded-full hover:font-bold hover:drop-shadow-md hover:italic"
             >
-              Find Adoption
+              Adopt Now!
             </Link>
           </div>
         </div>
-        <div className="md:h-[17%] md:grid md:grid-cols-6 md:items-center container max-w-[1280px] px-4 xl:px-0 mx-auto">
+        <div className="md:h-full md:grid md:grid-cols-6 md:items-center container max-w-[1280px] w-11/12 mx-auto">
           <div className="flex flex-col gap-4 col-span-2">
             <h4 className="font-bold font-mono text-2xl">Rescue & Rehome</h4>
             <Link
@@ -104,6 +93,35 @@ const HeroSection = () => {
           </div>
         </div>
       </div>
+      <section
+        className="flex flex-col justify-center gap-6 md:gap-12 w-full px-4 md:hidden"
+        id="adopt-steps"
+      >
+        <h4 className="font-bold font-nunito text-2xl">Adopt Steps</h4>
+        <div className="flex flex-col gap-4">
+          {adoptsteps.map(({ id, title, description }, index) => {
+            return (
+              <div className="flex gap-8" key={id}>
+                <div className="w-4 h-4 bg-taro font-bold rounded-full text-lg">
+                  0{index + 1}
+                </div>
+                <div>
+                  <h5 className="text-lg md:text-xl font-bold">{title}</h5>
+                  <p className="text-xs text-dark-60">{description}</p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+        <div className="w-full h-1/2 text-center">
+          <Link
+            href="/adopt"
+            className="bg-heart text-white px-4 py-2 rounded-full hover:font-bold hover:drop-shadow-md hover:italic"
+          >
+            Adopt Now
+          </Link>
+        </div>
+      </section>
     </div>
   );
 };
