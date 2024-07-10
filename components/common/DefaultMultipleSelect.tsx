@@ -8,7 +8,7 @@ type DefaultSelectProps = {
   }[];
   label: string;
 };
-const DefaultSelect = ({
+const DefaultMultipleSelect = ({
   id,
   selectRef,
   options,
@@ -27,6 +27,7 @@ const DefaultSelect = ({
         closeMenuOnSelect={true}
         isClearable={false}
         isSearchable={false}
+        isMulti={true}
         classNamePrefix="react-select"
         styles={{
           control: (baseStyles: any, state: any) => ({
@@ -86,4 +87,4 @@ const DefaultSelect = ({
   );
 };
 
-export default DefaultSelect;
+export default DefaultMultipleSelect;

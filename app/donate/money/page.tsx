@@ -8,7 +8,7 @@ const genderOptions = [
   { label: "Mrs", value: "Mrs" },
   { label: "Others", value: "Others" },
 ];
-const yes_no_options = [
+export const yes_no_options = [
   {
     label: "Yes",
     value: "Y",

@@ -1,11 +1,7 @@
-type DefaultInputProps = {
-  id: string;
-  name: string;
+import { DefaultTextareaProps } from "./DefaultTextarea";
+
+export type DefaultInputProps = DefaultTextareaProps & {
   type?: string;
-  label: string;
-  inputRef: any;
-  placeholder: string;
-  extraClass?: string;
 };
 
 const DefaultInput = ({
