@@ -17,7 +17,7 @@ const PageLayout = ({
 }: PageLayoutProps) => {
   return (
     <div className="mt-[30px] w-10/12 max-w-[1280px] xl:w-full mx-auto flex flex-col gap-8 md:gap-12">
-      <div className="">
+      <div className="flex flex-col gap-8">
         <div className="flex flex-col gap-12 md:gap-20">
           <div className="flex flex-col gap-4">
             <h1 className="font-bold font-nunito text-4xl text-center">

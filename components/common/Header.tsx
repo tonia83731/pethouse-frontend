@@ -10,7 +10,7 @@ const Header = () => {
   const pathname = usePathname();
   return (
     <>
-      <header className="h-[50px] leading-[50px] md:h-[60px] md:leading-[60px] flex justify-between items-center w-11/12 mx-auto sticky top-0 left-0 z-[999]">
+      <header className="h-[60px] leading-[60px] md:h-[90px] md:leading-[90px] flex justify-between items-center w-11/12 mx-auto sticky top-0 left-0 z-[999]">
         {/* Logo */}
         <Link href="/" className="flex gap-1 items-center">
           <Image
