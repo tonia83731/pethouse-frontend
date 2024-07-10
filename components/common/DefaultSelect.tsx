@@ -34,10 +34,10 @@ const DefaultSelect = ({
             border: "none",
             backgroundColor: "#F5E9E2",
             padding: "0px",
-            "&:hover": {
+            ":hover": {
               border: "1px solid #773344",
             },
-            "&:focus": {
+            ":focus": {
               border: "1px solid #773344",
             },
             outline: "none",
@@ -76,7 +76,7 @@ const DefaultSelect = ({
           }),
           option: (styles: any) => ({
             ...styles,
-            "&:hover": {
+            ":hover": {
               backgroundColor: "#E3B5A4",
             },
           }),

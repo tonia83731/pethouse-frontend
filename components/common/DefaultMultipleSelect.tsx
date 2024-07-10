@@ -35,10 +35,10 @@ const DefaultMultipleSelect = ({
             border: "none",
             backgroundColor: "#F5E9E2",
             padding: "0px",
-            "&:hover": {
+            ":hover": {
               border: "1px solid #773344",
             },
-            "&:focus": {
+            ":focus": {
               border: "1px solid #773344",
             },
             outline: "none",
@@ -46,6 +46,29 @@ const DefaultMultipleSelect = ({
           singleValue: (baseStyles: any, state: any) => ({
             ...baseStyles,
             color: "#0B0014",
+          }),
+          multiValue: (styles, { data }) => ({
+            ...styles,
+            backgroundColor: "#773344",
+            color: "#FFFFFF",
+            padding: "1px",
+            borderRadius: "40px",
+            ":hover": {
+              backgroundColor: "#D44D5C",
+              color: "#FFFFFF",
+            },
+          }),
+          multiValueLabel: (styles, { data }) => ({
+            ...styles,
+            color: "#FFFFFF",
+            padding: "2px",
+          }),
+          multiValueRemove: (styles, { data }) => ({
+            ...styles,
+            ":hover": {
+              backgroundColor: "transparent",
+              color: "white",
+            },
           }),
           indicatorSeparator: (baseStyles: any, state: any) => ({
             ...baseStyles,
@@ -75,7 +98,10 @@ const DefaultMultipleSelect = ({
             scrollbarWidth: "thin",
             scrollbarColor: "#A68E74 rgb(224, 145, 50, .6)",
           }),
-          option: (styles: any) => ({
+          option: (
+            styles: any,
+            { data, isDisabled, isFocused, isSelected }
+          ) => ({
             ...styles,
             "&:hover": {
               backgroundColor: "#E3B5A4",

@@ -15,7 +15,7 @@ export const adoptSteps = [
   },
   {
     id: "STEP4",
-    title: "Summary",
+    title: "Success",
   },
 ];
 const AdoptSteps = () => {
