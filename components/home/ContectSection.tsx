@@ -9,7 +9,7 @@ const ContectSection = () => {
     >
       <div className="flex flex-col gap-8 md:gap-12">
         <div className="flex flex-col gap-8">
-          <h4 className="font-bold font-nunito text-2xl xl:text-3xl">
+          <h4 className="font-extrabold font-nunito text-2xl xl:text-3xl">
             Need Help?
           </h4>
           <div className="text-lg md:w-3/4">

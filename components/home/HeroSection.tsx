@@ -27,10 +27,10 @@ const HeroSection = () => {
       <div className="w-full h-full bg-mobileHomeHero bg-cover bg-right-center md:hidden">
         <div className="w-10/12 h-full mx-auto flex flex-col justify-center gap-4">
           <div className="flex flex-col gap-2">
-            <h1 className="font-bold font-nunito text-2xl">
+            <h1 className="font-extrabold font-nunito text-2xl">
               Not Only People Need a House
             </h1>
-            <p className="text-base font-medium font-nunito-san">
+            <p className="text-base font-medium font-noto-san">
               Give homeless pets a loving forever home.
             </p>
           </div>
@@ -47,10 +47,10 @@ const HeroSection = () => {
         <div className="md:w-full md:h-full md:row-span-4 md:gap-2 md:bg-homeHero md:bg-cover md:bg-center">
           <div className="md:w-10/12 md:h-full md:mx-auto md:max-w-[1280px] flex flex-col justify-center gap-4">
             <div className="flex flex-col gap-2">
-              <h1 className="font-bold font-nunito text-4xl xl:text-5xl">
+              <h1 className="font-extrabold font-nunito text-4xl xl:text-5xl">
                 Not Only People Need a House
               </h1>
-              <p className="text-lg font-medium font-nunito-san">
+              <p className="text-lg font-medium font-noto-san">
                 Give homeless pets a loving forever home.
               </p>
             </div>
@@ -97,7 +97,7 @@ const HeroSection = () => {
         className="flex flex-col justify-center gap-6 md:gap-12 w-full px-4 md:hidden"
         id="adopt-steps"
       >
-        <h4 className="font-bold font-nunito text-2xl">Adopt Steps</h4>
+        <h4 className="font-extrabold font-nunito text-2xl">Adopt Steps</h4>
         <div className="flex flex-col gap-4">
           {adoptsteps.map(({ id, title, description }, index) => {
             return (

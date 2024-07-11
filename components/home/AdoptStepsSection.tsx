@@ -19,7 +19,7 @@ const AdoptStepsSection = () => {
           ></Image>
         </div>
         <div className="flex flex-col justify-center gap-8 md:gap-12 w-full">
-          <h4 className="font-bold font-nunito text-2xl xl:text-3xl">
+          <h4 className="font-extrabold font-nunito text-2xl xl:text-3xl">
             Adopt Steps
           </h4>
           <div className="flex flex-col gap-4">

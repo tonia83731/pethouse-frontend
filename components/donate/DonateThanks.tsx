@@ -2,7 +2,7 @@ import Image from "next/image";
 const DonateThanks = () => {
   return (
     <div className="flex flex-col gap-4">
-      <h1 className="font-bold font-nunito text-2xl text-center">
+      <h1 className="font-extrabold font-nunito text-2xl text-center">
         Your Donation Makes a Difference
       </h1>
       <div className="grid grid-cols-2 grid-rows-[150px_150px_150px_150px_150px] md:grid-cols-4 md:grid-rows-[150px_150px_150px] gap-4">

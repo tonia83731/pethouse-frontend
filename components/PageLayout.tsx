@@ -20,7 +20,7 @@ const PageLayout = ({
       <div className="flex flex-col gap-8">
         <div className="flex flex-col gap-12 md:gap-20">
           <div className="flex flex-col gap-4">
-            <h1 className="font-bold font-nunito text-4xl text-center">
+            <h1 className="font-extrabold font-nunito text-4xl text-center">
               {title}
             </h1>
             <p className="text-xs text-dark-60 w-4/5 md:w-3/5 mx-auto text-center">

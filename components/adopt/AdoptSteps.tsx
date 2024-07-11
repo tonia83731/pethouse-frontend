@@ -31,7 +31,7 @@ const AdoptSteps = () => {
             >
               <div
                 className={`w-12 h-12 md:w-16 md:h-16 border-2 border-white rounded-full flex justify-center items-center ${
-                  currStep === index + 1 ? "bg-taro" : ""
+                  currStep === index + 1 ? "bg-taro animate-pulse" : ""
                 }`}
               >
                 0{index + 1}

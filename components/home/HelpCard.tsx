@@ -18,7 +18,9 @@ const HelpCard = (props: HelpCardProps) => {
         className="w-14 h-14 absolute left-1/2 top-0 -translate-y-1/2 -translate-x-1/2"
       ></Image>
       <div className="flex flex-col gap-2 justify-center items-center bg-white border-2 border-slate-400 w-full h-full rounded-md px-4 pt-8 pb-4 md:py-4">
-        <h5 className="font-bold font-nunito text-lg md:text-xl">{title}</h5>
+        <h5 className="font-extrabold font-nunito text-lg md:text-xl">
+          {title}
+        </h5>
         <p className="text-dark-80 text-center">{description}</p>
         <Link
           href={href}

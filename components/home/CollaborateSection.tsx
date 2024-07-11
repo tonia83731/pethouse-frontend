@@ -29,7 +29,7 @@ const CollaborateSection = () => {
       id="collaborate"
     >
       <div className="flex flex-col gap-8">
-        <h4 className="font-bold font-nunito text-2xl xl:text-3xl text-center">
+        <h4 className="font-extrabold font-nunito text-2xl xl:text-3xl text-center">
           Collaborators
         </h4>
         <div className="flex gap-8 items-center justify-center">

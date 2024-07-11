@@ -11,6 +11,7 @@ const config: Config = {
       fontFamily: {
         nunito: ["Nunito", "sans-serif"],
         "nunito-san": ["Nunito Sans", "sans-serif"],
+        "noto-san": ["Noto Sans", "sans-serif"],
       },
       colors: {
         dark: "#0B0014",

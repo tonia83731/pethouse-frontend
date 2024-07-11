@@ -6,7 +6,7 @@ const SignInPage = () => {
     <div className="w-full h-full max-h-screen md:my-auto">
       <div className="w-10/12 h-full mx-auto max-w-[1280px]">
         <div className="h-full flex flex-col gap-12 items-center justify-start mt-12 md:mt-0">
-          <h1 className="font-bold font-nunito text-4xl text-center">
+          <h1 className="font-extrabold font-nunito text-4xl text-center">
             Sign In
           </h1>
           <div className="md:grid md:grid-cols-2 md:gap-8 md:items-center">
