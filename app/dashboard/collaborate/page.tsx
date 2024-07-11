@@ -1,5 +1,11 @@
+import DashboardContentLayout from "@/components/dashboard/DashboardContentLayout";
+
 const CollaboratorPage = () => {
-  return <div className=""></div>;
+  return (
+    <DashboardContentLayout title="Collaborates">
+      <div className=""></div>
+    </DashboardContentLayout>
+  );
 };
 
 export default CollaboratorPage;

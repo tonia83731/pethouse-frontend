@@ -50,9 +50,11 @@ const ProfileForm = () => {
           placeholder="Enter address here"
         />
       </div>
-      <button className="bg-wine text-white rounded-md px-4 py-2">
-        Update
-      </button>
+      <div className="flex justify-center md:justify-end">
+        <button className="min-h-[45px] bg-wine text-white rounded-md px-8 py-2">
+          Update
+        </button>
+      </div>
     </>
   );
 };

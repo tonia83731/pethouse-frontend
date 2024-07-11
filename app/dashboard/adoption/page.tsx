@@ -1,11 +1,11 @@
 import DashboardContentLayout from "@/components/dashboard/DashboardContentLayout";
 
-const DonateListPage = () => {
+const AdoptListPage = () => {
   return (
-    <DashboardContentLayout title="Donate Record">
+    <DashboardContentLayout title="Adoption">
       <div className=""></div>
     </DashboardContentLayout>
   );
 };
 
-export default DonateListPage;
+export default AdoptListPage;
