@@ -13,6 +13,9 @@ const config: Config = {
         "nunito-san": ["Nunito Sans", "sans-serif"],
         "noto-san": ["Noto Sans", "sans-serif"],
       },
+      screens: {
+        xs: "",
+      },
       colors: {
         dark: "#0B0014",
         "dark-60": "rgb(11, 0, 20, .6)",
@@ -24,6 +27,10 @@ const config: Config = {
         wine: "#773344",
         "wine-20": "rgb(119, 51, 68, .2)",
         dirt: "#D9D9D9",
+        "white-75": "rgb(255, 255, 255, .75)",
+        female: "#B73377",
+        male: "#2EA9D9",
+        check: "#29C242",
       },
       backgroundImage: {
         mobileHomeHero: "url('/images/home_hero_mobile.png')",
