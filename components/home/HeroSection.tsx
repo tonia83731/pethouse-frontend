@@ -1,24 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { adoptsteps } from "@/data/adoptsteps";
-const animallist = [
-  {
-    id: "dog",
-    img: "/icons/dog.png",
-  },
-  {
-    id: "cat",
-    img: "/icons/cat.png",
-  },
-  {
-    id: "bird",
-    img: "/icons/bird.png",
-  },
-  {
-    id: "others",
-    img: "/icons/rabbit.png",
-  },
-];
+import { animaltypelist } from "@/data/animaltype";
 const HeroSection = () => {
   // Not Only People Need a House
   return (
@@ -73,7 +56,7 @@ const HeroSection = () => {
             </Link>
           </div>
           <div className="col-start-4 col-span-3 grid grid-cols-4 gap-1">
-            {animallist.map(({ id, img }) => {
+            {animaltypelist.map(({ id, img }) => {
               return (
                 <div
                   className="flex flex-col justify-center items-center gap-2"

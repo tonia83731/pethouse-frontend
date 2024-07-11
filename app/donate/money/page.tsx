@@ -2,22 +2,14 @@
 import DefaultInput from "@/components/common/DefaultInput";
 import DefaultSelect from "@/components/common/DefaultSelect";
 import { useRef } from "react";
+import { yes_no_options } from "@/data/adoptSelectOptions";
 const genderOptions = [
   { label: "Mr", value: "Mr" },
   { label: "Miss", value: "Miss" },
   { label: "Mrs", value: "Mrs" },
   { label: "Others", value: "Others" },
 ];
-export const yes_no_options = [
-  {
-    label: "Yes",
-    value: "Y",
-  },
-  {
-    label: "No",
-    value: "N",
-  },
-];
+
 const DonateMoneyPage = () => {
   const nameRef = useRef(null);
   const genderRef = useRef(null);

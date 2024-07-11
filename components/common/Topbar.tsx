@@ -5,7 +5,7 @@ import { useState } from "react";
 import { ImCross } from "react-icons/im";
 import { TiThMenu } from "react-icons/ti";
 import { usePathname } from "next/navigation";
-import { dashboardNavlinks } from "./Sidebar";
+import { dashboardNavlinks } from "@/data/navlinks-dashboard";
 const Topbar = () => {
   const [isToggle, setIsToggle] = useState(false);
   const pathname = usePathname();

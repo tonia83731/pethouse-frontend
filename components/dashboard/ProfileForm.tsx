@@ -1,6 +1,7 @@
 "use client";
 
 import DefaultInput from "../common/DefaultInput";
+import DefaultPasswordInput from "../common/DefaultPasswordInput";
 import { useRef } from "react";
 const ProfileForm = () => {
   const nameRef = useRef(null);
@@ -26,7 +27,7 @@ const ProfileForm = () => {
           inputRef={emailRef}
           placeholder="Enter email here"
         />
-        <DefaultInput
+        <DefaultPasswordInput
           id="profile-password"
           name="password"
           label="Password"

@@ -2,7 +2,7 @@ import DefaultInput from "../common/DefaultInput";
 import DefaultSelect from "../common/DefaultSelect";
 import DefaultTextarea from "../common/DefaultTextarea";
 import { useRef } from "react";
-import { yes_no_options } from "@/app/donate/money/page";
+import { yes_no_options } from "@/data/adoptSelectOptions";
 const AdoptForm3 = () => {
   const experienceRef = useRef(null);
   const trainRef = useRef(null);

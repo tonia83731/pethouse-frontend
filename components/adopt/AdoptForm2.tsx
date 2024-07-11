@@ -2,36 +2,13 @@ import DefaultInput from "../common/DefaultInput";
 import DefaultSelect from "../common/DefaultSelect";
 import DefaultMultipleSelect from "../common/DefaultMultipleSelect";
 import { useRef } from "react";
-import { yes_no_options } from "@/app/donate/money/page";
-export const housetypeData = [
-  {
-    label: "Elevator Building (6 floors and above)",
-    value: "Elevator Building",
-  },
-  { label: "Apartment (5 floors and above, no elevator)", value: "Apartment" },
-  { label: "Townhouse, Villa", value: "Townhouse" },
-  {
-    label: "Single-story House",
-    value: "Single-story House",
-  },
-  {
-    label: "General Constructed House (e.g., Tin House, Container House)",
-    value: "General Constructed House",
-  },
-];
-export const livingareaData = [
-  { label: "Urban", value: "Urban" },
-  { label: "Suburban", value: "Suburban" },
-  { label: "Rural", value: "Rural" },
-  { label: "Other", value: "Other" },
-];
-export const activityareaData = [
-  { label: "Yard or Backyard", value: "yard_or_backyard" },
-  { label: "Nearby Park", value: "nearby_park" },
-  { label: "Home with Swimming Pool", value: "home_with_pool" },
-  { label: "Balcony", value: "balcony" },
-  { label: "Other", value: "other" },
-];
+import { yes_no_options } from "@/data/adoptSelectOptions";
+import {
+  housetypeData,
+  livingareaData,
+  activityareaData,
+} from "@/data/adoptSelectOptions";
+
 const AdoptForm2 = () => {
   const houseTypeRef = useRef(null);
   const livingRef = useRef(null);

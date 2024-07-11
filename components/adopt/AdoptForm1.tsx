@@ -1,13 +1,7 @@
 import DefaultInput from "../common/DefaultInput";
 import DefaultSelect from "../common/DefaultSelect";
 import { useRef } from "react";
-export const incomes = [
-  { label: "0 - 250K", value: "low" },
-  { label: "250K - 500K", value: "medium-low" },
-  { label: "500K - 750K", value: "medium" },
-  { label: "750K - 1M", value: "medium-high" },
-  { label: "1M or above", value: "high" },
-];
+import { incomes } from "@/data/adoptSelectOptions";
 const AdoptForm1 = () => {
   const nameRef = useRef(null);
   const ageRef = useRef(null);
