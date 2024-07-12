@@ -90,7 +90,7 @@ const AnimalCard = ({
 
   return (
     <div className="h-full md:h-[360px] w-full relative">
-      <div className="w-full h-5/6">
+      <div className="w-full h-5/6 relative">
         <Image
           src={animal_image}
           width={300}
@@ -98,6 +98,9 @@ const AnimalCard = ({
           alt={animal_id}
           className="w-full h-full object-cover drop-shadow-md"
         ></Image>
+        <div className="bg-white text-dark p-1 rounded-md absolute top-2 left-2">
+          # {animal_id}
+        </div>
       </div>
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 drop-shadow-md bg-white-75 w-11/12 rounded-md p-4 mx-auto flex flex-col gap-2">
         <div className="flex items-center justify-between">

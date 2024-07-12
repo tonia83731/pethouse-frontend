@@ -40,3 +40,9 @@ input[type="number"] {
     height: 60px;
   }
 }
+
+/* --------------- custom scrollbar --------------- */
+.custom-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #e3b5a4 transparent;
+}
