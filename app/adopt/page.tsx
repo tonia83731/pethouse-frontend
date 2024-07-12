@@ -1,5 +1,5 @@
 import Image from "next/image";
-import UserLayout from "@/components/common/UserLayout";
+import UserLayout from "@/components/layout/UserLayout";
 import AdoptSteps from "@/components/forms/adopt/AdoptSteps";
 import AdoptButton from "@/components/forms/adopt/AdoptButton";
 import AdoptForm from "@/components/forms/adopt/AdoptForm";

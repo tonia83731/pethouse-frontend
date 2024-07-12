@@ -1,7 +1,7 @@
-import AnimalCard from "@/components/animals/AnimalCard";
+import AnimalCard from "@/components/card/AnimalCard";
 import Pagination from "@/components/common/Pagination";
 import { dummyAnimal } from "@/data/dummy/dummyAnimal";
-import AnimalFilter from "@/components/animals/AnimalFilter";
+import AnimalFilter from "@/components/filter/AnimalFilter";
 const AnimalPage = () => {
   return (
     <div className="flex flex-col gap-4">

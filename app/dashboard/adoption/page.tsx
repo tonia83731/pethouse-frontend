@@ -1,6 +1,6 @@
 "use client";
 import DashboardContentLayout from "@/components/layout/DashboardContentLayout";
-import AdoptCard from "@/components/animals/AdoptCard";
+import AdoptCard from "@/components/card/AdoptCard";
 import { dummyadoptcard } from "@/data/dummy/dummyadoptcard";
 
 const AdoptListPage = () => {
