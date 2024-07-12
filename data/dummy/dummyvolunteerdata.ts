@@ -1,11 +1,16 @@
-export const dummysuppliesdata = [
+export const dummyvolunteerdata = [
   {
     basic_info: {
       name: "Miaoli County Animal Protection Education Park",
       address: "No. 55-1, Chaoyang Village, Xiangshan Township, Miaoli County",
     },
-    supply: "Dog Food",
-    number: 5,
+    date: {
+      date: Date.now(),
+      start_time: Date.now(),
+      end_time: Date.now(),
+    },
+    min_hr: 4,
+    people_num: 10,
     note: "Work includes feeding, cleaning, walking dogs, interacting with animals, assisting with adoption procedures, and community outreach activities",
   },
   {
@@ -13,8 +18,9 @@ export const dummysuppliesdata = [
       name: "Miaoli County Animal Protection Education Park",
       address: "No. 55-1, Chaoyang Village, Xiangshan Township, Miaoli County",
     },
-    supply: "Dog Food",
-    number: 4,
+    date: Date.now(),
+    min_hr: 4,
+    people_num: 10,
     note: "Work includes feeding, cleaning, walking dogs, interacting with animals, assisting with adoption procedures, and community outreach activities",
   },
   {
@@ -22,8 +28,9 @@ export const dummysuppliesdata = [
       name: "Miaoli County Animal Protection Education Park",
       address: "No. 55-1, Chaoyang Village, Xiangshan Township, Miaoli County",
     },
-    supply: "Dog Food",
-    number: 3,
+    date: Date.now(),
+    min_hr: 4,
+    people_num: 10,
     note: "Work includes feeding, cleaning, walking dogs, interacting with animals, assisting with adoption procedures, and community outreach activities",
   },
   {
@@ -31,8 +38,9 @@ export const dummysuppliesdata = [
       name: "Miaoli County Animal Protection Education Park",
       address: "No. 55-1, Chaoyang Village, Xiangshan Township, Miaoli County",
     },
-    supply: "Dog Food",
-    number: 2,
+    date: Date.now(),
+    min_hr: 4,
+    people_num: 10,
     note: "Work includes feeding, cleaning, walking dogs, interacting with animals, assisting with adoption procedures, and community outreach activities",
   },
   {
@@ -40,8 +48,9 @@ export const dummysuppliesdata = [
       name: "Miaoli County Animal Protection Education Park",
       address: "No. 55-1, Chaoyang Village, Xiangshan Township, Miaoli County",
     },
-    supply: "Dog Food",
-    number: 1,
+    date: Date.now(),
+    min_hr: 4,
+    people_num: 10,
     note: "Work includes feeding, cleaning, walking dogs, interacting with animals, assisting with adoption procedures, and community outreach activities",
   },
 ];

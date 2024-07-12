@@ -11,24 +11,23 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { useState } from "react";
-const SUPPLYTABLEHEADER = [
-  // ["name", "Org. Name"],
-  // ["address", "Org. Address"],
+import dayjs from "dayjs";
+const VOLUNTEERTABLEHEADER = [
   ["basic-info", "Org. Information"],
-  ["supply", "Supply Name"],
-  ["number", "Supply Number"],
+  ["date", "Date"],
+  ["min_hr", "Min. Working (hrs)"],
+  ["people_num", "Require People"],
   ["note", "Note"],
   ["btn", ""],
 ];
-
-const SuppliesTable = ({ tableData }: { tableData: any }) => {
+const VolunteerTable = ({ tableData }: { tableData: any }) => {
   const [sourceSorting, setSourceSorting] = useState<SortingState>([]);
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
     pageSize: 15,
   });
   const columnHelper = createColumnHelper<any>();
-  const columns = SUPPLYTABLEHEADER.map((title) =>
+  const columns = VOLUNTEERTABLEHEADER.map((title) =>
     columnHelper.accessor(title[0], {
       header: () => (
         <span className="text-base md:text-lg font-bold">{title[1]}</span>
@@ -44,12 +43,31 @@ const SuppliesTable = ({ tableData }: { tableData: any }) => {
           );
         } else if (title[0] === "btn") {
           return (
-            <button className="bg-skin text-dark rounded-md drop-shadow-md px-2 py-1">
-              Donate
-            </button>
+            <div className="flex flex-col gap-2">
+              <button className="bg-taro text-dark rounded-md drop-shadow-md px-2 py-1 md:hidden">
+                More
+              </button>
+              <button className="bg-skin text-dark rounded-md drop-shadow-md px-2 py-1">
+                Apply
+              </button>
+            </div>
+          );
+        } else if (title[0] === "date") {
+          const { date, start_time, end_time } = info.row.original.date;
+          const format_date = dayjs(date).format("YYYY-MM-DD");
+          const start_time_format = dayjs(start_time).format("HH:mm");
+          const end_time_format = dayjs(end_time).format("HH:mm");
+
+          return (
+            <div className="flex flex-col gap-1 justify-center items-center">
+              <div className="">{format_date}</div>
+              <div className="">
+                {start_time_format} ~ {end_time_format}
+              </div>
+            </div>
           );
         } else {
-          return <span className="">{info.getValue()}</span>;
+          return <span className="text-center">{info.getValue()}</span>;
         }
       },
     })
@@ -76,7 +94,7 @@ const SuppliesTable = ({ tableData }: { tableData: any }) => {
           return (
             <tr
               key={`MULTI-${headerGroup.id}`}
-              className={`rounded-md w-full grid grid-cols-6 md:grid-cols-9 items-center`}
+              className={`rounded-md w-full grid grid-cols-6 md:grid-cols-10 items-center`}
             >
               {headerGroup.headers.map((header, index) => {
                 return (
@@ -84,8 +102,10 @@ const SuppliesTable = ({ tableData }: { tableData: any }) => {
                     key={header.id}
                     className={`cursor-pointer font-medium text-[14px] py-[13px] ${
                       index === 0
-                        ? "col-span-3"
-                        : index === 3
+                        ? "col-span-4 md:col-span-3"
+                        : index === 2 || index === 3
+                        ? "hidden md:block md:col-span-1"
+                        : index === 4
                         ? "hidden md:block md:col-span-3"
                         : "col-span-1"
                     }
@@ -114,7 +134,7 @@ const SuppliesTable = ({ tableData }: { tableData: any }) => {
             return (
               <tr
                 key={row.id}
-                className={`border-b border-wine border-dotted last:border-none py-[20px] grid grid-cols-6 md:grid-cols-9`}
+                className={`border-b border-wine border-dotted last:border-none py-[20px] grid grid-cols-6 md:grid-cols-10`}
               >
                 {row.getVisibleCells().map((cell, index) => {
                   return (
@@ -122,10 +142,12 @@ const SuppliesTable = ({ tableData }: { tableData: any }) => {
                       key={cell.id}
                       className={`font-medium text-[14px] py-[13px] px-2 ${
                         index === 0
-                          ? "col-span-3"
-                          : index === 3
+                          ? "col-span-4 md:col-span-3"
+                          : index === 2 || index === 3
+                          ? "hidden md:block md:col-span-1 md:text-center"
+                          : index === 4
                           ? "hidden md:block md:col-span-3"
-                          : "col-span-1 text-center"
+                          : "col-span-1"
                       }
                       `}
                     >
@@ -144,4 +166,5 @@ const SuppliesTable = ({ tableData }: { tableData: any }) => {
     </table>
   );
 };
-export default SuppliesTable;
+
+export default VolunteerTable;
