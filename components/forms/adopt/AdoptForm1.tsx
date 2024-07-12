@@ -1,5 +1,5 @@
-import DefaultInput from "../common/DefaultInput";
-import DefaultSelect from "../common/DefaultSelect";
+import DefaultInput from "../../common/input/DefaultInput";
+import DefaultSelect from "../../common/input/DefaultSelect";
 import { useRef } from "react";
 import { incomes } from "@/data/adoptSelectOptions";
 const AdoptForm1 = () => {

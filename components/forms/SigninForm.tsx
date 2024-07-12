@@ -1,6 +1,6 @@
 "use client";
 import { useRef } from "react";
-import DefaultInput from "../common/DefaultInput";
+import DefaultInput from "../common/input/DefaultInput";
 const SigninForm = () => {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);

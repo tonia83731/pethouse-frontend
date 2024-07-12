@@ -1,6 +1,6 @@
-import DefaultInput from "../common/DefaultInput";
-import DefaultSelect from "../common/DefaultSelect";
-import DefaultMultipleSelect from "../common/DefaultMultipleSelect";
+import DefaultInput from "../../common/input/DefaultInput";
+import DefaultSelect from "../../common/input/DefaultSelect";
+import DefaultMultipleSelect from "../../common/input/DefaultMultipleSelect";
 import { useRef } from "react";
 import { yes_no_options } from "@/data/adoptSelectOptions";
 import {

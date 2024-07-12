@@ -1,5 +1,5 @@
-import UserLayout from "@/components/common/UserLayout";
-import PageLayout from "@/components/PageLayout";
+import UserLayout from "@/components/layout/UserLayout";
+import PageLayout from "@/components/layout/PageLayout";
 import { ReactNode } from "react";
 const VolunteerLayout = ({ children }: { children: ReactNode }) => {
   return (

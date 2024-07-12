@@ -1,8 +1,8 @@
 import Image from "next/image";
 import UserLayout from "@/components/common/UserLayout";
-import AdoptSteps from "@/components/adopt/AdoptSteps";
-import AdoptButton from "@/components/adopt/AdoptButton";
-import AdoptForm from "@/components/adopt/AdoptForm";
+import AdoptSteps from "@/components/forms/adopt/AdoptSteps";
+import AdoptButton from "@/components/forms/adopt/AdoptButton";
+import AdoptForm from "@/components/forms/adopt/AdoptForm";
 const AdoptPage = () => {
   return (
     <UserLayout extraClass="h-full mb-[0px] md:grid md:grid-cols-3">

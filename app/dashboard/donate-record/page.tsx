@@ -1,4 +1,4 @@
-import DashboardContentLayout from "@/components/dashboard/DashboardContentLayout";
+import DashboardContentLayout from "@/components/layout/DashboardContentLayout";
 
 const DonateListPage = () => {
   return (

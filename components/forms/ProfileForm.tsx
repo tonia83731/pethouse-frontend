@@ -1,7 +1,7 @@
 "use client";
 
-import DefaultInput from "../common/DefaultInput";
-import DefaultPasswordInput from "../common/DefaultPasswordInput";
+import DefaultInput from "../common/input/DefaultInput";
+import DefaultPasswordInput from "../common/input/DefaultPasswordInput";
 import { useRef } from "react";
 const ProfileForm = () => {
   const nameRef = useRef(null);

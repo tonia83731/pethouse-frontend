@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import DonateRouter from "@/components/donate/DonateRouter";
-import UserLayout from "@/components/common/UserLayout";
-import PageLayout from "@/components/PageLayout";
+import UserLayout from "@/components/layout/UserLayout";
+import PageLayout from "@/components/layout/PageLayout";
 import DonateThanks from "@/components/donate/DonateThanks";
 const DonateLayout = ({ children }: { children: ReactNode }) => {
   return (

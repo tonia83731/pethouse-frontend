@@ -26,9 +26,7 @@ const DefaultTextarea = ({
         ref={inputRef}
         placeholder={placeholder}
         rows={4}
-      >
-        {placeholder}
-      </textarea>
+      ></textarea>
     </div>
   );
 };

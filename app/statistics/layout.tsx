@@ -1,5 +1,5 @@
 import UserLayout from "@/components/common/UserLayout";
-import PageLayout from "@/components/PageLayout";
+import PageLayout from "@/components/layout/PageLayout";
 
 const StatisticsLayout = () => {
   return (

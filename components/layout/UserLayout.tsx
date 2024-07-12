@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
-import Header from "./Header";
-import Footer from "./Footer";
+import Header from "../common/navbar/Header";
+import Footer from "../common/Footer";
 const UserLayout = ({
   children,
   extraClass = "mb-[100px] md:mb-[120px]",

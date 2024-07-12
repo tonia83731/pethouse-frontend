@@ -1,6 +1,6 @@
-import DefaultInput from "../common/DefaultInput";
-import DefaultSelect from "../common/DefaultSelect";
-import DefaultTextarea from "../common/DefaultTextarea";
+import DefaultInput from "../../common/input/DefaultInput";
+import DefaultSelect from "../../common/input/DefaultSelect";
+import DefaultTextarea from "../../common/input/DefaultTextarea";
 import { useRef } from "react";
 import { yes_no_options } from "@/data/adoptSelectOptions";
 const AdoptForm3 = () => {

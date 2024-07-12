@@ -1,5 +1,5 @@
 import Image from "next/image";
-import SigninForm from "@/components/signin/SigninForm";
+import SigninForm from "@/components/forms/SigninForm";
 
 const SignInPage = () => {
   return (

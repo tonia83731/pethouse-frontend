@@ -22,7 +22,7 @@ const VOLUNTEERTABLEHEADER = [
   ["note", "Note"],
   ["btn", ""],
 ];
-const VolunteerTable = ({ tableData }: { tableData: any }) => {
+const FindVolunteerTable = ({ tableData }: { tableData: any }) => {
   const { isModalToggle, setIsModalToggle } = useModalStore();
   const [sourceSorting, setSourceSorting] = useState<SortingState>([]);
   const [pagination, setPagination] = useState<PaginationState>({
@@ -47,14 +47,11 @@ const VolunteerTable = ({ tableData }: { tableData: any }) => {
         } else if (title[0] === "btn") {
           return (
             <div className="flex flex-col gap-2">
-              <button className="bg-taro text-dark rounded-md drop-shadow-md px-2 py-1 md:hidden">
-                More
+              <button className="bg-taro text-dark rounded-md drop-shadow-md px-2 py-1">
+                Edit
               </button>
-              <button
-                className="bg-skin text-dark rounded-md drop-shadow-md px-2 py-1"
-                onClick={() => setIsModalToggle()}
-              >
-                Apply
+              <button className="bg-skin text-dark rounded-md drop-shadow-md px-2 py-1">
+                Applications
               </button>
             </div>
           );
@@ -101,7 +98,7 @@ const VolunteerTable = ({ tableData }: { tableData: any }) => {
             return (
               <tr
                 key={`MULTI-${headerGroup.id}`}
-                className={`rounded-md w-full grid grid-cols-6 md:grid-cols-10 items-center`}
+                className={`rounded-md w-full grid grid-cols-3 md:grid-cols-10 items-center`}
               >
                 {headerGroup.headers.map((header, index) => {
                   return (
@@ -109,8 +106,8 @@ const VolunteerTable = ({ tableData }: { tableData: any }) => {
                       key={header.id}
                       className={`cursor-pointer font-medium text-[14px] py-[13px] ${
                         index === 0
-                          ? "col-span-4 md:col-span-3"
-                          : index === 2 || index === 3
+                          ? "hidden md:block md:col-span-3"
+                          : index === 2
                           ? "hidden md:block md:col-span-1"
                           : index === 4
                           ? "hidden md:block md:col-span-3"
@@ -141,7 +138,7 @@ const VolunteerTable = ({ tableData }: { tableData: any }) => {
               return (
                 <tr
                   key={row.id}
-                  className={`border-b border-wine border-dotted last:border-none py-[20px] grid grid-cols-6 md:grid-cols-10`}
+                  className={`border-b border-wine border-dotted last:border-none py-[20px] grid grid-cols-3 md:grid-cols-10`}
                 >
                   {row.getVisibleCells().map((cell, index) => {
                     return (
@@ -149,12 +146,12 @@ const VolunteerTable = ({ tableData }: { tableData: any }) => {
                         key={cell.id}
                         className={`font-medium text-[14px] py-[13px] px-2 ${
                           index === 0
-                            ? "col-span-4 md:col-span-3"
-                            : index === 2 || index === 3
-                            ? "hidden md:block md:col-span-1 md:text-center"
+                            ? "hidden md:block md:col-span-3"
+                            : index === 2
+                            ? "hidden md:block md:col-span-1 text-center"
                             : index === 4
                             ? "hidden md:block md:col-span-3"
-                            : "col-span-1"
+                            : "col-span-1 text-center"
                         }
                       `}
                       >
@@ -176,4 +173,4 @@ const VolunteerTable = ({ tableData }: { tableData: any }) => {
   );
 };
 
-export default VolunteerTable;
+export default FindVolunteerTable;
