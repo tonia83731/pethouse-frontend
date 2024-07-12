@@ -1,4 +1,4 @@
-import UserLayout from "@/components/common/UserLayout";
+import UserLayout from "@/components/layout/UserLayout";
 import PageLayout from "@/components/layout/PageLayout";
 
 const StatisticsLayout = () => {
