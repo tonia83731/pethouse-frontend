@@ -1,5 +1,11 @@
+import StatisticFilter from "@/components/filter/StatisticFilter";
+
 const StatisticsPage = () => {
-  return <div className=""></div>;
+  return (
+    <div className="">
+      <StatisticFilter />
+    </div>
+  );
 };
 
 export default StatisticsPage;
