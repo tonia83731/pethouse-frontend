@@ -1,0 +1,92 @@
+export const dummymembers = [
+  {
+    name: "John Doe",
+    address: "123 Main St, Cityville, CA 12345",
+    phone: "555-123-4567",
+    email: "john.doe@example.com",
+  },
+  {
+    name: "Jane Smith",
+    address: "456 Elm St, Townsville, TX 67890",
+    phone: "555-987-6543",
+    email: "jane.smith@example.com",
+  },
+  {
+    name: "Alice Johnson",
+    address: "789 Oak St, Villagetown, NY 23456",
+    phone: "555-234-5678",
+    email: "alice.johnson@example.com",
+  },
+  {
+    name: "Bob Brown",
+    address: "321 Pine St, Hamlet, IL 34567",
+    phone: "555-345-6789",
+    email: "bob.brown@example.com",
+  },
+  {
+    name: "Carol White",
+    address: "654 Maple St, Smallville, OH 45678",
+    phone: "555-456-7890",
+    email: "carol.white@example.com",
+  },
+  {
+    name: "David Green",
+    address: "987 Cedar St, Littleton, WA 56789",
+    phone: "555-567-8901",
+    email: "david.green@example.com",
+  },
+  {
+    name: "Eve Black",
+    address: "159 Walnut St, Middletown, CO 67890",
+    phone: "555-678-9012",
+    email: "eve.black@example.com",
+  },
+  {
+    name: "Frank Gray",
+    address: "753 Chestnut St, Uptown, FL 78901",
+    phone: "555-789-0123",
+    email: "frank.gray@example.com",
+  },
+  {
+    name: "Grace Yellow",
+    address: "852 Spruce St, Downtown, GA 89012",
+    phone: "555-890-1234",
+    email: "grace.yellow@example.com",
+  },
+  {
+    name: "Henry Purple",
+    address: "951 Birch St, Riverside, AZ 90123",
+    phone: "555-901-2345",
+    email: "henry.purple@example.com",
+  },
+  {
+    name: "Ivy Blue",
+    address: "258 Willow St, Lakeview, NM 12345",
+    phone: "555-012-3456",
+    email: "ivy.blue@example.com",
+  },
+  {
+    name: "Jack Red",
+    address: "369 Aspen St, Seaside, OR 23456",
+    phone: "555-123-4567",
+    email: "jack.red@example.com",
+  },
+  {
+    name: "Kathy Pink",
+    address: "147 Fir St, Hilltop, MT 34567",
+    phone: "555-234-5678",
+    email: "kathy.pink@example.com",
+  },
+  {
+    name: "Leo Orange",
+    address: "258 Hemlock St, Valley, ID 45678",
+    phone: "555-345-6789",
+    email: "leo.orange@example.com",
+  },
+  {
+    name: "Mia Brown",
+    address: "369 Poplar St, Highlands, VT 56789",
+    phone: "555-456-7890",
+    email: "mia.brown@example.com",
+  },
+];

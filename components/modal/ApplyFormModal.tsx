@@ -16,7 +16,10 @@ const ApplyFormModal = () => {
         <h5 className="font-bold text-lg md:text-xl">
           Volunteer Application Form
         </h5>
-        <button className="text-lg text-wine" onClick={() => setIsModalClose()}>
+        <button
+          className="text-lg text-wine"
+          onClick={() => setIsModalClose("volunteer")}
+        >
           <ImCross />
         </button>
       </div>
@@ -73,7 +76,7 @@ const ApplyFormModal = () => {
         <div className="flex gap-4 items-center justify-center mt-8">
           <button
             className="bg-dirt text-dark drop-shadow-md rounded-md px-4 py-2"
-            onClick={() => setIsModalClose()}
+            onClick={() => setIsModalClose("volunteer")}
           >
             Cancel
           </button>

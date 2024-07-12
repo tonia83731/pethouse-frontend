@@ -28,9 +28,9 @@ export const dashboardNavlinks = [
     icon_active: "/icons/admin/adopt_active.png",
   },
   {
-    id: "collaborate",
-    title: "Collaborate",
-    href: "/dashboard/collaborate",
+    id: "member",
+    title: "Members",
+    href: "/dashboard/member",
     icon: "/icons/admin/collaborate.png",
     icon_active: "/icons/admin/collaborate_active.png",
   },
