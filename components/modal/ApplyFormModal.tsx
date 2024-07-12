@@ -9,7 +9,6 @@ const ApplyFormModal = () => {
   const nameRef = useRef(null);
   const phoneRef = useRef(null);
   const emailRef = useRef(null);
-  const dateRef = useRef(null);
   const hoursRef = useRef(null);
   return (
     <ModalLayout>
@@ -21,7 +20,7 @@ const ApplyFormModal = () => {
           <ImCross />
         </button>
       </div>
-      <div className="w-10/12 mx-auto py-4 h-[600px] md:h-[450px] overflow-y-auto flex flex-col gap-4">
+      <div className="w-10/12 mx-auto py-4 h-[720px] md:h-[600px] overflow-y-auto flex flex-col gap-4">
         <DefaultInput
           id="volunteer-name"
           name="name"
@@ -47,13 +46,7 @@ const ApplyFormModal = () => {
           />
         </div>
         <div className="flex flex-col gap-4 md:grid md:grid-cols-2">
-          <DefaultDatePicker
-            id="volunteer-date"
-            name="date"
-            label="Working Date"
-            inputRef={dateRef}
-            placeholder="Enter workinge date here"
-          />
+          <DefaultDatePicker id="volunteer-date" label="Working Date" />
           <DefaultInput
             id="volunteer-hours"
             type="number"
@@ -62,6 +55,20 @@ const ApplyFormModal = () => {
             inputRef={hoursRef}
             placeholder="Enter hours here"
           />
+        </div>
+        <div className="flex gap-2 items-center">
+          <input
+            type="checkbox"
+            id="volunteer-proven"
+            name="proven"
+            className="accent-wine"
+          />
+          <label
+            htmlFor="volunteer-proven"
+            className="text-lg md:text-xl font-bold"
+          >
+            Need volunteer proven?
+          </label>
         </div>
         <div className="flex gap-4 items-center justify-center mt-8">
           <button

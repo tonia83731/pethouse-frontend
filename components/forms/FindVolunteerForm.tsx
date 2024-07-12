@@ -26,7 +26,7 @@ const FindVolunteerForm = () => {
           label="Nums of People"
           inputRef={numRef}
           extraClass="col-span-1"
-          placeholder="Enter name here"
+          placeholder="Enter number here"
         />
       </div>
       <div className="grid grid-cols-3 gap-4 items-end">
