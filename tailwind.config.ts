@@ -22,6 +22,7 @@ const config: Config = {
         "dark-40": "rgb(11, 0, 20, .4)",
         taro: "#BCAFC9",
         skin: "#F5E9E2",
+        "skin-40": "rgb(245, 233, 226, .4)",
         "milk-tea": "#E3B5A4",
         heart: "#D44D5C",
         wine: "#773344",
