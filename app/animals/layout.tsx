@@ -1,19 +1,7 @@
 import UserLayout from "@/components/layout/UserLayout";
 import PageLayout from "@/components/layout/PageLayout";
-import Link from "next/link";
 import { ReactNode } from "react";
-const AdoptionBtn = () => {
-  return (
-    <div className="flex justify-center items-center">
-      <Link
-        href="/adopt"
-        className="bg-heart text-white text-large px-4 py-2 rounded-full"
-      >
-        Adopting
-      </Link>
-    </div>
-  );
-};
+import AdoptionBtn from "@/components/animal/AnimalBtn";
 const AnimalLayout = ({ children }: { children: ReactNode }) => {
   return (
     <UserLayout>

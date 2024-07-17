@@ -2,7 +2,8 @@ import AnimalCard from "@/components/card/AnimalCard";
 import Pagination from "@/components/common/Pagination";
 import { dummyAnimal } from "@/data/dummy/dummyAnimal";
 import AnimalFilter from "@/components/filter/AnimalFilter";
-const AnimalPage = () => {
+import AnimalList from "@/components/list/AnimalList";
+const AnimalTWPage = () => {
   return (
     <div className="flex flex-col gap-4">
       <div className="mt-8">
@@ -13,6 +14,7 @@ const AnimalPage = () => {
           return <AnimalCard {...props} key={props.animal_id} />;
         })}
       </div> */}
+      <AnimalList />
       {/* <div className="w-full flex justify-center md:justify-end">
         <Pagination totalPage={10} />
       </div> */}
@@ -20,4 +22,4 @@ const AnimalPage = () => {
   );
 };
 
-export default AnimalPage;
+export default AnimalTWPage;

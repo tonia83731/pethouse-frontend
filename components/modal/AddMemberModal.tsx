@@ -1,5 +1,4 @@
 "use client";
-
 import ModalLayout from "./ModalLayout";
 import { ImCross } from "react-icons/im";
 import DefaultInput from "../common/input/DefaultInput";
