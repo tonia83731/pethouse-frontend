@@ -48,13 +48,13 @@ const AdoptCard = ({
         </div>
       </div>
       <div className="flex flex-col gap-2">
-        <button className="bg-taro py-2 text-white rounded-md">Detail</button>
+        <button className="bg-taro py-2 text-white rounded-md">詳細資料</button>
         <button
           className={`text-white rounded-md py-2 ${
             status ? "bg-heart" : "bg-dirt"
           }`}
         >
-          {status ? "Passed" : "Reviewing"}
+          {status ? "審核通過" : "審核中"}
         </button>
       </div>
     </div>

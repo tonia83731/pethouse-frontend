@@ -13,9 +13,7 @@ const ApplyFormModal = () => {
   return (
     <ModalLayout>
       <div className="flex justify-between items-center bg-milk-tea rounded-t-md px-4 py-6">
-        <h5 className="font-bold text-lg md:text-xl">
-          Volunteer Application Form
-        </h5>
+        <h5 className="font-bold text-lg md:text-xl">志工申請表</h5>
         <button
           className="text-lg text-wine"
           onClick={() => setIsModalClose("volunteer")}
@@ -27,17 +25,17 @@ const ApplyFormModal = () => {
         <DefaultInput
           id="volunteer-name"
           name="name"
-          label="Name"
+          label="姓名"
           inputRef={nameRef}
-          placeholder="Enter name here"
+          placeholder="請輸入姓名"
         />
         <div className="flex flex-col gap-4 md:grid md:grid-cols-2">
           <DefaultInput
             id="volunteer-phone"
             name="phone"
-            label="Phone"
+            label="連絡電話"
             inputRef={phoneRef}
-            placeholder="Enter phone here"
+            placeholder="請輸入連絡電話"
           />
           <DefaultInput
             id="volunteer-email"
@@ -45,7 +43,7 @@ const ApplyFormModal = () => {
             name="email"
             label="Email"
             inputRef={emailRef}
-            placeholder="Enter email here"
+            placeholder="請輸入Email"
           />
         </div>
         <div className="flex flex-col gap-4 md:grid md:grid-cols-2">
@@ -54,9 +52,9 @@ const ApplyFormModal = () => {
             id="volunteer-hours"
             type="number"
             name="hours"
-            label="Working Hours"
+            label="工作時數"
             inputRef={hoursRef}
-            placeholder="Enter hours here"
+            placeholder="請輸入工作時數(小時)"
           />
         </div>
         <div className="flex gap-2 items-center">
@@ -70,7 +68,7 @@ const ApplyFormModal = () => {
             htmlFor="volunteer-proven"
             className="text-lg md:text-xl font-bold"
           >
-            Need volunteer proven?
+            是否需要志工時數證明?
           </label>
         </div>
         <div className="flex gap-4 items-center justify-center mt-8">
@@ -78,10 +76,10 @@ const ApplyFormModal = () => {
             className="bg-dirt text-dark drop-shadow-md rounded-md px-4 py-2"
             onClick={() => setIsModalClose("volunteer")}
           >
-            Cancel
+            取消
           </button>
           <button className="bg-milk-tea text-dark drop-shadow-md rounded-md px-4 py-2">
-            Submit
+            報名
           </button>
         </div>
       </div>

@@ -12,7 +12,7 @@ const Footer = () => {
         </div>
         <div className="">|</div>
         <Link href="/dashboard" className="hover:italic hover:underline">
-          Go to Dashboard
+          前往Dashboard
         </Link>
       </div>
     </footer>

@@ -4,7 +4,7 @@ import Link from "next/link";
 const animalLink = [
   {
     id: "adopt",
-    title: "Adopting",
+    title: "今日認養",
     href: "/adopt",
   },
   {
@@ -23,19 +23,12 @@ const AdoptionBtn = () => {
   console.log(pathname);
   return (
     <div className="flex justify-center items-center gap-2 flex-wrap">
-      {animalLink.map(({ id, title, href }) => {
-        return (
-          <Link
-            key={id}
-            href={href}
-            className={`text-white text-large px-4 py-2 rounded-full ${
-              id === "adopt" || href === pathname ? "bg-heart" : "bg-dark"
-            }`}
-          >
-            {title}
-          </Link>
-        );
-      })}
+      <Link
+        href="/adopt"
+        className={`text-white text-large px-4 py-2 rounded-full bg-heart`}
+      >
+        今日認養
+      </Link>
     </div>
   );
 };

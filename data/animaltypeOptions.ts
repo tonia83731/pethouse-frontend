@@ -1,18 +1,18 @@
 export const typedata = [
   {
-    label: "All",
-    value: "All",
+    label: "全部",
+    value: "全部",
   },
   {
-    value: "Dogs",
-    label: "Dogs",
+    value: "狗",
+    label: "狗",
   },
   {
-    value: "Cats",
-    label: "Cats",
+    value: "貓",
+    label: "貓",
   },
   {
-    value: "Others",
-    label: "Others",
+    value: "其他",
+    label: "其他",
   },
 ];

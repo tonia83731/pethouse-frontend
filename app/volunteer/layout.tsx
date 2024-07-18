@@ -5,8 +5,8 @@ const VolunteerLayout = ({ children }: { children: ReactNode }) => {
   return (
     <UserLayout>
       <PageLayout
-        title="Volunteer"
-        description="Highlights the rewarding experience of helping animals in need. This role involves caring for sheltered animals, assisting with adoptions, and supporting rescue operations. Volunteers contribute their time and compassion to improve animal welfare, making a meaningful impact on their lives and well-being"
+        title="成為志工"
+        description="幫助有需要的動物。這個角色涉及照顧庇護中的動物，協助領養，並支持救援行動。志願者貢獻他們的時間和同情心來改善動物福利，對他們的生活和健康產生深遠的影響。"
       >
         {children}
       </PageLayout>

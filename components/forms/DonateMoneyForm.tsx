@@ -4,10 +4,9 @@ import DefaultInput from "../common/input/DefaultInput";
 import DefaultSelect from "../common/input/DefaultSelect";
 import { yes_no_options } from "@/data/adoptSelectOptions";
 const genderOptions = [
-  { label: "Mr", value: "Mr" },
-  { label: "Miss", value: "Miss" },
-  { label: "Mrs", value: "Mrs" },
-  { label: "Others", value: "Others" },
+  { label: "先生", value: "M" },
+  { label: "女士", value: "F" },
+  { label: "其他", value: "Others" },
 ];
 const DonateMoneyForm = () => {
   const nameRef = useRef(null);
@@ -23,10 +22,10 @@ const DonateMoneyForm = () => {
         <DefaultInput
           id="dm-name"
           name="name"
-          label="Donor Name"
+          label="捐款人"
           inputRef={nameRef}
           extraClass="col-span-2"
-          placeholder="Enter name here"
+          placeholder="請輸入姓名"
         />
         <DefaultSelect
           selectRef={genderRef}
@@ -39,17 +38,17 @@ const DonateMoneyForm = () => {
         <DefaultInput
           id="dm-phone"
           name="phone"
-          label="Donor Phone"
+          label="捐款人電話"
           inputRef={phoneRef}
-          placeholder="Enter phone here"
+          placeholder="請輸入電話"
         />
         <DefaultInput
           id="dm-email"
           type="email"
           name="email"
-          label="Donor Email"
+          label="捐款人Email"
           inputRef={emailRef}
-          placeholder="Enter email here"
+          placeholder="請輸入email"
         />
       </div>
       <div className="flex flex-col md:grid md:grid-cols-2 gap-4 items-center">
@@ -57,30 +56,30 @@ const DonateMoneyForm = () => {
           id="dm-amount"
           type="number"
           name="amount"
-          label="Donate Amount"
+          label="捐款金額"
           inputRef={amountRef}
-          placeholder="Enter amount here"
+          placeholder="請輸入捐款金額"
           extraClass="w-full"
         />
         <div className="grid grid-cols-2 gap-2 items-end w-full">
           <DefaultInput
             id="dm-gui"
             name="gui"
-            label="GUI"
+            label="統一編號"
             inputRef={guiRef}
-            placeholder="Enter GUI here"
+            placeholder="請輸入統一編號"
           />
           <DefaultSelect
             selectRef={invoiceRef}
             options={yes_no_options}
             id="dm-invoice"
-            label="Need Invoice?"
+            label="需要發票嗎?"
           />
         </div>
       </div>
       <div className="mt-4 flex justify-center md:justify-end items-center">
         <button className="bg-wine text-white rounded-md hover:drop-shadow-md px-4 py-2">
-          Submit
+          捐贈
         </button>
       </div>
     </div>

@@ -14,10 +14,10 @@ import { useState } from "react";
 const SUPPLYTABLEHEADER = [
   // ["name", "Org. Name"],
   // ["address", "Org. Address"],
-  ["basic-info", "Org. Information"],
-  ["supply", "Supply Name"],
-  ["number", "Supply Number"],
-  ["note", "Note"],
+  ["basic-info", "組織名稱與地點"],
+  ["supply", "所需物資"],
+  ["number", "所需數量"],
+  ["note", "簡介"],
   ["btn", ""],
 ];
 
@@ -45,7 +45,7 @@ const SuppliesTable = ({ tableData }: { tableData: any }) => {
         } else if (title[0] === "btn") {
           return (
             <button className="bg-skin text-dark rounded-md drop-shadow-md px-2 py-1">
-              Donate
+              捐款
             </button>
           );
         } else {

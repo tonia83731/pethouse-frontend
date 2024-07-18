@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 export const metadata: Metadata = {
   title: "PetHouse",
-  description: "Give homeless pets a loving forever home.",
+  description:
+    "給無家可歸的寵物一個充滿愛的永久家 Give homeless pets a loving forever home.",
 };
 
 export default function RootLayout({

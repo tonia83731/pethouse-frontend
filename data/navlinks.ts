@@ -1,27 +1,22 @@
 export const navlinks = [
   {
     id: "animal",
-    title: "Animal",
+    title: "浪浪列表",
     href: "/animals",
   },
-  //   {
-  //     id: "adopt",
-  //     title: "Adopt",
-  //     href: "/adopt",
-  //   },
   {
     id: "donate",
-    title: "Donate",
+    title: "愛心捐贈",
     href: "/donate/money",
   },
   {
     id: "volunteer",
-    title: "Volunteer",
+    title: "成為志工",
     href: "/volunteer",
   },
   {
     id: "statistic",
-    title: "Statistic",
+    title: "數據統計",
     href: "/statistics",
   },
 ];

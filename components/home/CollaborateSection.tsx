@@ -8,8 +8,8 @@ const CollaborateSection = () => {
       id="collaborate"
     >
       <div className="flex flex-col gap-8">
-        <h4 className="font-extrabold font-nunito text-2xl xl:text-3xl text-center">
-          Collaborators
+        <h4 className="font-extrabold font-nunito text-4xl text-center">
+          合作對象
         </h4>
         <div className="flex gap-8 items-center justify-center">
           {collaborateMember.map(({ id, img }) => {

@@ -31,7 +31,7 @@ const Topbar = () => {
           </Link>
           <div className="flex gap-4">
             <button className="border border-wine text-wine px-4 h-[45px] flex justify-center items-center rounded-md hover:bg-wine hover:text-white hover:drop-shadow-md">
-              Log Out
+              登出
             </button>
             <button
               className="text-xl md:hidden text-white"

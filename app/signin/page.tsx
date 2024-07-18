@@ -7,7 +7,7 @@ const SignInPage = () => {
       <div className="w-10/12 h-full mx-auto max-w-[1280px]">
         <div className="h-full flex flex-col gap-12 items-center justify-start mt-12 md:mt-0">
           <h1 className="font-extrabold font-nunito text-4xl text-center">
-            Sign In
+            登入
           </h1>
           <div className="md:grid md:grid-cols-2 md:gap-8 md:items-center">
             <Image

@@ -7,6 +7,7 @@ const AnimalList = () => {
   const [twAnimalData, setTwAnimalData] = useState<any[]>([]);
   const [totalData, setTotalData] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
+  const base_url = process.env.NEXT_PUBLIC_ANIMAL_BASE_URL;
   const top = 8;
   const skip = (currentPage - 1) * top;
   const totalPage = Math.ceil(totalData / top);
@@ -15,9 +16,7 @@ const AnimalList = () => {
       try {
         // skip: 跳過幾筆
         // top: 取幾筆
-        const res = await fetch(
-          `https://data.moa.gov.tw/Service/OpenData/TransService.aspx?UnitId=QcbUEzN6E6DL`
-        );
+        const res = await fetch(`${base_url}?UnitId=QcbUEzN6E6DL`);
         const data = await res.json();
         const length = data?.length;
         setTotalData(length);
@@ -33,7 +32,7 @@ const AnimalList = () => {
         // skip: 跳過幾筆
         // top: 取幾筆
         const res = await fetch(
-          `https://data.moa.gov.tw/Service/OpenData/TransService.aspx?UnitId=QcbUEzN6E6DL&$top=${top}&$skip=${skip}`
+          `${base_url}?UnitId=QcbUEzN6E6DL&$top=${top}&$skip=${skip}`
         );
         const data = await res.json();
         setTwAnimalData(data);

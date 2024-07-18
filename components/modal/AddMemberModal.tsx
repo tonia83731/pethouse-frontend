@@ -13,9 +13,7 @@ const AddMemberModal = () => {
   return (
     <ModalLayout>
       <div className="flex justify-between items-center bg-milk-tea rounded-t-md px-4 py-6">
-        <h5 className="font-bold text-lg md:text-xl">
-          Volunteer Application Form
-        </h5>
+        <h5 className="font-bold text-lg md:text-xl">新增合作夥伴</h5>
         <button
           className="text-lg text-wine"
           onClick={() => setIsModalClose("member")}
@@ -27,9 +25,9 @@ const AddMemberModal = () => {
         <DefaultInput
           id="member-name"
           name="name"
-          label="Name"
+          label="組織名稱"
           inputRef={nameRef}
-          placeholder="Enter name here"
+          placeholder="請輸入組織名稱"
         />
         <DefaultInput
           id="member-email"
@@ -37,25 +35,25 @@ const AddMemberModal = () => {
           name="email"
           label="Email"
           inputRef={emailRef}
-          placeholder="Enter email here"
+          placeholder="請輸入組織Email"
         />
         <DefaultPasswordInput
           id="member-password"
           type="password"
           name="password"
-          label="Password"
+          label="密碼"
           inputRef={passwordRef}
-          placeholder="Enter password here"
+          placeholder="請輸入密碼"
         />
         <div className="flex gap-4 items-center justify-center mt-8">
           <button
             className="bg-dirt text-dark drop-shadow-md rounded-md px-4 py-2"
             onClick={() => setIsModalClose("member")}
           >
-            Cancel
+            取消
           </button>
           <button className="bg-milk-tea text-dark drop-shadow-md rounded-md px-4 py-2">
-            Add
+            新增
           </button>
         </div>
       </div>

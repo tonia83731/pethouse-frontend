@@ -1,14 +1,14 @@
 export const userIdentity = [
   {
-    label: "All",
+    label: "全部",
     value: "All",
   },
   {
-    label: "Organization",
+    label: "合作夥伴",
     value: "organization",
   },
   {
-    label: "Admin",
+    label: "管理員",
     value: "admin",
   },
 ];

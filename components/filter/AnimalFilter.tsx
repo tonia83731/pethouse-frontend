@@ -38,7 +38,7 @@ const AnimalFilter = () => {
         <input
           type="text"
           className="rounded-full w-full h-full px-4 bg-skin placeholder:text-milk-tea placeholder:text-sm focus:border focus:border-wine hover:border hover:border-wine"
-          placeholder="Enter animal code here"
+          placeholder="請輸入動物的流水編號或收容編號"
         />
         <button className="absolute right-4 top-1/2 -translate-y-1/2 text-wine hover:drop-shadow-md">
           <FaMagnifyingGlass />

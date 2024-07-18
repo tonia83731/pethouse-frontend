@@ -14,47 +14,47 @@ const FindVolunteerForm = () => {
         <DefaultInput
           id="fvolunteer-name"
           name="name"
-          label="Org. Name"
+          label="組織名稱"
           inputRef={nameRef}
           extraClass="col-span-2"
-          placeholder="Enter name here"
+          placeholder="請輸入組織名稱"
         />
         <DefaultInput
           id="fvolunteer-need-num"
           type="number"
           name="quantity"
-          label="Nums of People"
+          label="所需人數"
           inputRef={numRef}
           extraClass="col-span-1"
-          placeholder="Enter number here"
+          placeholder="請輸入所需人數"
         />
       </div>
       <div className="grid grid-cols-3 gap-4 items-end">
         <DefaultDatePicker
           id="fvolunteer-date"
-          label="Date"
+          label="選擇時間"
           extraClass="col-span-2"
         />
         <DefaultInput
           id="fvolunteer-need-num"
           type="number"
           name="quantity"
-          label="Min. Hours"
+          label="選擇最低時數"
           inputRef={hoursRef}
           extraClass="col-span-1"
-          placeholder="Enter hours here"
+          placeholder="請輸入最低時數"
         />
       </div>
       <DefaultTextarea
         id="fvolunteer-note"
         name="note"
-        label="Note"
+        label="志工簡介"
         inputRef={noteRef}
-        placeholder="Shortly describe the job"
+        placeholder="請簡寫志工簡介"
       />
       <div className="mt-4 flex justify-center md:justify-end items-center">
         <button className="bg-wine text-white rounded-md hover:drop-shadow-md px-4 py-2">
-          Submit
+          送出
         </button>
       </div>
     </div>

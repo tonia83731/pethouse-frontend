@@ -15,11 +15,11 @@ import dayjs from "dayjs";
 import ApplyFormModal from "../modal/ApplyFormModal";
 import { useModalStore } from "@/store/useModalStore";
 const VOLUNTEERTABLEHEADER = [
-  ["basic-info", "Org. Information"],
-  ["date", "Date"],
-  ["min_hr", "Min. Working (hrs)"],
-  ["people_num", "Require People"],
-  ["note", "Note"],
+  ["basic-info", "組織名稱與地點"],
+  ["date", "所需時間"],
+  ["min_hr", "最低時數(小時)"],
+  ["people_num", "所需人數"],
+  ["note", "簡介"],
   ["btn", ""],
 ];
 const VolunteerTable = ({ tableData }: { tableData: any }) => {
@@ -48,13 +48,13 @@ const VolunteerTable = ({ tableData }: { tableData: any }) => {
           return (
             <div className="flex flex-col gap-2">
               <button className="bg-taro text-dark rounded-md drop-shadow-md px-2 py-1 md:hidden">
-                More
+                更多訊息
               </button>
               <button
                 className="bg-skin text-dark rounded-md drop-shadow-md px-2 py-1"
                 onClick={() => setIsModalToggle("volunteer")}
               >
-                Apply
+                報名
               </button>
             </div>
           );

@@ -59,8 +59,14 @@ const AnimalCard = ({
     (item: any) => item.name === shelter_name
   );
 
-  const shelter_address = animal_shelter ? animal_shelter.name_en : "-";
+  const animalbodytype_text =
+    animal_bodytype === "SMALL"
+      ? "小型"
+      : animal_bodytype === "MEDIUM"
+      ? "中型"
+      : "大型";
 
+  const animalage_text = animal_age === "ADULT" ? "成年" : "幼年";
   const animal_sex_icon =
     animal_sex === "F" ? (
       <PiGenderFemaleBold />
@@ -77,8 +83,13 @@ const AnimalCard = ({
     ) : (
       <FaQuestion />
     );
-  const sterilization_title =
-    animal_sex === "F" ? "Spayed" : animal_sex === "T" ? "Neutered" : "Unknown";
+  const sterilization_text =
+    animal_sterilization === "T"
+      ? "已絕育"
+      : animal_sterilization === "F"
+      ? "未絕育"
+      : "未知";
+
   const bacterin =
     animal_bacterin === "T" ? (
       <FaCheck />
@@ -87,7 +98,12 @@ const AnimalCard = ({
     ) : (
       <FaQuestion />
     );
-
+  const bacterin_text =
+    animal_bacterin === "T"
+      ? "已施打疫苗"
+      : animal_bacterin === "F"
+      ? "未施打疫苗"
+      : "未知";
   return (
     <div className="h-full md:h-[360px] w-full relative">
       <div className="w-full h-5/6 relative">
@@ -120,10 +136,10 @@ const AnimalCard = ({
           </div>
           <div className="flex gap-2 text-sm">
             <div className="bg-wine text-white rounded-md px-2">
-              {animal_bodytype}
+              {animalbodytype_text}
             </div>
             <div className="bg-wine text-white rounded-md px-2">
-              {animal_age}
+              {animalage_text}
             </div>
           </div>
         </div>
@@ -140,21 +156,21 @@ const AnimalCard = ({
             >
               {sterilization}
             </div>
-            <div className="text-sm">{sterilization_title}</div>
+            <div className="text-sm">{sterilization_text}</div>
           </div>
           <div className="flex gap-1 items-center">
             <div
               className={
-                animal_sterilization === "T"
+                animal_bacterin === "T"
                   ? "text-check"
-                  : animal_sterilization === "F"
+                  : animal_bacterin === "F"
                   ? "text-heart"
                   : "text-slate-400"
               }
             >
               {bacterin}
             </div>
-            <div className="text-sm">Vaccinated</div>
+            <div className="text-sm">{bacterin_text}</div>
           </div>
         </div>
         <div className="w-full border-t-2 border-dotted border-wine"></div>
@@ -162,7 +178,7 @@ const AnimalCard = ({
           <div className="">
             <FaLocationDot />
           </div>
-          <div className="">{shelter_address}</div>
+          <div className="">{shelter_name}</div>
         </div>
         <div className="flex gap-2 items-center">
           <div className="">

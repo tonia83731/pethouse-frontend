@@ -24,35 +24,35 @@ const AdoptForm2 = () => {
           selectRef={houseTypeRef}
           options={housetypeData}
           id="house-type"
-          label="House Type"
+          label="住宅類型"
         />
         <DefaultSelect
           selectRef={livingRef}
           options={livingareaData}
           id="living-area"
-          label="Living Area"
+          label="居住地區"
         />
       </div>
       <DefaultMultipleSelect
         selectRef={activityAreaRef}
         options={activityareaData}
         id="activity-area"
-        label="Activity Area"
+        label="可以去的戶外區域"
       />
       <div className="flex flex-col gap-4 md:grid md:grid-cols-2">
         <DefaultInput
           id="adopt-family-number"
           name="family-number"
           type="number"
-          label="Family Member Numbers"
+          label="住家人數"
           inputRef={numberFamilyRef}
-          placeholder="Enter family numbers here"
+          placeholder="請輸入住家人數"
         />
         <DefaultSelect
           selectRef={agreeRef}
           options={yes_no_options}
           id="adopt-agree"
-          label="oes everyone agree on a pet?"
+          label="所有成員是否都同意養狗?"
         />
       </div>
       <div className="flex flex-col gap-4 md:grid md:grid-cols-2">
@@ -60,13 +60,13 @@ const AdoptForm2 = () => {
           selectRef={allergicRef}
           options={yes_no_options}
           id="adopt-allergic"
-          label="Any family members allergic to dogs?"
+          label="有沒有任何家人對狗狗過敏?"
         />
         <DefaultSelect
           selectRef={otherpetRef}
           options={yes_no_options}
           id="adopt-otherpet"
-          label="Any other pets?"
+          label="是否有其他寵物?"
         />
       </div>
     </div>

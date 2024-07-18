@@ -53,7 +53,7 @@ const StatisticFilter = () => {
           styles={filterSelectStyles}
         />
         <button className="bg-wine text-white rounded-full px-4 h-full">
-          Enter
+          輸入
         </button>
       </div>
     </div>

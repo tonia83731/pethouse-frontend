@@ -1,14 +1,14 @@
 import { twcity } from "./twcity";
-const twcitydata = twcity.map(({ name_en }) => {
+const twcitydata = twcity.map(({ name }) => {
   return {
-    value: name_en,
-    label: name_en,
+    value: name,
+    label: name,
   };
 });
 
 twcitydata.unshift({
-  label: "All",
-  value: "All",
+  label: "全部",
+  value: "全部",
 });
 
 export { twcitydata };

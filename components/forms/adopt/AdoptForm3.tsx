@@ -16,13 +16,13 @@ const AdoptForm3 = () => {
           selectRef={experienceRef}
           options={yes_no_options}
           id="adopt-pet-experience"
-          label="Any pet experiance?"
+          label="是否養過寵物?"
         />
         <DefaultSelect
           selectRef={trainRef}
           options={yes_no_options}
           id="adopt-train-experience"
-          label="Any pet training experiance?"
+          label="是否教過任何技能或指令?"
         />
       </div>
       <div className="grid grid-cols-2 gap-4 items-center">
@@ -30,23 +30,23 @@ const AdoptForm3 = () => {
           selectRef={guideRef}
           options={yes_no_options}
           id="adopt-guidiance"
-          label="Do you accept any guidiance?"
+          label="是否願意接受指導?"
         />
         <DefaultInput
           id="adopt-alone"
           type="number"
           name="alone"
-          label="Hours pet will be alone?"
+          label="狗每天需要獨處幾個小時?"
           inputRef={aloneRef}
-          placeholder="Enter hours here"
+          placeholder="請填寫數字(小時)"
         />
       </div>
       <DefaultTextarea
         id="adopt-comment"
         name="comment"
-        label="Comment"
+        label="為何想要領養狗狗?"
         inputRef={commentRef}
-        placeholder="Enter more comment here"
+        placeholder="請簡寫內容"
       />
     </div>
   );

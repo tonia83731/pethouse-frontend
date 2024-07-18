@@ -9,12 +9,9 @@ const ContectSection = () => {
     >
       <div className="flex flex-col gap-8 md:gap-12">
         <div className="flex flex-col gap-8">
-          <h4 className="font-extrabold font-nunito text-2xl xl:text-3xl">
-            Need Help?
-          </h4>
+          <h4 className="font-extrabold font-nunito text-4xl">需要幫助嗎?</h4>
           <div className="text-lg md:w-3/4">
-            Contact us to receive personalized assistance for adoption,
-            resources, and support, ensuring a smooth and successful experience.
+            與我們聯繫，獲得針對領養、資源和支持的個性化協助，確保順利成功的體驗。
           </div>
         </div>
         <div className="text-lg">

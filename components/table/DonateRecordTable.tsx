@@ -20,12 +20,12 @@ type DonateRecordTableProps = {
   invoice: boolean;
 };
 const DONATERECORDTABLE = [
-  ["name", "Donor"],
-  ["phone", "Phone"],
+  ["name", "捐款人"],
+  ["phone", "電話"],
   ["email", "Email"],
-  ["amount", "Amount"],
-  ["gui", "GUI"],
-  ["invoice", "Need Invoice?"],
+  ["amount", "捐款金額"],
+  ["gui", "統一編號"],
+  ["invoice", "是否需要發票?"],
   ["btn", ""],
 ];
 const DonateRecordTable = ({ tableData }: { tableData: any }) => {
@@ -44,7 +44,7 @@ const DonateRecordTable = ({ tableData }: { tableData: any }) => {
         if (title[0] === "btn") {
           return (
             <button className="bg-taro text-white rounded-md drop-shadow-md px-2 py-1">
-              more
+              詳細資料
             </button>
           );
         } else if (title[0] === "invoice") {

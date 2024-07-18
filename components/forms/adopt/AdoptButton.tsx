@@ -14,7 +14,7 @@ const AdoptButton = () => {
           currStep === 1 ? "hidden" : ""
         } rounded-full bg-dirt px-12 py-2 hover:drop-shadow-md`}
       >
-        Prev
+        上一頁
       </button>
       <button
         onClick={increaseSteps}
@@ -22,14 +22,14 @@ const AdoptButton = () => {
           currStep === 3 ? "hidden" : ""
         } rounded-full bg-taro px-12 py-2 hover:drop-shadow-md`}
       >
-        Next
+        下一頁
       </button>
       <button
         className={`${
           currStep === 3 ? "" : "hidden"
         } rounded-full bg-taro px-12 py-2 hover:drop-shadow-md`}
       >
-        Submit
+        提交
       </button>
     </div>
   );

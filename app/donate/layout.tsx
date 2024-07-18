@@ -7,12 +7,8 @@ const DonateLayout = ({ children }: { children: ReactNode }) => {
   return (
     <UserLayout>
       <PageLayout
-        title="Donate"
-        description="Discover the vital role local animal shelters play in rescuing and
-              caring for abandoned pets. Your donation helps provide food,
-              medical care, and a safe environment for these animals, giving
-              them a second chance at life. Join us in making a difference and
-              supporting these shelters today."
+        title="愛心捐贈"
+        description="'愛心捐贈'計劃旨在為動物收容所募集所需物資，提供食物、藥品、玩具等，確保動物們獲得最佳照顧，幫助牠們找到永遠的家。"
         router={<DonateRouter />}
         extraChildren={<DonateThanks />}
       >

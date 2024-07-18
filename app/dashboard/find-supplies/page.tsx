@@ -4,7 +4,7 @@ import FindSuppliesTable from "@/components/table/FindSuppliesTable";
 import { dummysuppliesdata } from "@/data/dummy/dummysuppliesdata";
 const FindSuppliesPage = () => {
   return (
-    <DashboardContentLayout title="Find Supplies">
+    <DashboardContentLayout title="尋找物資">
       <div className="flex flex-col justify-between gap-8">
         <FindSuppliesForm />
         <div className="w-full border-t-2 border-dotted border-wine "></div>

@@ -26,7 +26,7 @@ const HelpCard = (props: HelpCardProps) => {
           href={href}
           className="mt-2 bg-dark text-white px-4 py-0.5 md:py-2 rounded-full hover:font-bold hover:drop-shadow-md hover:italic"
         >
-          GO
+          前往
         </Link>
       </div>
     </div>

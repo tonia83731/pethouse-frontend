@@ -4,7 +4,7 @@ import FindVolunteerTable from "@/components/table/FindVolunteerTable";
 import { dummyvolunteerdata } from "@/data/dummy/dummyvolunteerdata";
 const FindVolunteerPage = () => {
   return (
-    <DashboardContentLayout title="Find Volunteers">
+    <DashboardContentLayout title="尋找志工">
       <div className="flex flex-col justify-between gap-8">
         <FindVolunteerForm />
         <div className="w-full border-t-2 border-dotted border-wine "></div>

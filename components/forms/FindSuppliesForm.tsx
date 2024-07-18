@@ -15,44 +15,44 @@ const FindSuppliesForm = () => {
         <DefaultInput
           id="fsupplies-name"
           name="name"
-          label="Org. Name"
+          label="組織名稱"
           inputRef={nameRef}
-          placeholder="Enter name here"
+          placeholder="請輸入組織名稱"
         />
         <DefaultInput
           id="fsupplies-need-num"
           name="address"
-          label="Org. Address"
+          label="組織地址"
           inputRef={addressRef}
-          placeholder="Enter address here"
+          placeholder="請輸入組織地址"
         />
       </div>
       <div className="flex flex-col gap-4 md:grid md:grid-cols-2">
         <DefaultInput
           id="fsupplies-supply-name"
           name="supply-name"
-          label="Supply Name"
+          label="所需物資"
           inputRef={supplynameRef}
-          placeholder="Enter supply name here"
+          placeholder="請輸入所需物資"
         />
         <DefaultInput
           id="fsupplies-num"
           name="supply-num"
-          label="Supply Numbers"
+          label="所需數量"
           inputRef={supplynumRef}
-          placeholder="Enter supply number here"
+          placeholder="請輸入所需數量"
         />
       </div>
       <DefaultTextarea
         id="fsupplies-note"
         name="note"
-        label="Note"
+        label="簡介"
         inputRef={noteRef}
-        placeholder="Shortly describe the supply"
+        placeholder="請簡寫簡介"
       />
       <div className="mt-4 flex justify-center md:justify-end items-center">
         <button className="bg-wine text-white rounded-md hover:drop-shadow-md px-4 py-2">
-          Submit
+          送出
         </button>
       </div>
     </div>

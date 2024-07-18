@@ -20,9 +20,9 @@ type MembertableProps = {
   email: string;
 };
 const MEMBERTABLEHEADER = [
-  ["name", "Member Name"],
-  ["address", "Address"],
-  ["phone", "Phone"],
+  ["name", "夥伴名稱"],
+  ["address", "夥伴地址"],
+  ["phone", "夥伴電話"],
   ["email", "Email"],
   ["btn", ""],
 ];
@@ -45,10 +45,10 @@ const MemberTable = ({ tableData }: { tableData: any }) => {
           return (
             <div className="flex flex-col gap-2">
               <button className="bg-taro text-white rounded-md drop-shadow-md px-2 py-1">
-                Edit
+                編輯
               </button>
               <button className="bg-heart text-white rounded-md drop-shadow-md px-2 py-1">
-                Delete
+                刪除
               </button>
             </div>
           );

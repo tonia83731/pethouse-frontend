@@ -11,7 +11,7 @@ const DonateRouter = () => {
           pathname.includes("money") ? "bg-dark text-white" : "text-dark"
         }`}
       >
-        Donate Money
+        捐款
       </Link>
       <Link
         href="/donate/supplies"
@@ -19,7 +19,7 @@ const DonateRouter = () => {
           pathname.includes("supplies") ? "bg-dark text-white" : "text-dark"
         }`}
       >
-        Donate Supplies
+        捐贈物資
       </Link>
     </div>
   );

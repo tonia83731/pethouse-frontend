@@ -1,18 +1,18 @@
 export const adoptformSteps = [
   {
     id: "STEP1",
-    title: "Basic Info.",
+    title: "基本資料",
   },
   {
     id: "STEP2",
-    title: "Family Info.",
+    title: "家庭情況",
   },
   {
     id: "STEP1",
-    title: "Experience",
+    title: "飼養經驗",
   },
   {
     id: "STEP4",
-    title: "Success",
+    title: "申請成功",
   },
 ];

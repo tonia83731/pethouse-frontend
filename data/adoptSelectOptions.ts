@@ -1,10 +1,10 @@
 export const yes_no_options = [
   {
-    label: "Yes",
+    label: "是",
     value: "Y",
   },
   {
-    label: "No",
+    label: "否",
     value: "N",
   },
 ];
@@ -18,30 +18,30 @@ export const incomes = [
 ];
 export const housetypeData = [
   {
-    label: "Elevator Building (6 floors and above)",
-    value: "Elevator Building",
+    label: "電梯大樓(6層以上)",
+    value: "電梯大樓",
   },
-  { label: "Apartment (5 floors and above, no elevator)", value: "Apartment" },
-  { label: "Townhouse, Villa", value: "Townhouse" },
+  { label: "公寓(5層以上, 無電梯)", value: "公寓" },
+  { label: "透天厝、別墅", value: "透天厝" },
   {
-    label: "Single-story House",
-    value: "Single-story House",
+    label: "平房(含三合院及四合院)",
+    value: "平房",
   },
   {
-    label: "General Constructed House (e.g., Tin House, Container House)",
-    value: "General Constructed House",
+    label: "一般搭建屋(例如：鐵皮屋、貨櫃屋)",
+    value: "一般搭建屋",
   },
 ];
 export const livingareaData = [
-  { label: "Urban", value: "Urban" },
-  { label: "Suburban", value: "Suburban" },
-  { label: "Rural", value: "Rural" },
-  { label: "Other", value: "Other" },
+  { label: "都市", value: "都市" },
+  { label: "市郊", value: "市郊" },
+  { label: "郊區", value: "郊區" },
+  { label: "其他", value: "其他" },
 ];
 export const activityareaData = [
-  { label: "Yard or Backyard", value: "yard_or_backyard" },
-  { label: "Nearby Park", value: "nearby_park" },
-  { label: "Home with Swimming Pool", value: "home_with_pool" },
-  { label: "Balcony", value: "balcony" },
-  { label: "Other", value: "other" },
+  { label: "院子或後院", value: "院子或後院" },
+  { label: "家附近公園", value: "家附近公園" },
+  { label: "家有游泳池", value: "家有游泳池" },
+  { label: "屋頂", value: "屋頂" },
+  { label: "其他", value: "其他" },
 ];

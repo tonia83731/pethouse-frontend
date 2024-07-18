@@ -13,26 +13,26 @@ const SigninForm = () => {
         name="email"
         label="Email"
         inputRef={emailRef}
-        placeholder="Enter email here"
+        placeholder="請輸入Email"
       />
       <DefaultInput
         id="signin-password"
         type="password"
         name="password"
-        label="Password"
+        label="密碼"
         inputRef={passwordRef}
-        placeholder="Enter email here"
+        placeholder="請輸入密碼"
       />
       <DefaultInput
         id="signin-confirm-password"
         type="password"
         name="confirm-password"
-        label="Confirm Password"
+        label="請再次填寫密碼"
         inputRef={confirmPasswordRef}
-        placeholder="Enter email here"
+        placeholder="請再次輸入密碼"
       />
       <button className="bg-wine text-white rounded-md px-4 py-2 mt-4">
-        Submit
+        登入
       </button>
     </form>
   );

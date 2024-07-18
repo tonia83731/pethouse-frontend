@@ -19,9 +19,7 @@ const AdoptStepsSection = () => {
           ></Image>
         </div>
         <div className="flex flex-col justify-center gap-8 md:gap-12 w-full">
-          <h4 className="font-extrabold font-nunito text-2xl xl:text-3xl">
-            Adopt Steps
-          </h4>
+          <h4 className="font-extrabold font-nunito text-4xl">領養步驟</h4>
           <div className="flex flex-col gap-4">
             {adoptsteps.map(({ id, title, description }, index) => {
               return (
@@ -43,7 +41,7 @@ const AdoptStepsSection = () => {
             href="/adopt"
             className="bg-heart text-white px-4 py-2.5 text-center rounded-full hover:font-bold hover:drop-shadow-md hover:italic w-1/3"
           >
-            Adopt Now
+            開始認養
           </Link>
         </div>
       </div>

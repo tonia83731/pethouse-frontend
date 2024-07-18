@@ -57,7 +57,7 @@ const Sidebar = () => {
           width={30}
           height={30}
         ></Image>
-        <div className="md:hidden lg:block">Sign Out</div>
+        <div className="md:hidden lg:block">登出</div>
       </button>
     </div>
   );

@@ -15,50 +15,50 @@ const AdoptForm1 = () => {
         <DefaultInput
           id="adopt-name"
           name="name"
-          label="Name"
+          label="領養人姓名"
           inputRef={nameRef}
-          placeholder="Enter name here"
+          placeholder="請輸入姓名"
           extraClass="col-span-2"
         />
         <DefaultInput
           id="adopt-age"
           type="number"
           name="age"
-          label="Age"
+          label="領養人年齡"
           inputRef={ageRef}
-          placeholder="Enter email here"
+          placeholder="請輸入年齡"
         />
       </div>
       <div className="flex flex-col gap-4 md:grid md:grid-cols-2">
         <DefaultInput
           id="adopt-phone"
           name="phone"
-          label="Phone"
+          label="領養人電話"
           inputRef={phoneRef}
-          placeholder="Enter phone here"
+          placeholder="請輸入電話"
         />
         <DefaultInput
           id="adopt-email"
           type="email"
           name="email"
-          label="Email"
+          label="領養人Email"
           inputRef={emailRef}
-          placeholder="Enter email here"
+          placeholder="請輸入Email"
         />
       </div>
       <div className="flex flex-col gap-4 md:grid md:grid-cols-2">
         <DefaultInput
           id="adopt-occupation"
           name="occupation"
-          label="Occupation"
+          label="領養人職業"
           inputRef={occupationRef}
-          placeholder="Enter occupatoin here"
+          placeholder="請輸入職業"
         />
         <DefaultSelect
           selectRef={incomeRef}
           options={incomes}
           id="occupation-income"
-          label="Income"
+          label="領養人收入"
         />
       </div>
     </div>

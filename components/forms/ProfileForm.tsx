@@ -15,9 +15,9 @@ const ProfileForm = () => {
         <DefaultInput
           id="profile-name"
           name="name"
-          label="Name"
+          label="姓名"
           inputRef={nameRef}
-          placeholder="Enter name here"
+          placeholder="請輸入姓名"
         />
         <DefaultInput
           id="profile-email"
@@ -25,35 +25,35 @@ const ProfileForm = () => {
           label="Email"
           type="email"
           inputRef={emailRef}
-          placeholder="Enter email here"
+          placeholder="請輸入Email"
         />
         <DefaultPasswordInput
           id="profile-password"
           name="password"
-          label="Password"
+          label="密碼"
           type="password"
           inputRef={passwordRef}
-          placeholder="Enter password here"
+          placeholder="請輸入密碼"
         />
         <DefaultInput
           id="profile-phone"
           name="phone"
-          label="Contact"
+          label="連絡電話"
           type="tel"
           inputRef={phoneRef}
-          placeholder="Enter phone here"
+          placeholder="請輸入連絡電話"
         />
         <DefaultInput
           id="profile-address"
           name="address"
-          label="Address"
+          label="地址"
           inputRef={addressRef}
-          placeholder="Enter address here"
+          placeholder="請輸入地址"
         />
       </div>
       <div className="flex justify-center md:justify-end">
         <button className="min-h-[45px] bg-wine text-white rounded-md px-8 py-2">
-          Update
+          儲存
         </button>
       </div>
     </>

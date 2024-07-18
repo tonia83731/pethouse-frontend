@@ -6,8 +6,8 @@ const AnimalLayout = ({ children }: { children: ReactNode }) => {
   return (
     <UserLayout>
       <PageLayout
-        title="Rescue and Relocation"
-        description="Focuses on the intricate process of rescuing and rehoming animals in need of adoption. It highlights the challenges and successes of these efforts, emphasizing the importance of finding safe and loving homes for rescued animals while addressing the logistical and emotional aspects of the adoption process."
+        title="拯救與安置"
+        description="幫助寵物透過耐心的領養計劃和充滿愛心的照顧找到溫馨家庭"
         router={<AdoptionBtn />}
       >
         <div className="">{children}</div>
