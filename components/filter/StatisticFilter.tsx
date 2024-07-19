@@ -1,21 +1,58 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { months } from "@/data/months";
 import { years } from "@/data/years";
 import { twcitydataWithCode } from "@/data/twcityoptions";
-import { filterSelectStyles } from "@/styles/filterSelectStyles";
+import {
+  filterSelectStyles,
+  filterSelectMultiStlye,
+} from "@/styles/filterSelectStyles";
 import Select from "react-select";
 import { useStatisticStore } from "@/store/useStatisticStore";
+import dayjs from "dayjs";
+import { MultiValue, ActionMeta } from "react-select";
+import { TableOptions, ShowTableType } from "@/store/useStatisticStore";
+const tableOptions = [
+  {
+    label: "入所方式",
+    value: "in",
+  },
+  {
+    label: "出所方式",
+    value: "out",
+  },
+  {
+    label: "在養數",
+    value: "feed",
+  },
+  {
+    label: "可收留數",
+    value: "stay",
+  },
+];
 const StatisticFilter = () => {
-  let year_default = years[0];
-  let month_default = months[0];
+  const [showTable, setShowTable] = useState<ShowTableType>({
+    in: false,
+    out: false,
+    feed: false,
+    stay: false,
+  });
+  const currYear = dayjs().format("YYYY");
+  const prevMonth = dayjs().subtract(1, "month").format("MM");
+  let year_default = years.filter((item) => item.label === currYear)[0];
+  let month_default = months.filter((item) => item.value === prevMonth)[0];
   let country_code_default = twcitydataWithCode[0];
   const yearRef = useRef<any>(year_default);
   const monthRef = useRef<any>(month_default);
   const cityRef = useRef<any>(country_code_default);
-
+  const tableRef = useRef<any>(null);
   const { statisticData, setStatisticData } = useStatisticStore();
   const handleDataFilter = async () => {
+    // setStatisticData([], 0, showTable);
+    if (!tableRef.current.props.value) {
+      alert("請選擇顯示內容");
+      return;
+    }
     const rpt_year = yearRef.current?.props.value.value;
     const month = monthRef.current?.props.value.value;
     const rpt_month = +month;
@@ -31,34 +68,44 @@ const StatisticFilter = () => {
       );
       const data = await res.json();
       const length = data?.length;
-      setStatisticData(data, length);
+      setStatisticData(data, length, showTable);
     } catch (error) {
       console.log(error);
     }
   };
   const handleDataClear = () => {
-    yearRef.current?.setValue(years[0]);
-    monthRef.current?.setValue(months[0]);
-    cityRef.current?.setValue(twcitydataWithCode[0]);
+    yearRef.current?.setValue(year_default);
+    monthRef.current?.setValue(month_default);
+    cityRef.current?.setValue(country_code_default);
+    tableRef.current?.clearValue();
+
+    setShowTable({
+      in: false,
+      out: false,
+      feed: false,
+      stay: false,
+    });
+    setStatisticData([], 0, showTable);
   };
-  useEffect(() => {
-    const fetchStatisticData = async () => {
-      try {
-        const res = await fetch(
-          `https://data.moa.gov.tw/Service/OpenData/TransService.aspx?UnitId=p9yPwrCs2OtC`
-        );
-        const data = await res.json();
-        const length = data?.length;
-        setStatisticData(data, length);
-      } catch (error) {
-        console.log(error);
-      }
+  const handleTableChange = (
+    newValue: MultiValue<{ label: string; value: string }>,
+    actionMeta: ActionMeta<{ label: string; value: string }>
+  ) => {
+    const updatedShowTable: ShowTableType = {
+      in: false,
+      out: false,
+      feed: false,
+      stay: false,
     };
-    fetchStatisticData();
-  }, []);
+    newValue.forEach((item) => {
+      updatedShowTable[item.value as TableOptions] = true;
+    });
+
+    setShowTable(updatedShowTable);
+  };
   return (
-    <div className="lg:grid lg:grid-cols-2 lg:justify-between lg:items-center">
-      <div className="grid grid-cols-5 items-center text-center gap-4 w-full h-full">
+    <div className="w-full">
+      <div className="grid grid-cols-8 items-center text-center gap-4 w-full h-full">
         <Select
           id="year"
           ref={yearRef}
@@ -92,18 +139,34 @@ const StatisticFilter = () => {
           classNamePrefix=""
           styles={filterSelectStyles}
         />
-        <button
-          onClick={handleDataFilter}
-          className="bg-wine text-white rounded-full px-4 h-full"
-        >
-          輸入
-        </button>
-        <button
-          onClick={handleDataClear}
-          className="bg-dirt text-white rounded-full px-4 h-full"
-        >
-          清除
-        </button>
+        <Select
+          id="table"
+          ref={tableRef}
+          options={tableOptions}
+          closeMenuOnSelect={true}
+          isClearable={false}
+          isSearchable={false}
+          isMulti={true}
+          classNamePrefix=""
+          className="col-span-3"
+          styles={filterSelectMultiStlye}
+          placeholder="請選擇顯示內容"
+          onChange={handleTableChange}
+        />
+        <div className="flex gap-2 col-span-2 w-full h-full">
+          <button
+            onClick={handleDataFilter}
+            className="bg-wine text-white rounded-full px-4 h-full w-full"
+          >
+            輸入
+          </button>
+          <button
+            onClick={handleDataClear}
+            className="bg-dirt text-white rounded-full px-4 h-full w-full"
+          >
+            清除
+          </button>
+        </div>
       </div>
     </div>
   );

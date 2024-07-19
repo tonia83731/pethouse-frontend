@@ -46,3 +46,8 @@ input[type="number"] {
   scrollbar-width: thin;
   scrollbar-color: #e3b5a4 transparent;
 }
+
+/* width */
+::-webkit-scrollbar {
+  width: 2px;
+}

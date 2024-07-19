@@ -1,10 +1,9 @@
 import StatisticFilter from "@/components/filter/StatisticFilter";
-import StatisticTable from "@/components/table/StatisticTable";
+import StatisticTableShow from "@/components/statistic/StatisticTableShow";
 const StatisticsPage = () => {
   return (
-    <div className="">
-      <StatisticFilter />
-      <StatisticTable />
+    <div className="flex flex-col gap-8">
+      <StatisticTableShow />
     </div>
   );
 };
