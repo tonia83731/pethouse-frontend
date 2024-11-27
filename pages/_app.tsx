@@ -1,6 +1,27 @@
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
+import { Noto_Sans_TC, Nunito } from "next/font/google";
 
+const noto_san = Noto_Sans_TC({
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["300", "400", "500", "700", "900"],
+  style: ["normal"],
+  variable: "--font-noto-sans",
+});
+
+const nunito = Nunito({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "700", "900"],
+  variable: "--font-nunito",
+});
 export default function App({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />;
+  return (
+    <div
+      id="main"
+      className={`${noto_san.variable} ${nunito.variable} font-noto_sans`}
+    >
+      <Component {...pageProps} />
+    </div>
+  );
 }
