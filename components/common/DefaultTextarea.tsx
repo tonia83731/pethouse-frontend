@@ -1,25 +1,24 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ChangeEvent } from "react";
 
-export interface DefaultInputProps {
+interface DefaultTextareaProps {
   label?: string;
   type?: string;
   id: string;
   name: string;
   placeholder?: string;
   inputValue: any;
-  onInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  onInputChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
-const DefaultInput = ({
+const DefaultTextarea = ({
   label,
-  type = "text",
   id,
   name,
   placeholder,
   inputValue,
   onInputChange,
-}: DefaultInputProps) => {
+}: DefaultTextareaProps) => {
   return (
     <div className="flex flex-col gap-2">
       {label && (
@@ -27,17 +26,19 @@ const DefaultInput = ({
           {label}
         </label>
       )}
-      <input
-        type={type}
-        id={id}
+      <textarea
         name={name}
+        id={id}
         placeholder={placeholder}
-        className="w-full h-10 leading-10 px-4 rounded-lg border-0 bg-skin-60 text-wine placeholder:text-dark-40"
-        value={inputValue}
+        className="w-full h-20 leading-10 px-4 rounded-lg border-0 bg-skin-60 text-wine placeholder:text-dark-40"
         onChange={onInputChange}
-      />
+        rows={2}
+        cols={50}
+      >
+        {inputValue}
+      </textarea>
     </div>
   );
 };
 
-export default DefaultInput;
+export default DefaultTextarea;

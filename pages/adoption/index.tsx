@@ -5,7 +5,7 @@ import Select from "react-select";
 import { SELECTSTYLES } from "@/constants/select-style";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import { getTwCity } from "@/datas/twCityDistricts";
-import { animalData } from "@/datas/animalData";
+import { animal_options } from "@/datas/animal-option";
 import { dummy_stray_data } from "@/datas/dummy/stray_data";
 import { useState } from "react";
 
@@ -38,8 +38,17 @@ const AdoptionPage = () => {
             styles={SELECTSTYLES}
           />
           <Select
-            options={animalData}
-            defaultValue={animalData[0]}
+            options={[
+              {
+                label: "全部動物",
+                value: "all",
+              },
+              ...animal_options,
+            ]}
+            defaultValue={{
+              label: "全部動物",
+              value: "all",
+            }}
             styles={SELECTSTYLES}
           />
         </div>

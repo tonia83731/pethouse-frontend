@@ -65,8 +65,10 @@ const DashboardLayout = ({
                 <Link
                   href={href}
                   key={id}
-                  className={`flex items-center gap-2 text-xl h-[60px] leading-[45px] px-6 hover:text-wine ${
-                    pathname === href ? "bg-wine hover:text-white" : ""
+                  className={`flex items-center gap-2 text-xl h-[60px] leading-[45px] px-6 ${
+                    pathname === href
+                      ? "bg-wine hover:text-white"
+                      : "hover:text-wine"
                   }`}
                 >
                   <div className="">
@@ -86,7 +88,7 @@ const DashboardLayout = ({
       <main className="w-full h-full min-h-screen bg-white rounded-tl-[60px]">
         <div className="w-9/12 max-w-[1280px] mx-auto pt-[60px] flex flex-col gap-8">
           {title && <h1 className="font-bold text-2xl">{title}</h1>}
-          <div className="">{children}</div>
+          <div className="flex flex-col gap-6">{children}</div>
         </div>
       </main>
     </div>
