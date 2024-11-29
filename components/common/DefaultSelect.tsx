@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Select from "react-select";
 export type OptionType = {
@@ -10,7 +12,8 @@ interface DefaultSelectProps {
   placeholder?: string;
   inputValue?: OptionType;
   options: OptionType[];
-  ref: any;
+  ref?: any;
+  onSelectChange?: (value: any) => void;
   // onInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -20,6 +23,7 @@ const DefaultSelect = ({
   inputValue,
   placeholder,
   ref,
+  onSelectChange,
 }: DefaultSelectProps) => {
   return (
     <div className="flex flex-col gap-2">
@@ -38,7 +42,7 @@ const DefaultSelect = ({
           placeholder: (styles) => ({
             ...styles,
             color: "rgb(11, 0, 20, .4)",
-            fontSize: "1rem",
+            fontSize: "0.75rem",
           }),
           clearIndicator: (styles) => ({
             ...styles,
@@ -77,6 +81,9 @@ const DefaultSelect = ({
             ...styles,
             color: "#0b0014",
           }),
+        }}
+        onChange={(newValue, actionMeta) => {
+          onSelectChange && onSelectChange(newValue);
         }}
       />
     </div>

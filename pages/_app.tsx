@@ -1,7 +1,7 @@
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { Noto_Sans_TC, Nunito } from "next/font/google";
-
+import { FormProvider } from "@/context/FormContext";
 const noto_san = Noto_Sans_TC({
   subsets: ["latin"],
   display: "swap",
@@ -21,7 +21,9 @@ export default function App({ Component, pageProps }: AppProps) {
       id="main"
       className={`${noto_san.variable} ${nunito.variable} font-noto_sans`}
     >
-      <Component {...pageProps} />
+      <FormProvider>
+        <Component {...pageProps} />
+      </FormProvider>
     </div>
   );
 }

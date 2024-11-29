@@ -3,7 +3,6 @@ import { ChangeEvent } from "react";
 
 interface DefaultTextareaProps {
   label?: string;
-  type?: string;
   id: string;
   name: string;
   placeholder?: string;
@@ -30,7 +29,7 @@ const DefaultTextarea = ({
         name={name}
         id={id}
         placeholder={placeholder}
-        className="w-full h-20 leading-10 px-4 rounded-lg border-0 bg-skin-60 text-wine placeholder:text-dark-40"
+        className="w-full h-20 leading-10 p-4 rounded-lg border-0 bg-skin-60 text-wine placeholder:text-xs placeholder:text-dark-40"
         onChange={onInputChange}
         rows={2}
         cols={50}

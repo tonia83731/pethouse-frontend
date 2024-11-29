@@ -32,7 +32,7 @@ const DefaultInput = ({
         id={id}
         name={name}
         placeholder={placeholder}
-        className="w-full h-10 leading-10 px-4 rounded-lg border-0 bg-skin-60 text-wine placeholder:text-dark-40"
+        className="w-full h-10 leading-10 px-4 rounded-lg border-0 bg-skin-60 text-wine placeholder:text-dark-40 placeholder:text-xs"
         value={inputValue}
         onChange={onInputChange}
       />

@@ -21,6 +21,7 @@ export default {
         dark: "#0b0014",
         "dark-60": "rgb(11, 0, 20, .6)",
         "dark-40": "rgb(11, 0, 20, .4)",
+        "dark-5": "rgb(11, 0, 20, .05)",
         light: "#f5e9e2",
 
         sky: "#2ea9d9",
@@ -30,6 +31,10 @@ export default {
       fontFamily: {
         noto_sans: ["var(--font-noto-sans)"],
         nunito: ["var(--font-nunito)"],
+      },
+      backgroundImage: {
+        "application-mobile": "url('/images/hero/application_mobile.png')",
+        "application-desktop": "url('/images/hero/application_desktop.png')",
       },
     },
   },
