@@ -1,11 +1,25 @@
-import { useFormContext } from "@/context/FormContext";
+import { ChangeEvent } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/store";
+import { updatedFormInput } from "@/slices/adoptionSlice";
 import DefaultInput from "@/components/common/input/DefaultInput";
 import DefaultTextarea from "@/components/common/input/DefaultTextarea";
 import DefaultTrueFalse from "@/components/common/input/DefalutTrueFalse";
-import { ChangeEvent } from "react";
 const AdoptionStep3 = () => {
-  const { inputValue, handleFormInputChange, handleTrueFalseChange } =
-    useFormContext();
+  const inputValue = useSelector(
+    (state: RootState) => state.adoption.inputValue
+  );
+  const dispatch = useDispatch();
+  const handleInputChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    dispatch(updatedFormInput({ name, value }));
+  };
+  const handleTrueFalseChange = (name: string, value: boolean) => {
+    dispatch(updatedFormInput({ name, value }));
+  };
+
   return (
     <>
       <div className="flex flex-col gap-4 md:grid md:grid-cols-2">
@@ -36,9 +50,7 @@ const AdoptionStep3 = () => {
           name="alone"
           placeholder="請輸入每天獨處時間(時)"
           inputValue={inputValue.alone}
-          onInputChange={(e: ChangeEvent<HTMLInputElement>) =>
-            handleFormInputChange(e)
-          }
+          onInputChange={handleInputChange}
         />
       </div>
       <DefaultTextarea
@@ -47,7 +59,7 @@ const AdoptionStep3 = () => {
         name="reason"
         placeholder="請簡寫內容"
         inputValue={inputValue.reason}
-        onInputChange={(e) => handleFormInputChange(e)}
+        onInputChange={handleInputChange}
       />
     </>
   );

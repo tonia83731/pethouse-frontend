@@ -2,7 +2,8 @@ import "@/styles/globals.css";
 import "react-datepicker/dist/react-datepicker.css";
 import type { AppProps } from "next/app";
 import { Noto_Sans_TC, Nunito } from "next/font/google";
-import { FormProvider } from "@/context/FormContext";
+import { store } from "../store";
+import { Provider } from "react-redux";
 
 const noto_san = Noto_Sans_TC({
   subsets: ["latin"],
@@ -19,13 +20,13 @@ const nunito = Nunito({
 });
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <div
-      id="main"
-      className={`${noto_san.variable} ${nunito.variable} font-noto_sans`}
-    >
-      <FormProvider>
+    <Provider store={store}>
+      <div
+        id="main"
+        className={`${noto_san.variable} ${nunito.variable} font-noto_sans`}
+      >
         <Component {...pageProps} />
-      </FormProvider>
-    </div>
+      </div>
+    </Provider>
   );
 }

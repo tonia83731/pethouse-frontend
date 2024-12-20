@@ -1,19 +1,34 @@
-import { useFormContext } from "@/context/FormContext";
+import { ChangeEvent } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/store";
+import { updatedFormInput } from "@/slices/adoptionSlice";
 import DefaultInput from "@/components/common/input/DefaultInput";
 import DefaultSelect from "@/components/common/input/DefaultSelect";
-// import DefaultCheckbox from "@/components/common/input/DefaultCheckbox";
-// import DefaultRadio from "@/components/common/input/DefaultRadio";
 import DefaultTrueFalse from "@/components/common/input/DefalutTrueFalse";
 import { housetype_options, livingarea_options } from "@/datas/adoption-option";
-import { ChangeEvent } from "react";
+
 const AdoptionStep2 = () => {
-  const {
-    inputValue,
-    handleFormInputChange,
-    // handleCheckboxChange,
-    handleTrueFalseChange,
-    handleSelectChange,
-  } = useFormContext();
+  const inputValue = useSelector(
+    (state: RootState) => state.adoption.inputValue
+  );
+  const dispatch = useDispatch();
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    dispatch(updatedFormInput({ name, value }));
+  };
+  const handleSelectChange = (
+    name: string,
+    inputValue: { label: string; value: string }
+  ) => {
+    const value = inputValue.value;
+
+    dispatch(updatedFormInput({ name, value }));
+  };
+
+  const handleTrueFalseChange = (name: string, value: boolean) => {
+    dispatch(updatedFormInput({ name, value }));
+  };
+
   return (
     <>
       <div className="flex flex-col gap-4 md:grid md:grid-cols-2">
@@ -22,7 +37,6 @@ const AdoptionStep2 = () => {
           options={housetype_options}
           placeholder="請輸入住宅類型"
           name="housetype"
-          // inputValue={getTwCity()[0]}
           onSelectChange={(value) => handleSelectChange("housetype", value)}
         />
         <DefaultSelect
@@ -30,7 +44,6 @@ const AdoptionStep2 = () => {
           options={livingarea_options}
           placeholder="請輸入居住地區"
           name="livingarea"
-          // inputValue={getTwCity()[0]}
           onSelectChange={(value) => handleSelectChange("livingarea", value)}
         />
       </div>
@@ -48,9 +61,7 @@ const AdoptionStep2 = () => {
           name="familynumber"
           placeholder="請輸入住家人數"
           inputValue={inputValue.familynumber}
-          onInputChange={(e: ChangeEvent<HTMLInputElement>) =>
-            handleFormInputChange(e)
-          }
+          onInputChange={handleInputChange}
         />
         <DefaultTrueFalse
           title="所有成員是否都同意養狗?"
@@ -73,27 +84,6 @@ const AdoptionStep2 = () => {
           onRadioChange={handleTrueFalseChange}
         />
       </div>
-      {/* <DefaultCheckbox
-        label="所有成員都同意養狗?"
-        id="agreement"
-        name="agreement"
-        inputValue={inputValue.agreement}
-        onCheckboxChange={(e) => handleCheckboxChange(e)}
-      />
-      <DefaultCheckbox
-        label="沒有任何家人對狗狗過敏?"
-        id="allergic"
-        name="allergic"
-        inputValue={inputValue.allergic}
-        onCheckboxChange={(e) => handleCheckboxChange(e)}
-      />
-      <DefaultCheckbox
-        label="家中有其他寵物?"
-        id="otheranimal"
-        name="otheranimal"
-        inputValue={inputValue.otheranimal}
-        onCheckboxChange={(e) => handleCheckboxChange(e)}
-      /> */}
     </>
   );
 };

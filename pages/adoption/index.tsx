@@ -4,12 +4,22 @@ import { clientFetch, serverFetch } from "@/lib/fetch";
 import Select from "react-select";
 import { SELECTSTYLES } from "@/constants/select-style";
 import FrontLayout from "@/components/common/layout/FrontLayout";
-import AdoptionCard from "@/components/adoption/AdoptionCard";
+// import AdoptionCard from "@/components/adoption/AdoptionCard";
 import Pagination from "@/components/common/Pagination";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 // import { getTwCity } from "@/datas/twCityDistricts";
 import { animal_options } from "@/datas/animal-option";
 import { SelectOptionType } from "@/constants/select-style";
+import {
+  TransformGender,
+  TransformAge,
+  TransformSize,
+  TransforTrueFalse,
+  TransformAnimal,
+} from "@/helpers/animal-helpers";
+import { IoLocationSharp } from "react-icons/io5";
+import { FaPhone } from "react-icons/fa6";
+import { MdPets } from "react-icons/md";
 // import { dummy_stray_data } from "@/datas/dummy/stray_data";
 import {
   AgeType,
@@ -17,6 +27,8 @@ import {
   GenderType,
   SizeType,
 } from "@/helpers/animal-helpers";
+import Link from "next/link";
+import Image from "next/image";
 
 export type FurkidProps = {
   id: number;
@@ -217,9 +229,233 @@ const AdoptionPage = ({ furkids, pagination, partners }: AdoptionPageProps) => {
         </form>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-6">
-        {furkidsData.map((item) => {
+        {/* {furkidsData.map((item) => {
           return <AdoptionCard {...item} key={item.id} />;
-        })}
+        })} */}
+        {furkidsData.map(
+          ({
+            id,
+            name,
+            animal,
+            gender,
+            size,
+            age,
+            isNeutured,
+            isVaccinated,
+            partner,
+            avatar,
+          }) => {
+            const trans_gender = TransformGender(gender);
+            const trans_size = TransformSize(size);
+            const trans_age = TransformAge(age);
+            const trans_animal = TransformAnimal(animal);
+            const is_neutured = TransforTrueFalse(isNeutured);
+            const is_vaccinated = TransforTrueFalse(isVaccinated);
+            return (
+              <div className="" key={id}>
+                <div className="relative w-full h-[200px]">
+                  <Image
+                    src={avatar}
+                    alt={name}
+                    width={300}
+                    height={250}
+                    className="w-full h-full object-cover"
+                  ></Image>
+                  <Link
+                    href={`/adoption/application/${id}`}
+                    title="我要領養"
+                    className="absolute top-2 right-2 w-8 h-8 rounded-full text-xl bg-white-60 text-wine-60 hover:bg-white hover:text-wine flex justify-center items-center"
+                  >
+                    <MdPets />
+                  </Link>
+                </div>
+                <div className="relative z-[60] bg-white-80 hover:bg-white-40 drop-shadow-md rounded-lg px-4 py-2 mt-[-60px] mx-2 flex flex-col gap-2">
+                  <div className="flex justify-between items-center gap-2">
+                    <div className="font-bold flex items-center gap-0.5">
+                      <div
+                        className={`
+                ${
+                  gender === "M"
+                    ? "text-sky"
+                    : gender === "F"
+                    ? "text-berry"
+                    : "text-neutral"
+                }
+                `}
+                      >
+                        {trans_gender}
+                      </div>
+                      <div className="text-lg">
+                        {name} | {trans_animal}
+                      </div>
+                    </div>
+                    <div className="text-sm flex items-center gap-1">
+                      <div className="text-center py-0.5 w-[40px] bg-wine text-white rounded-md">
+                        {trans_size}
+                      </div>
+                      <div className="text-center py-0.5 w-[40px] bg-wine text-white rounded-md">
+                        {trans_age}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-6 text-sm">
+                    <div className="flex items-center gap-2">
+                      <div
+                        className={`
+                ${is_neutured ? "text-neutral" : "text-berry"}
+                `}
+                      >
+                        {is_neutured}
+                      </div>
+                      <div className="text-dark-60">
+                        {is_neutured ? "已" : "未"}絕育
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div
+                        className={`
+                ${is_vaccinated ? "text-neutral" : "text-berry"}
+                `}
+                      >
+                        {is_vaccinated}
+                      </div>
+                      <div className="text-dark-60">
+                        {is_vaccinated ? "已" : "未"}施打狂犬疫苗
+                      </div>
+                    </div>
+                  </div>
+                  <div className="border-b border-dotted border-dark-40"></div>
+                  <div className="flex items-center gap-2 text-dark-60">
+                    <div className="">
+                      <IoLocationSharp />
+                    </div>
+                    <div className="text-sm">{partner.name}</div>
+                  </div>
+                  <div className="flex items-center gap-2 text-dark-60">
+                    <div className="">
+                      <FaPhone />
+                    </div>
+                    <Link href={`tel:${partner.address}`} className="text-sm">
+                      {partner.address}
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            );
+          }
+        )}
+        {/* {furkidsData.map(({
+  id,
+  name,
+  animal,
+  gender,
+  size,
+  age,
+  isNeutured,
+  isVaccinated,
+  partner,
+  avatar,
+}) => {
+          const trans_gender = TransformGender(gender);
+  const trans_size = TransformSize(size);
+  const trans_age = TransformAge(age);
+  const trans_animal = TransformAnimal(animal);
+  const is_neutured = TransforTrueFalse(isNeutured);
+  const is_vaccinated = TransforTrueFalse(isVaccinated);
+  return (
+    <div className="">
+      <div className="relative w-full h-[200px]">
+        <Image
+          src={avatar}
+          alt={name}
+          width={300}
+          height={250}
+          className="w-full h-full object-cover"
+        ></Image>
+        <Link
+          // href={`/adoption/application/1`}
+          // href={`/adoption/application/${encodeURIComponent(id)}`}
+          href={{
+            pathname: "/adoption/application/[slug]",
+            query: { slug: id },
+          }}
+          title="我要領養"
+          className="absolute top-2 right-2 w-8 h-8 rounded-full text-xl bg-white-60 text-wine-60 hover:bg-white hover:text-wine flex justify-center items-center"
+        >
+          <MdPets />
+        </Link>
+      </div>
+      <div className="relative z-[60] bg-white-80 hover:bg-white-40 drop-shadow-md rounded-lg px-4 py-2 mt-[-60px] mx-2 flex flex-col gap-2">
+        <div className="flex justify-between items-center gap-2">
+          <div className="font-bold flex items-center gap-0.5">
+            <div
+              className={`
+                ${
+                  gender === "M"
+                    ? "text-sky"
+                    : gender === "F"
+                    ? "text-berry"
+                    : "text-neutral"
+                }
+                `}
+            >
+              {trans_gender}
+            </div>
+            <div className="text-lg">
+              {name} | {trans_animal}
+            </div>
+          </div>
+          <div className="text-sm flex items-center gap-1">
+            <div className="text-center py-0.5 w-[40px] bg-wine text-white rounded-md">
+              {trans_size}
+            </div>
+            <div className="text-center py-0.5 w-[40px] bg-wine text-white rounded-md">
+              {trans_age}
+            </div>
+          </div>
+        </div>
+        <div className="flex items-center gap-6 text-sm">
+          <div className="flex items-center gap-2">
+            <div
+              className={`
+                ${is_neutured ? "text-neutral" : "text-berry"}
+                `}
+            >
+              {is_neutured}
+            </div>
+            <div className="text-dark-60">{is_neutured ? "已" : "未"}絕育</div>
+          </div>
+          <div className="flex items-center gap-2">
+            <div
+              className={`
+                ${is_vaccinated ? "text-neutral" : "text-berry"}
+                `}
+            >
+              {is_vaccinated}
+            </div>
+            <div className="text-dark-60">
+              {is_vaccinated ? "已" : "未"}施打狂犬疫苗
+            </div>
+          </div>
+        </div>
+        <div className="border-b border-dotted border-dark-40"></div>
+        <div className="flex items-center gap-2 text-dark-60">
+          <div className="">
+            <IoLocationSharp />
+          </div>
+          <div className="text-sm">{partner.name}</div>
+        </div>
+        <div className="flex items-center gap-2 text-dark-60">
+          <div className="">
+            <FaPhone />
+          </div>
+          <Link href={`tel:${partner.address}`} className="text-sm">
+            {partner.address}
+          </Link>
+        </div>
+      </div>
+    </div>
+        })} */}
       </div>
       {pagination && (
         <div className="w-full flex justify-center md:justify-end">

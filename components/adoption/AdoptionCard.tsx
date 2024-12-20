@@ -54,7 +54,12 @@ const AdoptionCard = ({
           className="w-full h-full object-cover"
         ></Image>
         <Link
-          href={`/adoption/application/${id}`}
+          // href={`/adoption/application/1`}
+          // href={`/adoption/application/${encodeURIComponent(id)}`}
+          href={{
+            pathname: "/adoption/application/[slug]",
+            query: { slug: id },
+          }}
           title="我要領養"
           className="absolute top-2 right-2 w-8 h-8 rounded-full text-xl bg-white-60 text-wine-60 hover:bg-white hover:text-wine flex justify-center items-center"
         >

@@ -1,7 +1,10 @@
-import { useFormContext } from "@/context/FormContext";
+import { RootState } from "@/store";
+import { useSelector, useDispatch } from "react-redux";
+import { handleSteps } from "@/slices/adoptionSlice";
 
 const AdoptionButton = () => {
-  const { currStep, handleStepClick } = useFormContext();
+  const currStep = useSelector((state: RootState) => state.adoption.currStep);
+  const dispatch = useDispatch();
   return (
     <div
       className={`flex items-center ${
@@ -11,7 +14,7 @@ const AdoptionButton = () => {
       {currStep > 1 && (
         <button
           className="font-medium py-1 px-6 bg-dark-40 text-white rounded-lg hover:drop-shadow-lg"
-          onClick={() => handleStepClick("prev")}
+          onClick={() => dispatch(handleSteps("prev"))}
         >
           上一頁
         </button>
@@ -19,16 +22,13 @@ const AdoptionButton = () => {
       {currStep < 3 && (
         <button
           className="font-medium py-1 px-6 bg-wine text-white rounded-lg hover:drop-shadow-lg"
-          onClick={() => handleStepClick("next")}
+          onClick={() => dispatch(handleSteps("next"))}
         >
           下一頁
         </button>
       )}
       {currStep === 3 && (
-        <button
-          className="font-medium py-1 px-6 bg-wine text-white rounded-lg hover:drop-shadow-lg"
-          // onClick={() => setCurrStep(currStep + 1)}
-        >
+        <button className="font-medium py-1 px-6 bg-wine text-white rounded-lg hover:drop-shadow-lg">
           提交
         </button>
       )}

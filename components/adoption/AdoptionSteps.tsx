@@ -1,7 +1,10 @@
-import { useFormContext, steps_btn } from "@/context/FormContext";
-
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "@/store";
+import { handleSteps } from "@/slices/adoptionSlice";
+import { STEPS_OBJECT } from "@/pages/adoption/application/[slug]";
 const AdoptionSteps = () => {
-  const { currStep, handleStepClick } = useFormContext();
+  const currStep = useSelector((state: RootState) => state.adoption.currStep);
+  const dispatch = useDispatch();
   return (
     <>
       <div className="bg-application-mobile w-full h-[260px] bg-no-repeat bg-center bg-cover md:hidden">
@@ -9,10 +12,10 @@ const AdoptionSteps = () => {
           <div className="h-[60px]"></div>
           <div className="h-[calc(100%-60px)] flex justify-center items-center">
             <div className="w-9/12 mx-auto flex justify-center items-start gap-20">
-              {steps_btn.map(({ id, num }) => {
+              {STEPS_OBJECT.map(({ id, num }) => {
                 return (
                   <button
-                    onClick={() => handleStepClick("number", num)}
+                    onClick={() => dispatch(handleSteps(num))}
                     className="flex flex-col items-center gap-1.5"
                     key={id}
                   >
@@ -40,10 +43,10 @@ const AdoptionSteps = () => {
           <div className="h-[60px]"></div>
           <div className="h-[calc(100vh-60px)] flex justify-center items-center">
             <div className="w-9/12 mx-auto flex flex-col justify-center items-start gap-20">
-              {steps_btn.map(({ id, num, title }) => {
+              {STEPS_OBJECT.map(({ id, num, title }) => {
                 return (
                   <button
-                    onClick={() => handleStepClick("number", num)}
+                    onClick={() => dispatch(handleSteps(num))}
                     className="flex items-center gap-6"
                     key={id}
                   >
