@@ -6,7 +6,7 @@ interface DefaultRadioProps {
   }[];
   name: string;
   inputValue: string | null;
-  onRadioChange: (option: string | null) => void;
+  onRadioChange: (name: string, option: string | null) => void;
 }
 
 const DefaultRadio = ({
@@ -55,7 +55,7 @@ const DefaultRadio = ({
                 name={name}
                 className="hidden"
                 checked={inputValue === value}
-                onChange={() => onRadioChange(value)}
+                onChange={() => onRadioChange(name, value)}
               />
             </div>
           );

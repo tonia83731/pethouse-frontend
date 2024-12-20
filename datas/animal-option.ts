@@ -1,11 +1,11 @@
 export const gender_options = [
   {
     label: "公",
-    value: "Male",
+    value: "M",
   },
   {
     label: "母",
-    value: "Female",
+    value: "F",
   },
   {
     label: "未知",

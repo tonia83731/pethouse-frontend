@@ -1,6 +1,6 @@
-import { AdoptionStrayProps } from "@/components/adoption/AdoptionCard";
+// import { AdoptionStrayProps } from "@/components/adoption/AdoptionCard";
 
-export const dummy_stray_data: AdoptionStrayProps[] = [
+export const dummy_stray_data = [
   {
     id: 1,
     name: "幸運",

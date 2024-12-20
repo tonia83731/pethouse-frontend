@@ -1,6 +1,6 @@
 import { StylesConfig } from "react-select";
 export type SelectOptionType = {
-  value: string;
+  value: any;
   label: string;
 };
 export const SELECTSTYLES: StylesConfig<SelectOptionType, false> = {

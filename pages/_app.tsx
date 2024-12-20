@@ -1,7 +1,9 @@
 import "@/styles/globals.css";
+import "react-datepicker/dist/react-datepicker.css";
 import type { AppProps } from "next/app";
 import { Noto_Sans_TC, Nunito } from "next/font/google";
 import { FormProvider } from "@/context/FormContext";
+
 const noto_san = Noto_Sans_TC({
   subsets: ["latin"],
   display: "swap",

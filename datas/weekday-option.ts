@@ -1,30 +1,30 @@
 export const weekday_options = [
   {
     label: "週日",
-    value: "Sunday",
+    value: "週日",
   },
   {
     label: "週一",
-    value: "Monday",
+    value: "週一",
   },
   {
     label: "週二",
-    value: "Tuesday",
+    value: "週二",
   },
   {
     label: "週三",
-    value: "Wednesday",
+    value: "週三",
   },
   {
     label: "週四",
-    value: "Thursday",
+    value: "週四",
   },
   {
     label: "週五",
-    value: "Friday",
+    value: "週五",
   },
   {
     label: "週六",
-    value: "Saturday",
+    value: "週六",
   },
 ];

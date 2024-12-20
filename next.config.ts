@@ -9,7 +9,20 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "images.unsplash.com",
       },
+      {
+        protocol: "https",
+        hostname: "i.imgur.com",
+        pathname: "/**",
+      },
     ],
+  },
+  async rewrites() {
+    return [
+      {
+        source: "/:path*",
+        destination: `${process.env.API_URL}/api/:path*`,
+      },
+    ];
   },
   webpack(config) {
     config.module.rules.push({

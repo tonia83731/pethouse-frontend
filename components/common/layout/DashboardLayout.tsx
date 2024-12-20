@@ -1,6 +1,8 @@
 import { ReactNode } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { deleteCookie } from "cookies-next";
+import { Bounce, ToastContainer } from "react-toastify";
 import { PiDog } from "react-icons/pi";
 import { PiDogFill } from "react-icons/pi";
 import { MdOutlineHandshake } from "react-icons/md";
@@ -11,6 +13,8 @@ import { MdOutlineVolunteerActivism } from "react-icons/md";
 import { MdVolunteerActivism } from "react-icons/md";
 import { AiOutlineLogout } from "react-icons/ai";
 import PethouseLogo from "@/public/icons/Logo.svg";
+import PethouseShortLogo from "@/public/icons/ShortLogo.svg";
+
 const back_nav_link = [
   {
     id: "d-adoption",
@@ -48,16 +52,24 @@ const DashboardLayout = ({
   children: ReactNode;
   title?: string;
 }) => {
-  const { pathname } = useRouter();
+  const { pathname, push } = useRouter();
+  const handleLogoutClick = () => {
+    deleteCookie("staffToken");
+    push({
+      pathname: "/dashboard",
+    });
+  };
+
   return (
-    <div className="w-full h-full min-h-screen grid grid-cols-[200px_2fr] bg-skin">
-      <header className="w-[200px] h-full min-h-screen pt-12 pb-6 text-white flex flex-col justify-between">
+    <div className="w-full h-full min-h-screen grid grid-cols-[60px_2fr] lg:grid-cols-[200px_2fr] bg-skin">
+      <header className="relative w-[60px] lg:w-[200px] h-full min-h-screen pt-12 pb-6 text-white flex flex-col justify-between">
         <nav className="flex flex-col gap-8">
           <Link
             href="/dashboard/adoption"
             className="text-white w-full flex justify-center"
           >
-            <PethouseLogo className="w-[150px]" />
+            <PethouseLogo className="hidden lg:block w-[150px]" />
+            <PethouseShortLogo className="lg:hidden w-[48px] h-[48px]" />
           </Link>
           <div className="flex flex-col">
             {back_nav_link.map(({ id, href, title, icon, icon_active }) => {
@@ -65,7 +77,7 @@ const DashboardLayout = ({
                 <Link
                   href={href}
                   key={id}
-                  className={`flex items-center gap-2 text-xl h-[60px] leading-[45px] px-6 ${
+                  className={`flex items-center justify-center lg:justify-start gap-2 text-xl h-[60px] leading-[45px] lg:px-6 ${
                     pathname === href
                       ? "bg-wine hover:text-white"
                       : "hover:text-wine"
@@ -74,23 +86,33 @@ const DashboardLayout = ({
                   <div className="">
                     {pathname === href ? icon_active : icon}
                   </div>
-                  <div className="">{title}</div>
+                  <div className="hidden lg:block">{title}</div>
                 </Link>
               );
             })}
           </div>
         </nav>
-        <button className="flex items-center gap-2 text-xl h-[60px] leading-[45px] px-6 hover:text-wine">
+        <button
+          onClick={handleLogoutClick}
+          className="flex items-center justify-center lg:justify-start gap-2 text-xl h-[60px] leading-[45px] lg:px-6 hover:text-wine"
+        >
           <AiOutlineLogout />
-          <div className="">登出</div>
+          <div className="hidden lg:block">登出</div>
         </button>
       </header>
-      <main className="w-full h-full min-h-screen bg-white rounded-tl-[60px]">
+      <main className="w-full h-screen overflow-y-auto bg-white rounded-tl-[60px]">
         <div className="w-9/12 max-w-[1280px] mx-auto pt-[60px] flex flex-col gap-8">
           {title && <h1 className="font-bold text-2xl">{title}</h1>}
           <div className="flex flex-col gap-6">{children}</div>
         </div>
       </main>
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={true}
+        theme="colored"
+        transition={Bounce}
+      />
     </div>
   );
 };

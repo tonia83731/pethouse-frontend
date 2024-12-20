@@ -36,10 +36,7 @@ const AdoptionStepSection = () => {
     },
   ];
   return (
-    <section
-      className="md:grid md:grid-cols-[1fr_1.5fr] gap-8 md:h-[320px]"
-      id="adoption"
-    >
+    <section className="md:grid md:grid-cols-[1fr_1.5fr] gap-8" id="adoption">
       <Image
         src={AdoptionStep}
         alt="adoption-step"
@@ -47,28 +44,31 @@ const AdoptionStepSection = () => {
         height={2880}
         className="w-full h-full aspect-square object-cover object-center hidden md:flex"
       ></Image>
-      <div className="grid grid-cols-2 grid-rows-2 gap-4">
-        {adoption_steps.map(({ title, description, step, logo }) => {
-          return (
-            <div
-              className="bg-skin-40 rounded-lg p-4 w-full h-full relative"
-              key={step}
-            >
-              <div className="relative z-20">
-                <div className="flex flex-col gap-0.5">
-                  <p className="font-light bg-heart w-fit rounded-lg text-white px-2">
-                    STEP {step}
-                  </p>
-                  <h5 className="text-lg font-bold">{title}</h5>
+      <div className="flex flex-col gap-6">
+        <h1 className="font-bold text-2xl md:text-4xl">領養步驟</h1>
+        <div className="grid grid-cols-2 grid-rows-2 gap-4 h-full">
+          {adoption_steps.map(({ title, description, step, logo }) => {
+            return (
+              <div
+                className="bg-skin-40 rounded-lg p-4 w-full h-full relative"
+                key={step}
+              >
+                <div className="relative z-20">
+                  <div className="flex flex-col gap-0.5">
+                    <p className="font-light bg-heart w-fit rounded-lg text-white px-2">
+                      STEP {step}
+                    </p>
+                    <h5 className="text-lg font-bold">{title}</h5>
+                  </div>
+                  <p className="text-sm text-dark-60">{description}</p>
                 </div>
-                <p className="text-sm text-dark-60">{description}</p>
+                <div className="text-[90px] text-white absolute z-10 bottom-1 right-1 opacity-50">
+                  {logo}
+                </div>
               </div>
-              <div className="text-[90px] text-white absolute z-10 bottom-1 right-1 opacity-50">
-                {logo}
-              </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
     </section>
   );

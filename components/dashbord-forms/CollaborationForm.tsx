@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useRef, useState } from "react";
-import DefaultInput from "@/components/common/DefaultInput";
-import DefaultSelect from "../common/DefaultSelect";
+import DefaultInput from "@/components/common/input/DefaultInput";
+import DefaultSelect from "../common/input/DefaultSelect";
 import { IoIosArrowDown } from "react-icons/io";
 import { getTwCity } from "@/datas/twCityDistricts";
 import { weekday_options } from "@/datas/weekday-option";
@@ -31,7 +31,7 @@ const CollaborationForm = () => {
     <div className="flex flex-col gap-4">
       <button
         onClick={() => setIsShowed(!isShowed)}
-        className="flex justify-center items-center gap-1 w-1/5 max-w-[140px] py-2 bg-heart text-white text-lg rounded-lg"
+        className="flex justify-center items-center gap-1 w-full lg:w-1/5 lg:max-w-[140px] py-2 bg-heart text-white lg:text-lg rounded-lg"
       >
         <div className="">新增夥伴</div>
         <div className={`${isShowed && "rotate-180"} transition`}>
@@ -105,12 +105,11 @@ const CollaborationForm = () => {
                 }
               />
             </div>
-            <div className="grid grid-cols-2 gap-4 items-end">
+            <div className="flex flex-col w-full lg:grid lg:grid-cols-2 gap-4 lg:items-end">
               <div className="grid grid-cols-[1fr_20px_1fr] gap-2 items-end">
                 <DefaultSelect
                   title="營業時間"
                   options={weekday_options}
-                  // placeholder="營業時間"
                   inputValue={weekday_options[0]}
                   ref={weekstartRef}
                   name="week"
@@ -118,7 +117,6 @@ const CollaborationForm = () => {
                 <div className="h-10 flex justify-center items-center">至</div>
                 <DefaultSelect
                   options={weekday_options}
-                  // placeholder="夥伴位置"
                   inputValue={weekday_options[6]}
                   ref={weekendRef}
                   name="week"

@@ -1,10 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import {
-  GenderType,
-  SizeType,
-  AgeType,
-  AnimalType,
   TransformGender,
   TransformAge,
   TransformSize,
@@ -12,53 +8,53 @@ import {
   TransformAnimal,
 } from "@/helpers/animal-helpers";
 import { IoLocationSharp } from "react-icons/io5";
-import { FaPhoneVolume } from "react-icons/fa";
+import { FaPhone } from "react-icons/fa6";
 import { MdPets } from "react-icons/md";
-
-export interface AdoptionStrayProps {
-  id: number;
-  name: string;
-  species: AnimalType;
-  gender: GenderType;
-  size: SizeType;
-  age: AgeType;
-  neutered: boolean;
-  vaccinated: boolean;
-  current_location: string;
-  phone: string;
-  image: string;
-}
+import { FurkidProps } from "@/pages/adoption";
+// export interface AdoptionStrayProps {
+//   id: number;
+//   name: string;
+//   animal: AnimalType;
+//   gender: GenderType;
+//   size: SizeType;
+//   age: AgeType;
+//   isNeutured: boolean;
+//   isVaccinated: boolean;
+//   partnerAddress: string;
+//   partnerPhone: string;
+//   image: string;
+// }
 
 const AdoptionCard = ({
+  id,
   name,
-  species,
+  animal,
   gender,
   size,
   age,
-  neutered,
-  vaccinated,
-  current_location,
-  phone,
-  image,
-}: AdoptionStrayProps) => {
+  isNeutured,
+  isVaccinated,
+  partner,
+  avatar,
+}: FurkidProps) => {
   const trans_gender = TransformGender(gender);
   const trans_size = TransformSize(size);
   const trans_age = TransformAge(age);
-  const trans_animal = TransformAnimal(species);
-  const isNeutered = TransforTrueFalse(neutered);
-  const isVaccinated = TransforTrueFalse(vaccinated);
+  const trans_animal = TransformAnimal(animal);
+  const is_neutured = TransforTrueFalse(isNeutured);
+  const is_vaccinated = TransforTrueFalse(isVaccinated);
   return (
     <div className="">
       <div className="relative w-full h-[200px]">
         <Image
-          src={image}
+          src={avatar}
           alt={name}
           width={300}
           height={250}
           className="w-full h-full object-cover"
         ></Image>
         <Link
-          href="/adoption/application"
+          href={`/adoption/application/${id}`}
           title="我要領養"
           className="absolute top-2 right-2 w-8 h-8 rounded-full text-xl bg-white-60 text-wine-60 hover:bg-white hover:text-wine flex justify-center items-center"
         >
@@ -71,9 +67,9 @@ const AdoptionCard = ({
             <div
               className={`
                 ${
-                  gender === "Male"
+                  gender === "M"
                     ? "text-sky"
-                    : gender === "Female"
+                    : gender === "F"
                     ? "text-berry"
                     : "text-neutral"
                 }
@@ -98,23 +94,23 @@ const AdoptionCard = ({
           <div className="flex items-center gap-2">
             <div
               className={`
-                ${neutered ? "text-neutral" : "text-berry"}
+                ${is_neutured ? "text-neutral" : "text-berry"}
                 `}
             >
-              {isNeutered}
+              {is_neutured}
             </div>
-            <div className="text-dark-60">{neutered ? "已" : "未"}絕育</div>
+            <div className="text-dark-60">{is_neutured ? "已" : "未"}絕育</div>
           </div>
           <div className="flex items-center gap-2">
             <div
               className={`
-                ${vaccinated ? "text-neutral" : "text-berry"}
+                ${is_vaccinated ? "text-neutral" : "text-berry"}
                 `}
             >
-              {isVaccinated}
+              {is_vaccinated}
             </div>
             <div className="text-dark-60">
-              {vaccinated ? "已" : "未"}施打狂犬疫苗
+              {is_vaccinated ? "已" : "未"}施打狂犬疫苗
             </div>
           </div>
         </div>
@@ -123,14 +119,14 @@ const AdoptionCard = ({
           <div className="">
             <IoLocationSharp />
           </div>
-          <div className="text-sm">{current_location}</div>
+          <div className="text-sm">{partner.name}</div>
         </div>
         <div className="flex items-center gap-2 text-dark-60">
           <div className="">
-            <FaPhoneVolume />
+            <FaPhone />
           </div>
-          <Link href={`tel:${phone}`} className="text-sm">
-            {phone}
+          <Link href={`tel:${partner.address}`} className="text-sm">
+            {partner.address}
           </Link>
         </div>
       </div>

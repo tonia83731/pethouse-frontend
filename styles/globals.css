@@ -36,3 +36,14 @@ input[type="number"]::-webkit-inner-spin-button {
 input[type="number"] {
   --moz-appearance: textfield;
 }
+
+.scrolled::-webkit-scrollbar {
+  width: 6px;
+}
+.scrolled::-webkit-scrollbar-track {
+  background: transparent;
+}
+.scrolled::-webkit-scrollbar-thumb {
+  background: #e3b5a4;
+  border-radius: 6px;
+}

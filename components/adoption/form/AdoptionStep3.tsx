@@ -1,7 +1,7 @@
 import { useFormContext } from "@/context/FormContext";
-import DefaultInput from "@/components/common/DefaultInput";
-import DefaultTextarea from "@/components/common/DefaultTextarea";
-import DefaultTrueFalse from "@/components/common/DefalutTrueFalse";
+import DefaultInput from "@/components/common/input/DefaultInput";
+import DefaultTextarea from "@/components/common/input/DefaultTextarea";
+import DefaultTrueFalse from "@/components/common/input/DefalutTrueFalse";
 import { ChangeEvent } from "react";
 const AdoptionStep3 = () => {
   const { inputValue, handleFormInputChange, handleTrueFalseChange } =

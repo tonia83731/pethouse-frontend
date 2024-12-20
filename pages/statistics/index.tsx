@@ -1,4 +1,4 @@
-import FrontLayout from "@/components/common/FrontLayout";
+import FrontLayout from "@/components/common/layout/FrontLayout";
 const StatisticsPage = () => {
   return (
     <FrontLayout

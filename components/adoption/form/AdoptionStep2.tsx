@@ -1,16 +1,16 @@
 import { useFormContext } from "@/context/FormContext";
-import DefaultInput from "@/components/common/DefaultInput";
-import DefaultSelect from "@/components/common/DefaultSelect";
-import DefaultCheckbox from "@/components/common/DefaultCheckbox";
-import DefaultRadio from "@/components/common/DefaultRadio";
-import DefaultTrueFalse from "@/components/common/DefalutTrueFalse";
+import DefaultInput from "@/components/common/input/DefaultInput";
+import DefaultSelect from "@/components/common/input/DefaultSelect";
+// import DefaultCheckbox from "@/components/common/input/DefaultCheckbox";
+// import DefaultRadio from "@/components/common/input/DefaultRadio";
+import DefaultTrueFalse from "@/components/common/input/DefalutTrueFalse";
 import { housetype_options, livingarea_options } from "@/datas/adoption-option";
 import { ChangeEvent } from "react";
 const AdoptionStep2 = () => {
   const {
     inputValue,
     handleFormInputChange,
-    handleCheckboxChange,
+    // handleCheckboxChange,
     handleTrueFalseChange,
     handleSelectChange,
   } = useFormContext();

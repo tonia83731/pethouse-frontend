@@ -31,7 +31,7 @@ const FrontHeader = () => {
   const [navToggle, setNavToggle] = useState(false);
   const { pathname } = useRouter();
   return (
-    <header className="fixed top-0 left-0 z-[100] w-full h-[60px] leading-[60px] md:h-[90px] md:leading-[90px]">
+    <header className="fixed top-0 left-0 z-[100] w-full h-[60px] leading-[60px] md:h-[90px] md:leading-[90px] bg-white">
       {/* mobile */}
       <div className="relative md:hidden">
         <div className="px-4 flex justify-between items-center gap-8">

@@ -3,17 +3,18 @@ import { IoIosArrowForward } from "react-icons/io";
 interface PaginationProps {
   currPage: number;
   totalPage: number;
-  pages: number[];
+  // pages: number[];
   onArrowClick: (type: "prev" | "next") => void;
   onNumClick: (num: number) => void;
 }
 const Pagination = ({
   currPage,
   totalPage,
-  pages,
+  // pages,
   onArrowClick,
   onNumClick,
 }: PaginationProps) => {
+  const pages = Array.from({ length: totalPage }, (data, index) => index + 1);
   return (
     <div className="flex items-center gap-2 font-medium">
       <button

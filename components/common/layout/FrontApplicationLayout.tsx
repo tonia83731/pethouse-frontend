@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import FrontHeader from "./header/FrontHeader";
+import FrontHeader from "../header/FrontHeader";
 
 const FrontApplicationLayout = ({ children }: { children: ReactNode }) => {
   return (

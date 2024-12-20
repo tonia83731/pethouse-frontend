@@ -5,7 +5,7 @@ import { FaQuestion } from "react-icons/fa6";
 import { ImCross } from "react-icons/im";
 import { FaCheck } from "react-icons/fa";
 
-export type GenderType = "Male" | "Female" | null;
+export type GenderType = "M" | "F" | null;
 export type SizeType = "S" | "M" | "L";
 export type AgeType = "Child" | "Adult";
 
@@ -28,12 +28,12 @@ export const TransformAnimal = (animal: AnimalType) => {
 
 export const TransformGender = (gender: GenderType) => {
   switch (gender) {
-    case "Male":
-      return <PiGenderMaleBold />;
-    case "Female":
-      return <PiGenderFemaleBold />;
+    case "M":
+      return <PiGenderMaleBold className="text-sky" />;
+    case "F":
+      return <PiGenderFemaleBold className="text-berry" />;
     default:
-      return <FaQuestion />;
+      return <FaQuestion className="text-neutral" />;
   }
 };
 

@@ -1,7 +1,8 @@
 import { ReactNode } from "react";
 import Link from "next/link";
+import { Bounce, ToastContainer } from "react-toastify";
 import { FaRegCopyright } from "react-icons/fa";
-import FrontHeader from "./header/FrontHeader";
+import FrontHeader from "../header/FrontHeader";
 
 const FrontLayout = ({
   children,
@@ -27,6 +28,13 @@ const FrontLayout = ({
           </div>
         )}
         <div className="flex flex-col gap-[40px] md:gap-[80px]">{children}</div>
+        <ToastContainer
+          position="top-center"
+          autoClose={3000}
+          hideProgressBar={true}
+          theme="colored"
+          transition={Bounce}
+        />
       </main>
       <footer className="bg-dark text-white h-[60px] leading-[60px]">
         <div className="w-11/12 mx-auto flex justify-center items-center gap-4">

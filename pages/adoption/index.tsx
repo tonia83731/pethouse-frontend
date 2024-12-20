@@ -1,29 +1,125 @@
-import FrontLayout from "@/components/common/FrontLayout";
-import AdoptionCard from "@/components/adoption/AdoptionCard";
-import Pagination from "@/components/common/Pagination";
+import { GetServerSideProps } from "next";
+import { useState } from "react";
+import { clientFetch, serverFetch } from "@/lib/fetch";
 import Select from "react-select";
 import { SELECTSTYLES } from "@/constants/select-style";
+import FrontLayout from "@/components/common/layout/FrontLayout";
+import AdoptionCard from "@/components/adoption/AdoptionCard";
+import Pagination from "@/components/common/Pagination";
 import { FaMagnifyingGlass } from "react-icons/fa6";
-import { getTwCity } from "@/datas/twCityDistricts";
+// import { getTwCity } from "@/datas/twCityDistricts";
 import { animal_options } from "@/datas/animal-option";
-import { dummy_stray_data } from "@/datas/dummy/stray_data";
-import { useState } from "react";
+import { SelectOptionType } from "@/constants/select-style";
+// import { dummy_stray_data } from "@/datas/dummy/stray_data";
+import {
+  AgeType,
+  AnimalType,
+  GenderType,
+  SizeType,
+} from "@/helpers/animal-helpers";
 
-const AdoptionPage = () => {
-  const [currPage, setCurrPage] = useState(1);
-  const [itemPerPage, setItemPerPage] = useState(3);
+export type FurkidProps = {
+  id: number;
+  name: string;
+  gender: GenderType;
+  animal: AnimalType;
+  size: SizeType;
+  age: AgeType;
+  partnerId: number;
+  isNeutured: boolean;
+  isVaccinated: boolean;
+  avatar: string;
+  partner: {
+    name: string;
+    phone: string;
+    address: string;
+  };
+};
 
-  const totalPage = Math.ceil(dummy_stray_data.length / itemPerPage);
-  const pages = Array.from({ length: totalPage }, (data, index) => index + 1);
+export type PartnerProps = {
+  id: number;
+  name: string;
+  email: string;
+  phone: string;
+  weekStart: number;
+  weekEnd: number;
+  openingTime: number;
+  closingTime: number;
+  address: string;
+};
+export type PaginationProps = {
+  currentPage: number;
+  totalPages: number;
+  // totalItems: number;
+  itemsPerPage: number;
+};
+interface AdoptionPageProps {
+  furkids: FurkidProps[];
+  partners: SelectOptionType[];
+  pagination: PaginationProps;
+}
 
-  const handleArrowClick = (type: "prev" | "next") => {
-    if (type === "prev") setCurrPage(currPage - 1);
-    else setCurrPage(currPage + 1);
+type CategoryState = {
+  partner: SelectOptionType;
+  animal: SelectOptionType;
+};
+
+const AdoptionPage = ({ furkids, pagination, partners }: AdoptionPageProps) => {
+  const [currPage, setCurrPage] = useState(pagination?.currentPage | 1);
+  const [furkidsData, setFurkidsData] = useState(furkids);
+  const [category, setCategory] = useState<CategoryState>({
+    partner: partners[0],
+    animal: {
+      label: "全部動物",
+      value: null,
+    },
+  });
+
+  const handleArrowClick = async (type: "prev" | "next") => {
+    const page = type === "prev" ? currPage - 1 : currPage + 1;
+
+    let url = `/furkids?page=${page}`;
+    if (category.partner.value) url += `&userId=${category.partner.value}`;
+    if (category.animal.value) url += `&animal=${category.animal.value}`;
+
+    try {
+      const response = await clientFetch(url);
+      if (!response.success) {
+        setFurkidsData([]);
+        return;
+      }
+      if (response.success) {
+        const data = response.data.furkids;
+        setFurkidsData(data);
+        setCurrPage(page);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  const handleNumberClick = (num: number) => {
-    setCurrPage(num);
+  const handleNumberClick = async (num: number) => {
+    if (currPage === num) return;
+    let url = `/furkids?page=${num}`;
+    if (category.partner.value) url += `&userId=${category.partner.value}`;
+    if (category.animal.value) url += `&animal=${category.animal.value}`;
+
+    try {
+      const response = await clientFetch(url);
+      if (!response.success) {
+        setFurkidsData([]);
+        return;
+      }
+      if (response.success) {
+        const data = response.data.furkids;
+        setFurkidsData(data);
+        setCurrPage(num);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
+
   return (
     <FrontLayout
       includeTitle={true}
@@ -33,23 +129,77 @@ const AdoptionPage = () => {
       <div className="flex flex-col gap-4 md:flex-row md:justify-between">
         <div className="w-full md:w-1/3 grid grid-cols-2 gap-4">
           <Select
-            options={getTwCity()}
-            defaultValue={getTwCity()[0]}
+            options={partners}
+            defaultValue={category.partner}
             styles={SELECTSTYLES}
+            onChange={async (newValue) => {
+              const userId = newValue?.value;
+              if (category.partner.value === userId) return;
+
+              let url = `/furkids?page=1${userId ? `&userId=${userId}` : ""}`;
+              if (category.animal.value)
+                url += `animal=${category.animal.value}`;
+
+              try {
+                const response = await clientFetch(url);
+
+                if (!response.success) {
+                  setFurkidsData([]);
+                  return;
+                }
+                if (response.success) {
+                  const data = response.data.furkids;
+                  setFurkidsData(data);
+                  setCategory((prev) => ({
+                    ...prev,
+                    partner: newValue || {
+                      label: "全部動物",
+                      value: null,
+                    },
+                  }));
+                }
+              } catch (error) {
+                console.log(error);
+              }
+            }}
           />
           <Select
             options={[
               {
                 label: "全部動物",
-                value: "all",
+                value: null,
               },
               ...animal_options,
             ]}
-            defaultValue={{
-              label: "全部動物",
-              value: "all",
-            }}
+            defaultValue={category.animal}
             styles={SELECTSTYLES}
+            onChange={async (newValue) => {
+              const animal = newValue?.value;
+              if (category.animal.value === animal) return;
+
+              let url = `/furkids?page=1&${animal ? `animal=${animal}` : ""}`;
+              if (category.partner.value)
+                url += `partner=${category.partner.value}`;
+
+              try {
+                const response = await clientFetch(url);
+
+                if (!response.success) {
+                  setFurkidsData([]);
+                  return;
+                }
+                if (response.success) {
+                  const data = response.data.furkids;
+                  setFurkidsData(data);
+                  setCategory((prev) => ({
+                    ...prev,
+                    animal: newValue || partners[0],
+                  }));
+                }
+              } catch (error) {
+                console.log(error);
+              }
+            }}
           />
         </div>
         <form className="w-full md:w-1/3 h-10 rounded-full border border-dark bg-skin-40 px-4 flex items-center gap-4">
@@ -66,22 +216,71 @@ const AdoptionPage = () => {
           </button>
         </form>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-6">
-        {dummy_stray_data.map((item) => {
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-6">
+        {furkidsData.map((item) => {
           return <AdoptionCard {...item} key={item.id} />;
         })}
       </div>
-      <div className="w-full flex justify-center md:justify-end">
-        <Pagination
-          currPage={currPage}
-          totalPage={totalPage}
-          pages={pages}
-          onArrowClick={handleArrowClick}
-          onNumClick={handleNumberClick}
-        />
-      </div>
+      {pagination && (
+        <div className="w-full flex justify-center md:justify-end">
+          <Pagination
+            currPage={currPage}
+            totalPage={pagination?.totalPages}
+            onArrowClick={handleArrowClick}
+            onNumClick={handleNumberClick}
+          />
+        </div>
+      )}
     </FrontLayout>
   );
 };
 
 export default AdoptionPage;
+export const getServerSideProps: GetServerSideProps = async () => {
+  try {
+    // const response = await serverFetch("/furkids");
+    const [furkid_res, partner_res] = await Promise.all([
+      serverFetch("/furkids"),
+      serverFetch("/partners"),
+    ]);
+    // console.log(response);
+
+    if (!furkid_res.success || !partner_res.success)
+      return {
+        props: {
+          partners: [],
+          furkids: [],
+          pagination: null,
+        },
+      };
+
+    const partners = partner_res?.data.map((item: any) => ({
+      value: item.id,
+      label: item.name.split(" ")[1],
+    }));
+
+    // console.log(furkid_res.data);
+    return {
+      props: {
+        partners: [
+          {
+            value: null,
+            label: "全部分店",
+          },
+          ...partners,
+        ],
+        furkids: furkid_res.data.furkids,
+        pagination: furkid_res.data.pagination,
+      },
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      props: {
+        partners: [],
+        furkids: [],
+        pagination: null,
+      },
+    };
+  }
+};

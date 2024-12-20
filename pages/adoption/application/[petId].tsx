@@ -1,4 +1,4 @@
-import FrontApplicationLayout from "@/components/common/FrontApplicationLayout";
+import FrontApplicationLayout from "@/components/common/layout/FrontApplicationLayout";
 import { useFormContext, steps_btn } from "@/context/FormContext";
 import AdoptionSteps from "@/components/adoption/AdoptionSteps";
 import AdoptionButton from "@/components/adoption/AdoptionButton";

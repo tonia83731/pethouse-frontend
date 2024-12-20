@@ -1,6 +1,6 @@
 import { useFormContext } from "@/context/FormContext";
-import DefaultInput from "@/components/common/DefaultInput";
-import DefaultSelect from "@/components/common/DefaultSelect";
+import DefaultInput from "@/components/common/input/DefaultInput";
+import DefaultSelect from "@/components/common/input/DefaultSelect";
 import { ChangeEvent } from "react";
 import { getTwCity } from "@/datas/twCityDistricts";
 import { income_options } from "@/datas/adoption-option";

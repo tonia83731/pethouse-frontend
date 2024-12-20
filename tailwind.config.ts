@@ -27,6 +27,7 @@ export default {
         sky: "#2ea9d9",
         berry: "#b73377",
         neutral: "#29c242",
+        taro: "#BCAFC9",
       },
       fontFamily: {
         noto_sans: ["var(--font-noto-sans)"],
@@ -35,6 +36,14 @@ export default {
       backgroundImage: {
         "application-mobile": "url('/images/hero/application_mobile.png')",
         "application-desktop": "url('/images/hero/application_desktop.png')",
+        "partner-mobile": "url('/images/partner-mobile.jpg')",
+        "partner-desktop": "url('/images/partner-desktop.jpg')",
+      },
+      gridTemplateColumns: {
+        "13": "repeat(13, minmax(0, 1fr))",
+        "14": "repeat(14, minmax(0, 1fr))",
+        "15": "repeat(15, minmax(0, 1fr))",
+        "16": "repeat(16, minmax(0, 1fr))",
       },
     },
   },

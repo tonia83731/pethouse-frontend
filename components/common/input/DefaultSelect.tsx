@@ -4,7 +4,7 @@
 import Select from "react-select";
 export type OptionType = {
   label: string;
-  value: string;
+  value: any;
 };
 interface DefaultSelectProps {
   title?: string;
@@ -22,18 +22,18 @@ const DefaultSelect = ({
   options,
   inputValue,
   placeholder,
-  ref,
+  // ref,
   onSelectChange,
 }: DefaultSelectProps) => {
   return (
     <div className="flex flex-col gap-2">
       {title && <div className="font-medium">{title}</div>}
       <Select
-        ref={ref}
+        // ref={ref}
         className="react-select"
         placeholder={placeholder}
         options={options}
-        defaultValue={inputValue}
+        defaultValue={inputValue && inputValue?.value ? inputValue : null}
         styles={{
           indicatorSeparator: (styles) => ({
             ...styles,
