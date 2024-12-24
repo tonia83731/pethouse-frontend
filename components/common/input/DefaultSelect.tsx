@@ -12,24 +12,21 @@ interface DefaultSelectProps {
   placeholder?: string;
   inputValue?: OptionType;
   options: OptionType[];
-  ref?: any;
-  onSelectChange?: (value: any) => void;
-  // onInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  onSelectChange?: (name: string, value: any) => void;
 }
 
 const DefaultSelect = ({
   title,
+  name,
   options,
   inputValue,
   placeholder,
-  // ref,
   onSelectChange,
 }: DefaultSelectProps) => {
   return (
     <div className="flex flex-col gap-2">
       {title && <div className="font-medium">{title}</div>}
       <Select
-        // ref={ref}
         className="react-select"
         placeholder={placeholder}
         options={options}
@@ -83,7 +80,7 @@ const DefaultSelect = ({
           }),
         }}
         onChange={(newValue, actionMeta) => {
-          onSelectChange && onSelectChange(newValue);
+          onSelectChange && onSelectChange(name, newValue);
         }}
       />
     </div>

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { ChangeEvent } from "react";
+// import { ChangeEvent } from "react";
 
 export interface DefaultInputProps {
   label?: string;
@@ -8,7 +8,8 @@ export interface DefaultInputProps {
   name: string;
   placeholder?: string;
   inputValue: any;
-  onInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  // onInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  onInputChange: (name: string, value: any) => void;
 }
 
 const DefaultInput = ({
@@ -34,7 +35,10 @@ const DefaultInput = ({
         placeholder={placeholder}
         className="w-full h-10 leading-10 px-4 rounded-lg border-0 bg-skin-60 text-wine placeholder:text-dark-40 placeholder:text-xs"
         value={inputValue}
-        onChange={onInputChange}
+        onChange={(e) => {
+          const { name, value } = e.target;
+          onInputChange(name, value);
+        }}
       />
     </div>
   );

@@ -70,12 +70,9 @@ const adoptionSlice = createSlice({
         state.currStep = payload;
       }
     },
-    updatedFormInput(
-      state,
-      action: PayloadAction<{
-        name: string;
-        value: string | string[] | boolean | number;
-      }>
+    updatedFormInput<K extends keyof AdoptionInputType>(
+      state: AdoptionState,
+      action: PayloadAction<{ name: K; value: AdoptionInputType[K] }>
     ) {
       const { name, value } = action.payload;
       state.inputValue[name] = value;

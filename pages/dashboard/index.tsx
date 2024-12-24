@@ -1,63 +1,37 @@
-import { FormEvent, useState } from "react";
+import { useState } from "react";
+import { GetServerSideProps } from "next";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { getCookie, setCookie } from "cookies-next";
 import { clientFetch } from "@/lib/fetch";
+import { useForm } from "react-hook-form";
 import PethouseLogo from "@/public/icons/Logo.svg";
 import BackstageImg from "@/public/images/backstageImg.png";
 import { FaEye } from "react-icons/fa6";
 import { FaEyeSlash } from "react-icons/fa6";
-import { GetServerSideProps } from "next";
+import { MdErrorOutline } from "react-icons/md";
+
+type LoginFormValues = {
+  account: string;
+  password: string;
+};
 
 const DashboardPage = () => {
   const router = useRouter();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginFormValues>();
   const [passwordShowed, setPasswordShowed] = useState(false);
-  const [inputValue, setInputValue] = useState({
-    account: "",
-    password: "",
-  });
-  const [isError, setIsError] = useState({
-    status: false,
-    message: "",
-  });
 
-  const initializedData = () => {
-    setIsError({
-      status: false,
-      message: "",
-    });
-    setInputValue({
-      account: "",
-      password: "",
-    });
-  };
-
-  const handleLoginSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-
-    setIsError({
-      status: false,
-      message: "",
-    });
-
-    if (!inputValue.account || !inputValue.password) {
-      setIsError({
-        status: true,
-        message: "帳號、密碼不可為空!",
-      });
-      return;
-    }
-
-    console.log(inputValue);
-
+  const loginSubmit = async (data: LoginFormValues) => {
     try {
       const response = await clientFetch("/auth/login", {
         method: "POST",
-        body: inputValue,
+        body: data,
       });
-      // console.log(response.success);
       if (response.success) {
-        // console.log(response.data.token);
         const expirationDate = new Date();
         expirationDate.setTime(
           expirationDate.getTime() + 3 * 24 * 60 * 60 * 1000
@@ -66,10 +40,8 @@ const DashboardPage = () => {
         setCookie("staffToken", token, {
           expires: expirationDate,
         });
-        initializedData();
         router.push({
-          pathname: "/dashboard/adoption",
-          // query: { signin_success: "true" },
+          pathname: "/dashboard/furkids",
         });
       }
     } catch (error) {
@@ -81,14 +53,18 @@ const DashboardPage = () => {
       <div className="text-dark w-full flex justify-center">
         <PethouseLogo className="w-[150px]" />
       </div>
-      <div className="grid grid-cols-[400px_1fr] items-center gap-6">
+      <div className="md:grid md:grid-cols-[400px_1fr] items-center gap-6">
         <Image
           src={BackstageImg}
           alt="Backstage Image"
           width={400}
           height={400}
+          className="hidden md:block"
         ></Image>
-        <form className="flex flex-col gap-8" onSubmit={handleLoginSubmit}>
+        <form
+          className="flex flex-col gap-8"
+          onSubmit={handleSubmit(loginSubmit)}
+        >
           <h5 className="font-bold text-2xl text-center">後台登入</h5>
           <div className="flex flex-col gap-4">
             <label
@@ -97,17 +73,10 @@ const DashboardPage = () => {
             >
               <input
                 id="account"
-                name="account"
                 type="text"
-                placeholder="Account"
+                placeholder="使用者帳號"
                 className="placeholder:text-dark-40 w-full h-12 bg-transparent"
-                value={inputValue.account}
-                onChange={(e) =>
-                  setInputValue((prev) => ({
-                    ...prev,
-                    [e.target.name]: e.target.value,
-                  }))
-                }
+                {...register("account", { required: "帳號不可為空" })}
               />
             </label>
             <label
@@ -116,17 +85,10 @@ const DashboardPage = () => {
             >
               <input
                 id="password"
-                name="password"
                 type={passwordShowed ? "text" : "password"}
-                placeholder="Password"
+                placeholder="使用者密碼"
                 className="placeholder:text-dark-40 w-full h-12 bg-transparent"
-                value={inputValue.password}
-                onChange={(e) =>
-                  setInputValue((prev) => ({
-                    ...prev,
-                    [e.target.name]: e.target.value,
-                  }))
-                }
+                {...register("password", { required: "密碼不可為空" })}
               />
               <button
                 type="button"
@@ -137,7 +99,14 @@ const DashboardPage = () => {
               </button>
             </label>
           </div>
-          {isError.status && <p className="text-heart">{isError.message}</p>}
+          <div className="text-heart text-xs flex flex-col gap-0.5">
+            {Object.entries(errors).map(([field, error]) => (
+              <span key={field}>
+                <MdErrorOutline /> {error?.message}
+              </span>
+            ))}
+          </div>
+
           <button className="w-full bg-wine text-white rounded-lg h-10 hover:drop-shadow-md hover:font-bold">
             登入
           </button>
@@ -155,12 +124,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     res: context.res,
   });
 
-  console.log(token);
+  // console.log(token);
 
   if (token) {
     return {
       redirect: {
-        destination: "/dashboard/adoption",
+        destination: "/dashboard/furkids",
         permanent: false,
       },
     };

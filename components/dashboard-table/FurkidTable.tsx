@@ -1,5 +1,9 @@
 import Link from "next/link";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/store";
+import { updatedEditClick, getFurkidData } from "@/slices/furkidSlice";
+import { getCookie } from "cookies-next";
 import {
   PaginationState,
   SortingState,
@@ -10,6 +14,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+import { toast } from "react-toastify";
 import ModalLayout from "../common/layout/ModalLayout";
 import { CiCircleMore } from "react-icons/ci";
 import { ImCross } from "react-icons/im";
@@ -23,11 +28,10 @@ import {
   TransforTrueFalse,
 } from "@/helpers/animal-helpers";
 import { FurkidProps } from "@/pages/adoption";
+import { clientFetch } from "@/lib/fetch";
 
 interface IFurkidTable {
   tableData: FurkidProps[];
-  onEditClick: (id: number) => void;
-  onDeleteClick: (id: number) => void;
 }
 
 const FURKIDSTABLEMAP = [
@@ -50,11 +54,10 @@ const optionsMap = {
   animal: TransformAnimal,
 };
 
-const FurkidTable = ({
-  tableData,
-  onEditClick,
-  onDeleteClick,
-}: IFurkidTable) => {
+const FurkidTable = ({ tableData }: IFurkidTable) => {
+  const token = getCookie("staffToken");
+  const dispatch = useDispatch();
+  const { furkidData } = useSelector((state: RootState) => state.furkid);
   const [sourceSorting, setSourceSorting] = useState<SortingState>([]);
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
@@ -145,13 +148,13 @@ const FurkidTable = ({
           cell: (info) => (
             <div className="flex flex-col gap-2">
               <button
-                onClick={() => onEditClick(info.row.original.id)}
+                onClick={() => handleEditClick(info.row.original.id)}
                 className="bg-skin text-dark w-full px-4 py-1.5 rounded-lg hover:shadow-md"
               >
                 修改
               </button>
               <button
-                onClick={() => onDeleteClick(info.row.original.id)}
+                onClick={() => handleDeleteClick(info.row.original.id)}
                 className="bg-taro text-dark w-full px-4 py-1.5 rounded-lg hover:shadow-md"
               >
                 刪除
@@ -183,6 +186,60 @@ const FurkidTable = ({
     debugTable: true,
   });
 
+  const handleEditClick = async (id: number | null) => {
+    try {
+      const response = await clientFetch(`/admin/furkids/${id}`, { token });
+      if (response.success) {
+        const {
+          id,
+          name,
+          gender,
+          animal,
+          size,
+          age,
+          avatar,
+          isNeutured,
+          isVaccinated,
+          partner,
+        } = response.data;
+        const formData = {
+          furkidId: id,
+          name,
+          gender,
+          animal,
+          size,
+          age,
+          avatar,
+          isNeutured,
+          isVaccinated,
+          location: {
+            label: partner.name,
+            value: partner.id,
+          },
+        };
+        dispatch(updatedEditClick({ formData }));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleDeleteClick = async (id: number | null) => {
+    try {
+      const response = await clientFetch(`/admin/furkids/${id}`, {
+        method: "DELETE",
+        token,
+      });
+      if (!response.success) {
+        toast.error("刪除毛孩資料失敗，請再試一次");
+      }
+
+      const updated_datas = furkidData.filter((item) => item.id !== id);
+      toast.success("刪除毛孩資料成功");
+      dispatch(getFurkidData({ data: updated_datas }));
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const handleDetailClick = (id: number | null) => {
     const furkid = tableData.find((item) => item.id === id);
     if (furkid) {
@@ -224,6 +281,7 @@ const FurkidTable = ({
       setToggle(true);
     }
   };
+
   return (
     <>
       <table>

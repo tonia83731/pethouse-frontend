@@ -16,14 +16,6 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  // async rewrites() {
-  //   return [
-  //     {
-  //       source: "/:path*",
-  //       destination: `${process.env.API_URL}/api/:path*`,
-  //     },
-  //   ];
-  // },
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/i,

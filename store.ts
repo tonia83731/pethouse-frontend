@@ -1,9 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
 import adoptionReducer from "@/slices/adoptionSlice";
+import furkidReducer from "@/slices/furkidSlice";
+import supplyReducer from "@/slices/supplySlice";
+import partnerReducer from "@/slices/partnerSlice";
 
 export const store = configureStore({
   reducer: {
     adoption: adoptionReducer,
+    furkid: furkidReducer,
+    supply: supplyReducer,
+    partner: partnerReducer,
   },
 });
 

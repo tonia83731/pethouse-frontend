@@ -17,8 +17,8 @@ import PethouseShortLogo from "@/public/icons/ShortLogo.svg";
 
 const back_nav_link = [
   {
-    id: "d-adoption",
-    href: "/dashboard/adoption",
+    id: "d-furkids",
+    href: "/dashboard/furkids",
     title: "毛孩列表",
     icon: <PiDog />,
     icon_active: <PiDogFill />,
@@ -39,7 +39,7 @@ const back_nav_link = [
   },
   {
     id: "d-collaboration",
-    href: "/dashboard/collaboration",
+    href: "/dashboard/partners",
     title: "合作夥伴",
     icon: <MdOutlineHandshake />,
     icon_active: <MdHandshake />,
@@ -65,7 +65,7 @@ const DashboardLayout = ({
       <header className="relative w-[60px] lg:w-[200px] h-full min-h-screen pt-12 pb-6 text-white flex flex-col justify-between">
         <nav className="flex flex-col gap-8">
           <Link
-            href="/dashboard/adoption"
+            href="/dashboard/furkids"
             className="text-white w-full flex justify-center"
           >
             <PethouseLogo className="hidden lg:block w-[150px]" />

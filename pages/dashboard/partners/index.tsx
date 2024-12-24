@@ -5,7 +5,8 @@ import CollaborationForm from "@/components/dashbord-forms/CollaborationForm";
 import { MdPhoneAndroid } from "react-icons/md";
 import { HiOutlineMailOpen } from "react-icons/hi";
 import { IoTimeOutline } from "react-icons/io5";
-const CollaborationPage = ({ partners }: any) => {
+const CollaborationPage = ({ partners, user }: any) => {
+  console.log(user);
   const handleEditClick = (id: number | null) => {
     console.log(id);
   };
@@ -14,7 +15,7 @@ const CollaborationPage = ({ partners }: any) => {
   };
   return (
     <DashboardLayout title="合作夥伴">
-      <CollaborationForm />
+      <CollaborationForm isAdmin={user.isAdmin} />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {partners.map(
           ({
@@ -95,32 +96,36 @@ const CollaborationPage = ({ partners }: any) => {
 export default CollaborationPage;
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   try {
-    const response = await authFetch(context, "/admin/partners", "GET");
-
-    if (!response.success) {
+    const [partners_res, user_res] = await Promise.all([
+      authFetch(context, "/admin/partners", "GET"),
+      authFetch(context, "/admin/user-info", "GET"),
+    ]);
+    if (!partners_res.success || !user_res.success) {
       return {
         props: {
           partners: [],
+          user: null,
         },
       };
     }
 
-    const converTime = (time: string) => {
-      const date = new Date(`1970-01-01T${time}Z`);
-      const hours = String(date.getUTCHours()).padStart(2, "0");
-      const minutes = String(date.getUTCMinutes()).padStart(2, "0");
-      return `${hours}:${minutes}`;
-    };
+    // const converTime = (time: string) => {
+    //   const date = new Date(`1970-01-01T${time}Z`);
+    //   const hours = String(date.getUTCHours()).padStart(2, "0");
+    //   const minutes = String(date.getUTCMinutes()).padStart(2, "0");
+    //   return `${hours}:${minutes}`;
+    // };
 
-    const partners = response.data.map((partner: any) => ({
-      ...partner,
-      openingTime: converTime(partner.openingTime),
-      closingTime: converTime(partner.closingTime),
-    }));
+    // const partners = response.data.map((partner: any) => ({
+    //   ...partner,
+    //   openingTime: converTime(partner.openingTime),
+    //   closingTime: converTime(partner.closingTime),
+    // }));
 
     return {
       props: {
-        partners,
+        partners: partners_res.data,
+        user: user_res.data,
       },
     };
   } catch (error) {
@@ -128,6 +133,7 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
     return {
       props: {
         partners: [],
+        user: null,
       },
     };
   }

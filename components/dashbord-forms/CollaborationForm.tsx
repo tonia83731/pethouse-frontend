@@ -14,22 +14,24 @@ type CollaborateInput = {
   closing: string;
 };
 
-const CollaborationForm = () => {
+const CollaborationForm = ({ isAdmin }: any) => {
   const cityRef = useRef<any>(null);
   const weekstartRef = useRef<any>(null);
   const weekendRef = useRef<any>(null);
   const [isShowed, setIsShowed] = useState(false);
-  const [inputValue, setInputValue] = useState<CollaborateInput>({
-    name: "",
-    email: "",
-    phone: "",
-    location: "",
-    opening: "",
-    closing: "",
-  });
+  // const [inputValue, setInputValue] = useState<CollaborateInput>({
+  //   name: "",
+  //   email: "",
+  //   phone: "",
+  //   location: "",
+  //   opening: "",
+  //   closing: "",
+  // });
+
   return (
     <div className="flex flex-col gap-4">
       <button
+        disabled={!isAdmin}
         onClick={() => setIsShowed(!isShowed)}
         className="flex justify-center items-center gap-1 w-full lg:w-1/5 lg:max-w-[140px] py-2 bg-heart text-white lg:text-lg rounded-lg"
       >

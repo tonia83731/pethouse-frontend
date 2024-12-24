@@ -4,10 +4,10 @@ import { NextResponse, NextRequest } from "next/server";
 export async function middleware(req: NextRequest) {
   const token = (await cookies()).get("staffToken");
   const protectedRoute = [
-    "/dashboard/adoption",
+    "/dashboard/furkids",
     "/dashboard/supplies",
     "/dashboard/volunteers",
-    "/dashboard/collaboration",
+    "/dashboard/partners",
   ];
 
   const url = req.nextUrl.clone();
@@ -28,9 +28,9 @@ export async function middleware(req: NextRequest) {
 
 export const config = {
   matcher: [
-    "/dashboard/adoption",
+    "/dashboard/furkids",
     "/dashboard/supplies",
     "/dashboard/volunteers",
-    "/dashboard/collaboration",
+    "/dashboard/partners",
   ],
 };

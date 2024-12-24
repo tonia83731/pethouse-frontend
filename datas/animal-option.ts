@@ -9,7 +9,7 @@ export const gender_options = [
   },
   {
     label: "未知",
-    value: null,
+    value: "unknown",
   },
 ];
 export const size_options = [
