@@ -1,65 +1,132 @@
-import { ChangeEvent, FormEvent } from "react";
-// import DefaultInput from "@/components/common/input/DefaultInput";
-import DefaultSelect, { OptionType } from "../common/input/DefaultSelect";
-import DefaultTextarea from "../common/input/DefaultTextarea";
-import { SuppliesInput } from "@/pages/dashboard/supplies";
-import { IoIosArrowDown } from "react-icons/io";
-import DefaultHookInput from "../common/input-hook/DefaultInput";
-import DefaultHookTextarea from "../common/input-hook/DefaultTextarea";
-import { useSelector } from "react-redux";
+import { FormEvent } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getCookie } from "cookies-next";
+import { toast } from "react-toastify";
 import { RootState } from "@/store";
-import { useForm, Controller } from "react-hook-form";
-import DefaultHookSelect from "../common/input-hook/DefaultSelect";
-import { SupplyInputType } from "@/slices/supplySlice";
-// import { RootState } from "@reduxjs/toolkit/query";
+import { clientFetch } from "@/lib/fetch";
+import { SelectOptionType } from "@/types/default";
+import { SupplyInputType } from "@/types/supply";
+import DefaultInput from "../common/input/DefaultInput";
+import DefaultSelect from "../common/input/DefaultSelect";
+import DefaultTextarea from "../common/input/DefaultTextarea";
+import { IoIosArrowDown } from "react-icons/io";
+import {
+  updatedModalShowed,
+  updatedModalCanceled,
+  updatedFormInput,
+  updatedErrorStatus,
+  getSupplyData,
+} from "@/slices/supplySlice";
+
 interface SuppliesFormProps {
-  partners: OptionType[];
-  type: "create" | "edit" | null;
-  isShowed: boolean;
-  inputValue: SuppliesInput;
-  isError: {
-    status: boolean;
-    message: any;
-  };
-  onShowClick: () => void;
-  onFormCancel: () => void;
-  onInputChange: (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => void;
-  onSelectChange: (value: any) => void;
-  onFormSubmit: (e: FormEvent) => void;
+  partners: SelectOptionType[];
 }
 
-const SuppliesForm = ({
-  partners,
-  // type,
-  isShowed,
-  // isError,
-  // inputValue,
-  onShowClick,
-  onFormCancel,
-}: // onInputChange,
-// onSelectChange,
-// onFormSubmit,
-SuppliesFormProps) => {
-  const { inputValue, type } = useSelector((state: RootState) => state.supply);
-  const {
-    control,
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    defaultValues: inputValue,
-  });
+const SuppliesForm = ({ partners }: SuppliesFormProps) => {
+  const token = getCookie("staffToken");
+  const dispatch = useDispatch();
+  const { inputValue, type, isShowed, isError, supplyData } = useSelector(
+    (state: RootState) => state.supply
+  );
+  const type_str = type === "create" ? "新增" : "修改";
 
-  const handleSupplyFormSubmit = (data: SupplyInputType) => {
-    console.log(data, errors);
+  const handleInputChange = (name: string, value: any) => {
+    dispatch(updatedFormInput({ name, value }));
+  };
+  const handleModalShowed = () => {
+    dispatch(updatedModalShowed());
+  };
+  const handleModalCanceled = () => {
+    dispatch(updatedModalCanceled());
+  };
+
+  const inputErrorChecked = (inputValue: SupplyInputType) => {
+    const { name, number, location } = inputValue;
+    if (!name || !location.value) {
+      dispatch(
+        updatedErrorStatus({
+          status: true,
+          message: "請確實填寫以下資訊: 物資名稱、寄送地點",
+        })
+      );
+      return;
+    }
+
+    if (number <= 1) {
+      dispatch(
+        updatedErrorStatus({
+          status: true,
+          message: "最低數量需大於1",
+        })
+      );
+      return;
+    }
+
+    dispatch(
+      updatedErrorStatus({
+        status: false,
+        message: "",
+      })
+    );
+  };
+
+  const handleFormSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    inputErrorChecked(inputValue);
+
+    if (isError.status) return;
+
+    const method = type === "create" ? "POST" : "PUT";
+    const url =
+      type === "create"
+        ? "/admin/supplies"
+        : `/admin/supplies/${inputValue.supplyId}`;
+
+    const body = {
+      userId: inputValue.location.value,
+      supplyName: inputValue.name,
+      number: inputValue.number,
+      introduction: inputValue.intro,
+    };
+
+    try {
+      const response = await clientFetch(url, {
+        method,
+        token,
+        body,
+      });
+      if (!response.success) {
+        toast.error(`${type_str}需求物資失敗，請再試一次`);
+        return;
+      }
+      const partner = partners.find(
+        (partner) => partner.value === Number(response.data.userId)
+      );
+      const data = {
+        ...response.data,
+        partner: {
+          id: partner?.value,
+          name: partner?.label,
+        },
+      };
+      const updatedData =
+        type === "create"
+          ? [...supplyData, data]
+          : supplyData.map((item) =>
+              item.id === inputValue.supplyId ? data : item
+            );
+      toast.success(`${type_str}需求物資成功`);
+      dispatch(getSupplyData({ data: updatedData }));
+      handleModalCanceled();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
     <div className="flex flex-col gap-4">
       <button
-        onClick={onShowClick}
+        onClick={handleModalShowed}
         className="flex justify-center items-center gap-1 w-full lg:w-1/5 lg:max-w-[140px] py-2 bg-heart text-white lg:text-lg rounded-lg"
       >
         <div className="">物資招募</div>
@@ -69,68 +136,53 @@ SuppliesFormProps) => {
       </button>
       {isShowed && (
         <form
-          onSubmit={handleSubmit(handleSupplyFormSubmit)}
+          onSubmit={handleFormSubmit}
           className="bg-white rounded-lg drop-shadow-lg p-4 flex flex-col gap-8"
         >
           <div className="flex flex-col gap-4">
-            <DefaultHookSelect
+            <DefaultSelect
               title="寄送地點"
               name="location"
-              placeholder="請選擇寄送地點"
+              placeholder="請選擇毛孩之家"
               inputValue={inputValue.location}
+              onSelectChange={handleInputChange}
               options={partners}
-              control={control}
-              error={errors.location}
             />
             <div className="lg:grid lg:grid-cols-2 flex flex-col gap-4">
-              <DefaultHookInput
+              <DefaultInput
                 id="name"
                 name="name"
                 label="物資名稱"
                 placeholder="請輸入物資名稱"
-                error={errors.name}
-                register={register}
-                rules={{ required: "物資名稱為必填" }}
+                inputValue={inputValue.name}
+                onInputChange={handleInputChange}
               />
-              <DefaultHookInput
+              <DefaultInput
                 id="number"
-                type="number"
                 name="number"
+                type="number"
                 label="最低數量"
                 placeholder="請輸入最低數量"
-                error={errors.number}
-                register={register}
-                rules={{
-                  required: "最低數量為必填",
-                  validate: (value: any) =>
-                    Number(value) > 0 || "最低數量需大於0",
-                }}
+                inputValue={inputValue.number}
+                onInputChange={handleInputChange}
               />
             </div>
-            <DefaultHookTextarea
+
+            <DefaultTextarea
               id="intro"
               name="intro"
-              label="物資詳細資料"
-              placeholder="請輸入物資詳細資料"
-              error={errors.intro}
-              register={register}
-              rules={{
-                validate: (value: any) => {
-                  const wordCount = value.split(/\s+/).filter(Boolean).length;
-                  return (
-                    wordCount <= 300 ||
-                    `詳細資料不可超過300個字，目前字數: ${wordCount}`
-                  );
-                },
-              }}
+              label="物資簡介"
+              placeholder="請簡述物資簡介"
+              inputValue={inputValue.intro}
+              onInputChange={handleInputChange}
             />
           </div>
-          {/* {isError.status && <p className="text-heart">{isError.message}</p>} */}
+          {isError.status && <p className="text-heart">{isError.message}</p>}
           <div className="w-full flex justify-end">
             <div className="grid grid-cols-2 gap-2">
               <button
                 type="button"
-                onClick={onFormCancel}
+                onClick={handleModalCanceled}
                 className="font-medium py-1 px-6 bg-dark-40 text-white rounded-lg hover:drop-shadow-lg"
               >
                 取消
@@ -139,7 +191,7 @@ SuppliesFormProps) => {
                 type="submit"
                 className="font-medium py-1 px-6 bg-wine text-white rounded-lg hover:drop-shadow-lg"
               >
-                {type === "create" ? "新增" : "修改"}
+                {type_str}
               </button>
             </div>
           </div>

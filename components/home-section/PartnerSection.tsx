@@ -3,17 +3,7 @@ import { HiOutlineMailOpen } from "react-icons/hi";
 import { MdPhoneAndroid } from "react-icons/md";
 import { GrLocation } from "react-icons/gr";
 import { IoIosTimer } from "react-icons/io";
-export interface PartnerProps {
-  id: number;
-  name: string;
-  email: string;
-  phone: string;
-  weekStart: number;
-  weekEnd: number;
-  openingTime: number;
-  closingTime: number;
-  address: string;
-}
+import { PartnerProps } from "@/pages/adoption";
 
 const daysOfWeek = [
   "星期日",

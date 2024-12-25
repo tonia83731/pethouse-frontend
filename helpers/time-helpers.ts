@@ -10,9 +10,3 @@ export const convertTimeToMin = (time: string) => {
   const [hours, minutes] = time.split(":").map(Number);
   return hours * 60 + minutes;
 };
-
-// export const convertDateToTime = (date: Date) => {
-//   const hours = date.getHours();
-//   const minutes = date.getMinutes();
-//   return `${hours}:${minutes}`;
-// };

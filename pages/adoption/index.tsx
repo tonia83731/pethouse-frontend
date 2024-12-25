@@ -1,15 +1,16 @@
-import { GetServerSideProps } from "next";
 import { useState } from "react";
+import { GetServerSideProps } from "next";
+import Link from "next/link";
+import Image from "next/image";
 import { clientFetch, serverFetch } from "@/lib/fetch";
 import Select from "react-select";
 import { SELECTSTYLES } from "@/constants/select-style";
 import FrontLayout from "@/components/common/layout/FrontLayout";
-// import AdoptionCard from "@/components/adoption/AdoptionCard";
 import Pagination from "@/components/common/Pagination";
 import { FaMagnifyingGlass } from "react-icons/fa6";
-// import { getTwCity } from "@/datas/twCityDistricts";
 import { animal_options } from "@/datas/animal-option";
-import { SelectOptionType } from "@/constants/select-style";
+import { SelectOptionType } from "@/types/default";
+import { FurkidProps } from "@/types/furkid";
 import {
   TransformGender,
   TransformAge,
@@ -20,33 +21,6 @@ import {
 import { IoLocationSharp } from "react-icons/io5";
 import { FaPhone } from "react-icons/fa6";
 import { MdPets } from "react-icons/md";
-// import { dummy_stray_data } from "@/datas/dummy/stray_data";
-import {
-  AgeType,
-  AnimalType,
-  GenderType,
-  SizeType,
-} from "@/helpers/animal-helpers";
-import Link from "next/link";
-import Image from "next/image";
-
-export type FurkidProps = {
-  id: number;
-  name: string;
-  gender: GenderType;
-  animal: AnimalType;
-  size: SizeType;
-  age: AgeType;
-  partnerId: number;
-  isNeutured: boolean;
-  isVaccinated: boolean;
-  avatar: string;
-  partner: {
-    name: string;
-    phone: string;
-    address: string;
-  };
-};
 
 export type PartnerProps = {
   id: number;

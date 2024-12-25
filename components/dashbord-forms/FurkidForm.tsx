@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ChangeEvent, FormEvent, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import Image from "next/image";
+import { getCookie } from "cookies-next";
 import { RootState } from "@/store";
 import {
   updatedFormInput,
@@ -8,12 +10,10 @@ import {
   updatedModalCanceled,
   updatedImageInput,
   updatedErrorStatus,
-  FurkidInputType,
   getFurkidData,
 } from "@/slices/furkidSlice";
-import { SelectOptionType } from "@/slices/supplySlice";
-import Image from "next/image";
-import { getCookie } from "cookies-next";
+import { SelectOptionType } from "@/types/default";
+import { FurkidInputType } from "@/types/furkid";
 import { clientFetch } from "@/lib/fetch";
 import DefaultInput from "@/components/common/input/DefaultInput";
 import DefaultRadio from "@/components/common/input/DefaultRadio";
@@ -160,7 +160,7 @@ const FurkidForm = ({ partners }: FurkidFormProps) => {
       const partner = partners.find(
         (partner) => partner.value === Number(response.data.userId)
       );
-      console.log(partner);
+      // console.log(partner);
       const data = {
         ...response.data,
         partner: {

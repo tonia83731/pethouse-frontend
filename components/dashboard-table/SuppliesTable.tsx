@@ -9,36 +9,30 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-
-type SupplyTableProps = {
-  id: number;
-  supplyName: string;
-  introduction: string;
-  number: number;
-  partnerName: string;
-  partnerPhone: string;
-  partnerAddress: string;
-};
+import { SupplyProps } from "@/types/supply";
+import { clientFetch } from "@/lib/fetch";
+import { getCookie } from "cookies-next";
+import { useDispatch, useSelector } from "react-redux";
+import { updatedEditClick, getSupplyData } from "@/slices/supplySlice";
+import { toast } from "react-toastify";
+import { RootState } from "@/store";
 
 interface ISupplyTable {
-  tableData: SupplyTableProps[];
-  onEditClick: (id: number) => void;
-  onDeleteClick: (id: number) => void;
+  tableData: SupplyProps[];
 }
 
 const SUPPLYTABLEMAP = [
   ["supplyName", "物資名稱"],
   ["introduction", "物資簡介"],
   ["number", "數量"],
-  ["partnerName", "所需夥伴"],
+  ["partner", "需求夥伴"],
   ["button", ""],
 ];
 
-const SuppliesTable = ({
-  tableData,
-  onEditClick,
-  onDeleteClick,
-}: ISupplyTable) => {
+const SuppliesTable = ({ tableData }: ISupplyTable) => {
+  const token = getCookie("staffToken");
+  const dispatch = useDispatch();
+  const { supplyData } = useSelector((state: RootState) => state.supply);
   const [sourceSorting, setSourceSorting] = useState<SortingState>([]);
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
@@ -46,51 +40,61 @@ const SuppliesTable = ({
   });
   const columnHelper = createColumnHelper<any>();
   const columns = SUPPLYTABLEMAP.map(([key, label]) => {
-    if (key === "supplyName") {
-      return columnHelper.accessor(key, {
-        id: key,
-        header: () => (
-          <div>
-            <span className="md:hidden">所需物資</span>
-            <span className="hidden md:block">{label}</span>
-          </div>
-        ),
-        cell: (info) => (
-          <div className="flex flex-col gap-1.5">
-            <h5 className="font-medium">{info.getValue()}</h5>
-            <p className="text-xs text-dark-60 md:hidden">
-              {info.row.original.introduction}
-            </p>
-          </div>
-        ),
-      });
-    } else if (key === "button") {
-      return columnHelper.display({
-        id: key,
-        header: () => <span>{label}</span>,
-        cell: (info) => (
-          <div className="flex flex-col gap-2">
-            <button
-              onClick={() => onEditClick(info.row.original.id)}
-              className="bg-skin text-dark w-full px-4 py-1.5 rounded-lg hover:shadow-md"
-            >
-              修改
-            </button>
-            <button
-              onClick={() => onDeleteClick(info.row.original.id)}
-              className="bg-taro text-dark w-full px-4 py-1.5 rounded-lg hover:shadow-md"
-            >
-              刪除
-            </button>
-          </div>
-        ),
-      });
-    } else {
-      return columnHelper.accessor(key, {
-        id: key,
-        header: () => <span>{label}</span>,
-        cell: (info) => <span>{info.getValue()}</span>,
-      });
+    switch (key) {
+      case "supplyName":
+        return columnHelper.accessor(key, {
+          id: key,
+          header: () => (
+            <div>
+              <span className="md:hidden">所需物資</span>
+              <span className="hidden md:block">{label}</span>
+            </div>
+          ),
+          cell: (info) => (
+            <div className="flex flex-col gap-1.5">
+              <h5 className="font-medium">{info.getValue()}</h5>
+              <p className="text-xs text-dark-60 md:hidden">
+                {info.row.original.introduction}
+              </p>
+            </div>
+          ),
+        });
+      case "partner":
+        return columnHelper.accessor(key, {
+          id: key,
+          header: () => <span>{label}</span>,
+          cell: (info) => {
+            const name = info.getValue()["name"].split(" ")[1];
+            return <span>{name}</span>;
+          },
+        });
+      case "button":
+        return columnHelper.display({
+          id: key,
+          header: () => <span>{label}</span>,
+          cell: (info) => (
+            <div className="flex flex-col gap-2">
+              <button
+                onClick={() => handleEditClick(info.row.original.id)}
+                className="bg-skin text-dark w-full px-4 py-1.5 rounded-lg hover:shadow-md"
+              >
+                修改
+              </button>
+              <button
+                onClick={() => handleDeleteClick(info.row.original.id)}
+                className="bg-taro text-dark w-full px-4 py-1.5 rounded-lg hover:shadow-md"
+              >
+                刪除
+              </button>
+            </div>
+          ),
+        });
+      default:
+        return columnHelper.accessor(key, {
+          id: key,
+          header: () => <span>{label}</span>,
+          cell: (info) => <span>{info.getValue()}</span>,
+        });
     }
   });
 
@@ -108,6 +112,48 @@ const SuppliesTable = ({
     onPaginationChange: setPagination,
     debugTable: true,
   });
+
+  const handleEditClick = async (id: number | null) => {
+    try {
+      const response = await clientFetch(`/admin/supplies/${id}`, {
+        token,
+      });
+
+      if (response.success) {
+        const { id, introduction, number, partner, supplyName } = response.data;
+        console.log(response.data);
+        const formData = {
+          supplyId: id,
+          name: supplyName,
+          number,
+          intro: introduction,
+          location: {
+            label: partner.name,
+            value: partner.id,
+          },
+        };
+        dispatch(updatedEditClick({ formData }));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleDeleteClick = async (id: number | null) => {
+    try {
+      const response = await clientFetch(`/admin/supplies/${id}`, {
+        token,
+        method: "DELETE",
+      });
+      if (!response.success) {
+        toast.error("刪除需求物資失敗，請再試一次");
+      }
+      const updated_datas = supplyData.filter((item) => item.id !== id);
+      toast.success("刪除需求物資成功");
+      dispatch(getSupplyData({ data: updated_datas }));
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <table>
       <thead className="bg-fern text-ivory text-sm md:text-base h-12 bg-skin overflow-hidden">

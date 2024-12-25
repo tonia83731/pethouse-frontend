@@ -2,7 +2,8 @@ import { GetServerSideProps } from "next";
 import { useState } from "react";
 import Select from "react-select";
 import { clientFetch, serverFetch } from "@/lib/fetch";
-import { SelectOptionType, SELECTSTYLES } from "@/constants/select-style";
+import { SELECTSTYLES } from "@/constants/select-style";
+import { SelectOptionType } from "@/types/default";
 import DonationLayout from "@/components/common/layout/DonationLayout";
 import DonationTable from "@/components/donation-page/DonationTable";
 

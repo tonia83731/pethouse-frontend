@@ -4,46 +4,15 @@ import validator from "validator";
 import Select from "react-select";
 import { toast } from "react-toastify";
 import { clientFetch, serverFetch } from "@/lib/fetch";
-import { SelectOptionType, SELECTSTYLES } from "@/constants/select-style";
+import { SELECTSTYLES } from "@/constants/select-style";
+import { SelectOptionType } from "@/types/default";
 import FrontLayout from "@/components/common/layout/FrontLayout";
 import ModalLayout from "@/components/common/layout/ModalLayout";
 import VolunteerApplyForm from "@/components/volunteer-page/VolunteerApplyForm";
 import VolunteerDetail from "@/components/volunteer-page/VolunteerDetail";
 import VolunteerTable from "@/components/volunteer-page/VolunteerTable";
 import { convertMinToTime, convertTimeToMin } from "@/helpers/time-helpers";
-
-export type VolunteersProps = {
-  id: number;
-  partner: {
-    id: number;
-    name: string;
-    phone: string;
-    email: string;
-    address: string;
-  };
-  perPerson: number;
-  time: {
-    weekday: null | number;
-    startTime: number;
-    endTime: number;
-  };
-  minHour: number;
-  introduction: string;
-  createdAt: string;
-  updatedAt: string;
-  // valid_weekday: number | null;
-};
-
-export type VolunteerFormProps = {
-  findVolunteerId: null | number;
-  name: string;
-  phone: string;
-  email: string;
-  date: Date;
-  startTime: string;
-  hours: number;
-  needProven: boolean;
-};
+import { VolunteerApplyInputType, VolunteersProps } from "@/types/volunteer";
 
 export const possible_weekday = [
   "週日",
@@ -56,7 +25,7 @@ export const possible_weekday = [
 ];
 
 interface VolunteerPageProps {
-  volunteers: VolunteersProps[];
+  volunteers: VolunteerApplyInputType[];
   partners: SelectOptionType[];
 }
 
@@ -68,7 +37,7 @@ const VolunteerPage = ({ volunteers, partners }: VolunteerPageProps) => {
   const [modalDetail, setModalDetail] = useState<VolunteersProps | null>(null);
   const [category, setCategory] = useState(partners[0]);
   const [volunteerData, setVolunteerData] = useState(volunteers);
-  const [applyInput, setApplyInput] = useState<VolunteerFormProps>({
+  const [applyInput, setApplyInput] = useState<VolunteerApplyInputType>({
     findVolunteerId: null,
     name: "",
     phone: "",
@@ -109,132 +78,132 @@ const VolunteerPage = ({ volunteers, partners }: VolunteerPageProps) => {
     });
   };
 
-  const handleApplyClick = (id: number) => {
-    setApplyInput((prev) => ({ ...prev, findVolunteerId: id }));
-    setModalToggle((prev) => ({ ...prev, apply: true }));
-    const volunteer = volunteers.find((v) => v.id === id);
-    if (volunteer) {
-      setApplyAvailableTime(volunteer?.time.weekday);
-      const startTime = convertMinToTime(volunteer.time.startTime);
-      setApplyInput((prev) => ({
-        ...prev,
-        hours: volunteer.minHour,
-        startTime,
-      }));
-    } else {
-      setApplyAvailableTime(null);
-    }
-  };
+  // const handleApplyClick = (id: number) => {
+  //   setApplyInput((prev) => ({ ...prev, findVolunteerId: id }));
+  //   setModalToggle((prev) => ({ ...prev, apply: true }));
+  //   const volunteer = volunteers.find((v) => v.id === id);
+  //   if (volunteer) {
+  //     setApplyAvailableTime(volunteer?.time.weekday);
+  //     const startTime = convertMinToTime(volunteer.time.startTime);
+  //     setApplyInput((prev) => ({
+  //       ...prev,
+  //       hours: volunteer.minHour,
+  //       startTime,
+  //     }));
+  //   } else {
+  //     setApplyAvailableTime(null);
+  //   }
+  // };
 
-  const handleDetailClick = (id: number) => {
-    setModalToggle((prev) => ({ ...prev, detail: true }));
-    const detail = volunteerData.find((item) => item.id === id);
-    if (detail) {
-      setModalDetail(detail);
-    }
-  };
+  // const handleDetailClick = (id: number) => {
+  //   setModalToggle((prev) => ({ ...prev, detail: true }));
+  //   const detail = volunteerData.find((item) => item.id === id);
+  //   if (detail) {
+  //     setModalDetail(detail);
+  //   }
+  // };
 
-  const errorHandleing = (volunteerId: number | null, inputValue: any) => {
-    // initialized error
-    setIsError({
-      status: false,
-      message: "",
-    });
+  // const errorHandleing = (volunteerId: number | null, inputValue: any) => {
+  //   // initialized error
+  //   setIsError({
+  //     status: false,
+  //     message: "",
+  //   });
 
-    const volunteer = volunteers.find((item) => item.id === volunteerId);
+  //   const volunteer = volunteers.find((item) => item.id === volunteerId);
 
-    const { name, phone, email, date, startTime, hours } = inputValue;
-    if (!name || !email || !phone) {
-      setIsError({
-        status: true,
-        message: "姓名、電子郵件、電話不可為空白!",
-      });
-      return;
-    }
-    if (!validator.isEmail(email)) {
-      setIsError({
-        status: true,
-        message: "電子郵件格式錯誤!",
-      });
-      return;
-    }
+  //   const { name, phone, email, date, startTime, hours } = inputValue;
+  //   if (!name || !email || !phone) {
+  //     setIsError({
+  //       status: true,
+  //       message: "姓名、電子郵件、電話不可為空白!",
+  //     });
+  //     return;
+  //   }
+  //   if (!validator.isEmail(email)) {
+  //     setIsError({
+  //       status: true,
+  //       message: "電子郵件格式錯誤!",
+  //     });
+  //     return;
+  //   }
 
-    if (!date) {
-      setIsError({
-        status: true,
-        message: "日期不可為空白!",
-      });
-      return;
-    }
+  //   if (!date) {
+  //     setIsError({
+  //       status: true,
+  //       message: "日期不可為空白!",
+  //     });
+  //     return;
+  //   }
 
-    if (volunteer && hours < volunteer?.minHour) {
-      setIsError({
-        status: true,
-        message: `最低時數為${volunteer?.minHour}小時`,
-      });
-      return;
-    }
+  //   if (volunteer && hours < volunteer?.minHour) {
+  //     setIsError({
+  //       status: true,
+  //       message: `最低時數為${volunteer?.minHour}小時`,
+  //     });
+  //     return;
+  //   }
 
-    const start = convertTimeToMin(startTime);
+  //   const start = convertTimeToMin(startTime);
 
-    if (volunteer && start + hours > volunteer?.time.endTime) {
-      setIsError({
-        status: true,
-        message: `工作時間超出結束時間${convertMinToTime(
-          volunteer?.time.endTime
-        )}`,
-      });
-      return;
-    }
-  };
+  //   if (volunteer && start + hours > volunteer?.time.endTime) {
+  //     setIsError({
+  //       status: true,
+  //       message: `工作時間超出結束時間${convertMinToTime(
+  //         volunteer?.time.endTime
+  //       )}`,
+  //     });
+  //     return;
+  //   }
+  // };
 
-  const handleApplySubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    const volunteerId = applyInput.findVolunteerId;
-    const { name, phone, email, date, startTime, hours, needProven } =
-      applyInput;
+  // const handleApplySubmit = async (e: FormEvent) => {
+  //   e.preventDefault();
+  //   const volunteerId = applyInput.findVolunteerId;
+  //   const { name, phone, email, date, startTime, hours, needProven } =
+  //     applyInput;
 
-    errorHandleing(volunteerId, applyInput);
+  //   errorHandleing(volunteerId, applyInput);
 
-    const body = {
-      name,
-      phone,
-      email,
-      date,
-      startTime: convertTimeToMin(startTime),
-      hours,
-      needProven,
-    };
+  //   const body = {
+  //     name,
+  //     phone,
+  //     email,
+  //     date,
+  //     startTime: convertTimeToMin(startTime),
+  //     hours,
+  //     needProven,
+  //   };
 
-    // console.log(body);
+  // console.log(body);
 
-    try {
-      const response = await clientFetch(`/volunteers/${volunteerId}/apply`, {
-        method: "POST",
-        body,
-      });
+  //   try {
+  //     const response = await clientFetch(`/volunteers/${volunteerId}/apply`, {
+  //       method: "POST",
+  //       body,
+  //     });
 
-      console.log(response);
-      if (!response.success) {
-        toast.error("志工表單填寫失敗，請在試一次!");
-        return;
-      }
+  //     console.log(response);
+  //     if (!response.success) {
+  //       toast.error("志工表單填寫失敗，請在試一次!");
+  //       return;
+  //     }
 
-      setVolunteerData((prevData) =>
-        prevData
-          .map((volunteer) =>
-            volunteer.id === volunteerId
-              ? { ...volunteer, perPerson: volunteer.perPerson - 1 }
-              : volunteer
-          )
-          .filter((volunteer) => volunteer.perPerson > 0)
-      );
-      initializedData();
-      toast.success("志工表單填寫成功!");
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //     setVolunteerData((prevData) =>
+  //       prevData
+  //         .map((volunteer) =>
+  //           volunteer.id === volunteerId
+  //             ? { ...volunteer, perPerson: volunteer.perPerson - 1 }
+  //             : volunteer
+  //         )
+  //         .filter((volunteer) => volunteer.perPerson > 0)
+  //     );
+  //     initializedData();
+  //     toast.success("志工表單填寫成功!");
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   return (
     <FrontLayout
@@ -274,11 +243,11 @@ const VolunteerPage = ({ volunteers, partners }: VolunteerPageProps) => {
             }}
           />
         </div>
-        <VolunteerTable
+        {/* <VolunteerTable
           tableData={volunteerData}
           onApplyClick={handleApplyClick}
           onDetailClick={handleDetailClick}
-        />
+        /> */}
       </div>
       <ModalLayout
         title="詳細資料"
@@ -297,7 +266,7 @@ const VolunteerPage = ({ volunteers, partners }: VolunteerPageProps) => {
           }}
         />
       </ModalLayout>
-      <ModalLayout
+      {/* <ModalLayout
         title="志工申請"
         isOpen={modalToggle.apply}
         onClose={initializedData}
@@ -346,7 +315,7 @@ const VolunteerPage = ({ volunteers, partners }: VolunteerPageProps) => {
             </button>
           </div>
         </form>
-      </ModalLayout>
+      </ModalLayout> */}
     </FrontLayout>
   );
 };

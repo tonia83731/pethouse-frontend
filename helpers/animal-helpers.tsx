@@ -5,11 +5,7 @@ import { FaQuestion } from "react-icons/fa6";
 import { ImCross } from "react-icons/im";
 import { FaCheck } from "react-icons/fa";
 
-export type GenderType = "M" | "F" | "unknown";
-export type SizeType = "S" | "M" | "L";
-export type AgeType = "Child" | "Adult";
-
-export type AnimalType = "Dog" | "Cat" | "Rabbit" | "Bird";
+import { GenderType, SizeType, AgeType, AnimalType } from "@/types/furkid";
 
 export const TransformAnimal = (animal: AnimalType) => {
   switch (animal) {

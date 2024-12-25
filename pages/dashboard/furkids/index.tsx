@@ -1,27 +1,23 @@
 import { GetServerSideProps } from "next";
 import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "@/store";
+import { getFurkidData } from "@/slices/furkidSlice";
 import { authFetch } from "@/lib/fetch";
-import { OptionType } from "@/components/common/input/DefaultSelect";
-import { FurkidProps } from "@/pages/adoption";
-import { PartnerProps } from "@/components/home-section/PartnerSection";
-
+import { SelectOptionType } from "@/types/default";
+import { DashboardFurkidProps } from "@/types/furkid";
+// import { PartnerProps } from "@/components/home-section/PartnerSection";
+import { PartnerProps } from "@/types/partner";
 import DashboardLayout from "@/components/common/layout/DashboardLayout";
 import FurkidForm from "@/components/dashbord-forms/FurkidForm";
 import FurkidTable from "@/components/dashboard-table/FurkidTable";
-import { useSelector, useDispatch } from "react-redux";
-import { getFurkidData } from "@/slices/furkidSlice";
-import { RootState } from "@/store";
-
-type DashboardFurkidProps = FurkidProps & {
-  adoptionNumber: number;
-};
 
 const FurkidDashboardPage = ({
   furkids,
   partners,
 }: {
   furkids: DashboardFurkidProps[];
-  partners: OptionType[];
+  partners: SelectOptionType[];
 }) => {
   const dispatch = useDispatch();
   const { furkidData } = useSelector((state: RootState) => state.furkid);
@@ -57,10 +53,13 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
       };
     }
 
-    const partners = partner_res.data.map((partner: PartnerProps) => ({
-      label: partner.name,
-      value: partner.id,
-    }));
+    const partners = partner_res.data.map((partner: PartnerProps) => {
+      if (partner.isAdmin) return;
+      return {
+        label: partner.name,
+        value: partner.id,
+      };
+    });
 
     return {
       props: {

@@ -10,20 +10,7 @@ import {
 import { IoLocationSharp } from "react-icons/io5";
 import { FaPhone } from "react-icons/fa6";
 import { MdPets } from "react-icons/md";
-import { FurkidProps } from "@/pages/adoption";
-// export interface AdoptionStrayProps {
-//   id: number;
-//   name: string;
-//   animal: AnimalType;
-//   gender: GenderType;
-//   size: SizeType;
-//   age: AgeType;
-//   isNeutured: boolean;
-//   isVaccinated: boolean;
-//   partnerAddress: string;
-//   partnerPhone: string;
-//   image: string;
-// }
+import { FurkidProps } from "@/types/furkid";
 
 const AdoptionCard = ({
   id,
@@ -54,8 +41,6 @@ const AdoptionCard = ({
           className="w-full h-full object-cover"
         ></Image>
         <Link
-          // href={`/adoption/application/1`}
-          // href={`/adoption/application/${encodeURIComponent(id)}`}
           href={{
             pathname: "/adoption/application/[slug]",
             query: { slug: id },

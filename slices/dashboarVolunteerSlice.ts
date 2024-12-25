@@ -1,16 +1,17 @@
+import dayjs from "dayjs";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { DashboardFurkidProps, FurkidInputType } from "../types/furkid";
 import { InputErrorType, ButtonType, ModalToggleType } from "@/types/default";
+import { VolunteerInputType, VolunteersProps } from "@/types/volunteer";
 
-interface FurkidState {
+interface DashboardVolunteerState {
   type: ButtonType;
   isShowed: ModalToggleType;
   isError: InputErrorType;
-  inputValue: FurkidInputType;
-  furkidData: DashboardFurkidProps[];
+  inputValue: VolunteerInputType;
+  volunteerData: VolunteersProps[];
 }
 
-const initialState: FurkidState = {
+const initialState: DashboardVolunteerState = {
   type: "create",
   isShowed: false,
   isError: {
@@ -18,25 +19,23 @@ const initialState: FurkidState = {
     message: "",
   },
   inputValue: {
-    furkidId: null,
-    name: "",
-    gender: "unknown",
-    animal: "Dog",
-    size: "S",
-    age: "Child",
-    isNeutured: false,
-    isVaccinated: false,
+    volunteerId: null,
+    startTime: 0,
+    endTime: 1439,
+    date: dayjs().format("YYYY-MM-DD"),
+    perPerson: 1,
+    minHour: 4,
+    intro: "",
     location: {
       label: "",
       value: null,
     },
-    avatar: null,
   },
-  furkidData: [],
+  volunteerData: [],
 };
 
-const furkidSlice = createSlice({
-  name: "furkid",
+const dashboardVolunteerSlice = createSlice({
+  name: "dashboardVolunteer",
   initialState,
   reducers: {
     resetForm(state) {
@@ -55,28 +54,17 @@ const furkidSlice = createSlice({
       state.inputValue = initialState.inputValue;
     },
     updatedFormInput(
-      state: FurkidState,
+      state: DashboardVolunteerState,
       action: PayloadAction<{ name: string; value: any }>
     ) {
       const { name, value } = action.payload;
-      if (name in state.inputValue) {
-        (state.inputValue as Record<string, any>)[name] = value;
-      } else {
-        console.warn(`Invalid input field: ${name}`);
-      }
-    },
-    updatedImageInput(state: FurkidState, action: PayloadAction<File>) {
-      state.inputValue.avatar = action.payload;
+      state.inputValue[name] = value;
     },
     updatedEditClick(state, action) {
       const { formData } = action.payload;
       state.inputValue = formData;
       state.isShowed = true;
       state.type = "edit";
-    },
-    getFurkidData(state, action) {
-      const { data } = action.payload;
-      state.furkidData = data;
     },
     updatedErrorStatus(state, action) {
       state.isError = action.payload;
@@ -87,11 +75,9 @@ const furkidSlice = createSlice({
 export const {
   resetForm,
   updatedFormInput,
-  updatedImageInput,
   updatedModalShowed,
   updatedModalCanceled,
   updatedEditClick,
-  getFurkidData,
   updatedErrorStatus,
-} = furkidSlice.actions;
-export default furkidSlice.reducer;
+} = dashboardVolunteerSlice.actions;
+export default dashboardVolunteerSlice.reducer;

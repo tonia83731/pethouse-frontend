@@ -20,14 +20,13 @@ import { CiCircleMore } from "react-icons/ci";
 import { ImCross } from "react-icons/im";
 import { FaCheck } from "react-icons/fa";
 import {
-  SizeType,
   TransformAge,
   TransformAnimal,
   TransformGender,
   TransformSize,
   TransforTrueFalse,
 } from "@/helpers/animal-helpers";
-import { FurkidProps } from "@/pages/adoption";
+import { FurkidProps, SizeType } from "@/types/furkid";
 import { clientFetch } from "@/lib/fetch";
 
 interface IFurkidTable {

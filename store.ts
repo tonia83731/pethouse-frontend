@@ -3,6 +3,8 @@ import adoptionReducer from "@/slices/adoptionSlice";
 import furkidReducer from "@/slices/furkidSlice";
 import supplyReducer from "@/slices/supplySlice";
 import partnerReducer from "@/slices/partnerSlice";
+import volunteerReducer from "@/slices/volunteerSlice";
+import dashboardVolunteerReducer from "./slices/dashboarVolunteerSlice";
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +12,8 @@ export const store = configureStore({
     furkid: furkidReducer,
     supply: supplyReducer,
     partner: partnerReducer,
+    volunteer: volunteerReducer,
+    dashboardVolunteer: dashboardVolunteerReducer,
   },
 });
 

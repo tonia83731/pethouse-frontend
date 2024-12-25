@@ -1,8 +1,6 @@
 import { StylesConfig } from "react-select";
-export type SelectOptionType = {
-  value: any;
-  label: string;
-};
+import { SelectOptionType } from "@/types/default";
+
 export const SELECTSTYLES: StylesConfig<SelectOptionType, false> = {
   indicatorSeparator: (styles) => ({
     ...styles,

@@ -30,7 +30,11 @@ const DefaultSelect = ({
         className="react-select"
         placeholder={placeholder}
         options={options}
-        defaultValue={inputValue && inputValue?.value ? inputValue : null}
+        defaultValue={
+          inputValue && (inputValue?.value || inputValue?.value === 0)
+            ? inputValue
+            : null
+        }
         styles={{
           indicatorSeparator: (styles) => ({
             ...styles,
