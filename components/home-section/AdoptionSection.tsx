@@ -35,7 +35,7 @@ const AdoptionSection = () => {
         </Link>
       </div>
 
-      <div className="flex justify-between md:grid md:grid-cols-4 gap-12 md:gap-8">
+      <div className="flex justify-between items-end md:grid md:grid-cols-4 gap-12 md:gap-8">
         {animal_types.map(({ title, src }) => {
           return (
             <div className="flex flex-col gap-2 items-center" key={title}>
@@ -44,7 +44,7 @@ const AdoptionSection = () => {
                 alt={title}
                 width={200}
                 height={200}
-                className="w-20 h-20"
+                className="w-15 h-15 md:w-20 md:h-20 object-cover"
               ></Image>
               <h5 className="font-bold font-nunito text-base">{title}</h5>
             </div>

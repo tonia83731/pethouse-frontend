@@ -15,7 +15,7 @@ const FindVolunteerListPage = ({
 }: {
   volunteers: VolunteersProps;
 }) => {
-  console.log(volunteers);
+  //   console.log(volunteers);
   return (
     <DashboardLayout title="志工申請資料">
       <Link

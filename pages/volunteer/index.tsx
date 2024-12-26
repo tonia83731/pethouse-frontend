@@ -1,210 +1,48 @@
 import { GetServerSideProps } from "next";
-import { FormEvent, useState } from "react";
-import validator from "validator";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/store";
+import { getVolunteerData } from "@/slices/volunteerSlice";
 import Select from "react-select";
-import { toast } from "react-toastify";
 import { clientFetch, serverFetch } from "@/lib/fetch";
 import { SELECTSTYLES } from "@/constants/select-style";
 import { SelectOptionType } from "@/types/default";
+import { PartnerProps } from "@/types/partner";
+import {
+  VolunteerApplyInputType,
+  VolunteersProps,
+  VolunteerTableProps,
+} from "@/types/volunteer";
 import FrontLayout from "@/components/common/layout/FrontLayout";
-import ModalLayout from "@/components/common/layout/ModalLayout";
-import VolunteerApplyForm from "@/components/volunteer-page/VolunteerApplyForm";
-import VolunteerDetail from "@/components/volunteer-page/VolunteerDetail";
 import VolunteerTable from "@/components/volunteer-page/VolunteerTable";
 import { convertMinToTime, convertTimeToMin } from "@/helpers/time-helpers";
-import { VolunteerApplyInputType, VolunteersProps } from "@/types/volunteer";
+import VolunteerDetailModal from "@/components/volunteer-page/VolunteerDetailModal";
+import VolunteerApplyModal from "@/components/volunteer-page/VolunteerApplyModal";
 
-export const possible_weekday = [
-  "週日",
-  "週一",
-  "週二",
-  "週三",
-  "週四",
-  "週五",
-  "週六",
-];
+// export const possible_weekday = [
+//   "週日",
+//   "週一",
+//   "週二",
+//   "週三",
+//   "週四",
+//   "週五",
+//   "週六",
+// ];
 
 interface VolunteerPageProps {
-  volunteers: VolunteerApplyInputType[];
+  volunteers: VolunteerTableProps[];
   partners: SelectOptionType[];
 }
 
 const VolunteerPage = ({ volunteers, partners }: VolunteerPageProps) => {
-  const [modalToggle, setModalToggle] = useState({
-    detail: false,
-    apply: false,
-  });
-  const [modalDetail, setModalDetail] = useState<VolunteersProps | null>(null);
+  const dispatch = useDispatch();
+  const { volunteerData } = useSelector((state: RootState) => state.volunteer);
   const [category, setCategory] = useState(partners[0]);
-  const [volunteerData, setVolunteerData] = useState(volunteers);
-  const [applyInput, setApplyInput] = useState<VolunteerApplyInputType>({
-    findVolunteerId: null,
-    name: "",
-    phone: "",
-    email: "",
-    date: new Date(),
-    startTime: "",
-    hours: 8,
-    needProven: false,
-  });
-  const [applyAvailableTime, setApplyAvailableTime] = useState<number | null>(
-    null
-  );
-  const [isError, setIsError] = useState({
-    status: false,
-    message: "",
-  });
 
-  const initializedData = () => {
-    setModalToggle({
-      detail: false,
-      apply: false,
-    });
-    setModalDetail(null);
-    setApplyInput({
-      findVolunteerId: null,
-      name: "",
-      phone: "",
-      email: "",
-      date: new Date(),
-      startTime: "",
-      hours: 8,
-      needProven: false,
-    });
-    setApplyAvailableTime(null);
-    setIsError({
-      status: false,
-      message: "",
-    });
-  };
-
-  // const handleApplyClick = (id: number) => {
-  //   setApplyInput((prev) => ({ ...prev, findVolunteerId: id }));
-  //   setModalToggle((prev) => ({ ...prev, apply: true }));
-  //   const volunteer = volunteers.find((v) => v.id === id);
-  //   if (volunteer) {
-  //     setApplyAvailableTime(volunteer?.time.weekday);
-  //     const startTime = convertMinToTime(volunteer.time.startTime);
-  //     setApplyInput((prev) => ({
-  //       ...prev,
-  //       hours: volunteer.minHour,
-  //       startTime,
-  //     }));
-  //   } else {
-  //     setApplyAvailableTime(null);
-  //   }
-  // };
-
-  // const handleDetailClick = (id: number) => {
-  //   setModalToggle((prev) => ({ ...prev, detail: true }));
-  //   const detail = volunteerData.find((item) => item.id === id);
-  //   if (detail) {
-  //     setModalDetail(detail);
-  //   }
-  // };
-
-  // const errorHandleing = (volunteerId: number | null, inputValue: any) => {
-  //   // initialized error
-  //   setIsError({
-  //     status: false,
-  //     message: "",
-  //   });
-
-  //   const volunteer = volunteers.find((item) => item.id === volunteerId);
-
-  //   const { name, phone, email, date, startTime, hours } = inputValue;
-  //   if (!name || !email || !phone) {
-  //     setIsError({
-  //       status: true,
-  //       message: "姓名、電子郵件、電話不可為空白!",
-  //     });
-  //     return;
-  //   }
-  //   if (!validator.isEmail(email)) {
-  //     setIsError({
-  //       status: true,
-  //       message: "電子郵件格式錯誤!",
-  //     });
-  //     return;
-  //   }
-
-  //   if (!date) {
-  //     setIsError({
-  //       status: true,
-  //       message: "日期不可為空白!",
-  //     });
-  //     return;
-  //   }
-
-  //   if (volunteer && hours < volunteer?.minHour) {
-  //     setIsError({
-  //       status: true,
-  //       message: `最低時數為${volunteer?.minHour}小時`,
-  //     });
-  //     return;
-  //   }
-
-  //   const start = convertTimeToMin(startTime);
-
-  //   if (volunteer && start + hours > volunteer?.time.endTime) {
-  //     setIsError({
-  //       status: true,
-  //       message: `工作時間超出結束時間${convertMinToTime(
-  //         volunteer?.time.endTime
-  //       )}`,
-  //     });
-  //     return;
-  //   }
-  // };
-
-  // const handleApplySubmit = async (e: FormEvent) => {
-  //   e.preventDefault();
-  //   const volunteerId = applyInput.findVolunteerId;
-  //   const { name, phone, email, date, startTime, hours, needProven } =
-  //     applyInput;
-
-  //   errorHandleing(volunteerId, applyInput);
-
-  //   const body = {
-  //     name,
-  //     phone,
-  //     email,
-  //     date,
-  //     startTime: convertTimeToMin(startTime),
-  //     hours,
-  //     needProven,
-  //   };
-
-  // console.log(body);
-
-  //   try {
-  //     const response = await clientFetch(`/volunteers/${volunteerId}/apply`, {
-  //       method: "POST",
-  //       body,
-  //     });
-
-  //     console.log(response);
-  //     if (!response.success) {
-  //       toast.error("志工表單填寫失敗，請在試一次!");
-  //       return;
-  //     }
-
-  //     setVolunteerData((prevData) =>
-  //       prevData
-  //         .map((volunteer) =>
-  //           volunteer.id === volunteerId
-  //             ? { ...volunteer, perPerson: volunteer.perPerson - 1 }
-  //             : volunteer
-  //         )
-  //         .filter((volunteer) => volunteer.perPerson > 0)
-  //     );
-  //     initializedData();
-  //     toast.success("志工表單填寫成功!");
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
+  useEffect(() => {
+    if (volunteers.length === 0) return;
+    dispatch(getVolunteerData({ data: volunteers }));
+  }, [volunteers]);
   return (
     <FrontLayout
       includeTitle={true}
@@ -221,7 +59,7 @@ const VolunteerPage = ({ volunteers, partners }: VolunteerPageProps) => {
               const userId = newValue?.value;
               if (category.value === userId) return;
               if (!userId) {
-                setVolunteerData(volunteers);
+                dispatch(getVolunteerData({ data: volunteers }));
                 return;
               }
               try {
@@ -229,12 +67,12 @@ const VolunteerPage = ({ volunteers, partners }: VolunteerPageProps) => {
                   `/volunteers?&userId=${userId}`
                 );
                 if (!response.success) {
-                  setVolunteerData([]);
+                  dispatch(getVolunteerData({ data: [] }));
                   return;
                 }
                 if (response.success) {
                   const data = response.data;
-                  setVolunteerData(data);
+                  dispatch(getVolunteerData({ data }));
                   setCategory(newValue || partners[0]);
                 }
               } catch (error) {
@@ -243,29 +81,10 @@ const VolunteerPage = ({ volunteers, partners }: VolunteerPageProps) => {
             }}
           />
         </div>
-        {/* <VolunteerTable
-          tableData={volunteerData}
-          onApplyClick={handleApplyClick}
-          onDetailClick={handleDetailClick}
-        /> */}
+        <VolunteerTable tableData={volunteerData} />
       </div>
-      <ModalLayout
-        title="詳細資料"
-        isOpen={modalToggle.detail}
-        onClose={initializedData}
-      >
-        <VolunteerDetail
-          modalDetail={modalDetail}
-          onApplyClick={() => {
-            setModalDetail(null);
-            setModalToggle((prev) => ({
-              ...prev,
-              detail: false,
-              apply: true,
-            }));
-          }}
-        />
-      </ModalLayout>
+      <VolunteerDetailModal />
+      <VolunteerApplyModal />
       {/* <ModalLayout
         title="志工申請"
         isOpen={modalToggle.apply}
@@ -336,14 +155,24 @@ export const getServerSideProps: GetServerSideProps = async () => {
       };
     }
 
-    const partners = partner_res?.data.map((item: any) => ({
+    const partners = partner_res?.data.map((item: PartnerProps) => ({
       value: item.id,
       label: item.name.split(" ")[1],
     }));
 
+    const volunteers = volunteer_res.data.map(
+      (volunteer: VolunteerTableProps) => ({
+        ...volunteer,
+        time: {
+          ...volunteer.time,
+          date: volunteer.time.date ? volunteer.time.date : "每天",
+        },
+      })
+    );
+
     return {
       props: {
-        volunteers: volunteer_res.data,
+        volunteers,
         partners: [
           {
             value: null,

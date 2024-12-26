@@ -3,22 +3,22 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { InputErrorType, ButtonType, ModalToggleType } from "@/types/default";
 import {
   VolunteerApplyInputType,
-  VolunteerInputType,
   VolunteersProps,
+  VolunteerTableProps,
 } from "@/types/volunteer";
 
 interface VolunteerState {
-  type: ButtonType;
-  isShowed: ModalToggleType;
+  applyToggle: ModalToggleType;
+  detailToggle: ModalToggleType;
   isError: InputErrorType;
-  inputValue: VolunteerInputType;
   applyValue: VolunteerApplyInputType;
-  volunteerData: VolunteersProps[];
+  volunteerDetail: VolunteersProps | null;
+  volunteerData: VolunteerTableProps[];
 }
 
 const initialState: VolunteerState = {
-  type: "create",
-  isShowed: false,
+  applyToggle: false,
+  detailToggle: false,
   isError: {
     status: false,
     message: "",
@@ -28,11 +28,12 @@ const initialState: VolunteerState = {
     name: "",
     phone: "",
     email: "",
-    date: new Date(),
-    startTime: "",
+    date: dayjs().format("YYYY-MM-DD"),
+    startTime: 0,
     hours: 8,
     needProven: false,
   },
+  volunteerDetail: null,
   volunteerData: [],
 };
 
@@ -40,46 +41,54 @@ const volunteerSlice = createSlice({
   name: "volunteer",
   initialState,
   reducers: {
-    resetForm(state) {
-      state.type = "create";
-      state.isShowed = false;
-      state.inputValue = initialState.inputValue;
+    resetApplyForm(state) {
+      state.applyToggle = false;
+      state.applyValue = initialState.applyValue;
+      state.volunteerDetail = null;
     },
-    updatedModalShowed(state) {
-      state.type = "create";
-      if (state.isShowed) state.inputValue = initialState.inputValue;
-      state.isShowed = !state.isShowed;
+    resetDetailModal(state) {
+      state.detailToggle = false;
+      state.volunteerDetail = null;
     },
-    updatedModalCanceled(state) {
-      state.type = "create";
-      state.isShowed = false;
-      state.inputValue = initialState.inputValue;
+    updatedModalShowed(state, action) {
+      const { id } = action.payload;
+      state.applyValue.findVolunteerId = id;
+      state.applyToggle = true;
+      state.detailToggle = false;
     },
     updatedFormInput(
       state: VolunteerState,
       action: PayloadAction<{ name: string; value: any }>
     ) {
       const { name, value } = action.payload;
-      state.inputValue[name] = value;
-    },
-    updatedEditClick(state, action) {
-      const { formData } = action.payload;
-      state.inputValue = formData;
-      state.isShowed = true;
-      state.type = "edit";
+      if (name in state.applyValue) {
+        (state.applyValue as Record<string, any>)[name] = value;
+      } else {
+        console.warn(`Invalid input field: ${name}`);
+      }
     },
     updatedErrorStatus(state, action) {
       state.isError = action.payload;
+    },
+    getVolunteerDetail(state, action) {
+      const { data } = action.payload;
+      state.volunteerDetail = data;
+      state.detailToggle = true;
+    },
+    getVolunteerData(state, action) {
+      const { data } = action.payload;
+      state.volunteerData = data;
     },
   },
 });
 
 export const {
-  resetForm,
+  resetApplyForm,
+  resetDetailModal,
   updatedFormInput,
   updatedModalShowed,
-  updatedModalCanceled,
-  updatedEditClick,
   updatedErrorStatus,
+  getVolunteerDetail,
+  getVolunteerData,
 } = volunteerSlice.actions;
 export default volunteerSlice.reducer;

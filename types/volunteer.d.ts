@@ -16,8 +16,8 @@ export type VolunteerApplyInputType = {
   name: string;
   phone: string;
   email: string;
-  date: Date;
-  startTime: string;
+  date: string;
+  startTime: number;
   hours: number;
   needProven: boolean;
 };
@@ -49,14 +49,14 @@ export type VolunteerTableProps = {
   partner: {
     id: number;
     name: string;
-    // phone: string;
-    // email: string;
-    // address: string;
+    phone?: string;
+    email?: string;
+    address?: string;
   };
   time: {
     date: string;
-    startTime: string;
-    endTime: string;
+    startTime: number;
+    endTime: number;
   };
   minHour: number;
 };

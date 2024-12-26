@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { getCookie } from "cookies-next";
-import dayjs from "dayjs";
 import { clientFetch } from "@/lib/fetch";
 import {
   PaginationState,
@@ -14,12 +13,8 @@ import {
 } from "@tanstack/react-table";
 import ModalLayout from "../common/layout/ModalLayout";
 import { CiCircleMore } from "react-icons/ci";
-import { MdPhoneAndroid } from "react-icons/md";
-import { HiOutlineMailOpen } from "react-icons/hi";
-import { IoTimeOutline } from "react-icons/io5";
 import { VolunteerTableProps } from "@/types/volunteer";
 import { useDispatch, useSelector } from "react-redux";
-// import { updateEditClick } from "@/slices/partnerSlice";
 import { toast } from "react-toastify";
 import { RootState } from "@/store";
 import {
@@ -67,7 +62,6 @@ const VolunteerDashboardTable = ({ tableData }: IVolunteerTable) => {
     application: false,
   });
   const [toggleData, setToggleData] = useState<any>(null);
-  const [applicationData, setApplicationData] = useState<any>([]);
   const [sourceSorting, setSourceSorting] = useState<SortingState>([]);
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
@@ -112,13 +106,6 @@ const VolunteerDashboardTable = ({ tableData }: IVolunteerTable) => {
           id: key,
           header: () => <span>{label}</span>,
           cell: (info) => (
-            // <button
-            //   // onClick={() => onEditClick(info.row.original.id)}
-            //   onClick={() => handleApplicationClick(info.row.original.id)}
-            //   className="text-dark-60 hover:text-dark hover:underline hover:underline-offset-2 text-xs lg:text-sm"
-            // >
-            //   查看
-            // </button>
             <Link
               href={`/dashboard/volunteers/${info.row.original.id}`}
               className="text-dark-60 hover:text-dark hover:underline hover:underline-offset-2 text-xs lg:text-sm"
@@ -376,87 +363,6 @@ const VolunteerDashboardTable = ({ tableData }: IVolunteerTable) => {
                 </div>
               </div>
             </div>
-          </div>
-        </ModalLayout>
-      )}
-      {toggle.application && (
-        <ModalLayout
-          title="志工申請列表"
-          isOpen={toggle.application}
-          onClose={() => {
-            setToggle((prev) => ({ ...prev, application: false }));
-            setApplicationData([]);
-          }}
-          customClass="h-screen mt-0"
-        >
-          <div className="flex flex-col gap-4">
-            {applicationData.length > 0 ? (
-              <>
-                {applicationData.map((item: any) => {
-                  return (
-                    <div
-                      className="bg-white rounded-lg shadow-md p-4 flex flex-col gap-4"
-                      key={item.id}
-                    >
-                      <div className="text-xl font-bold">
-                        <span className="text-xs font-normal mr-2">申請人</span>
-                        {item.name}
-                      </div>
-                      <div className="flex flex-col gap-2">
-                        <h5 className="font-bold">申請人聯絡資料</h5>
-                        <div className="text-sm text-dark-60 flex flex-col gap-1">
-                          <div className="flex items-center gap-2">
-                            <MdPhoneAndroid className="text-lg" />
-                            <a
-                              href={`tel:${item.phone}`}
-                              className="hover:underline hover:underline-offset-2 hover:font-medium"
-                            >
-                              {item.phone}
-                            </a>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <HiOutlineMailOpen className="text-lg" />
-                            <a
-                              href={`mailto:${item.email}`}
-                              className="hover:underline hover:underline-offset-2 hover:font-medium"
-                            >
-                              {item.email}
-                            </a>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="flex flex-col gap-2">
-                        <h5 className="font-bold">申請人工作資料</h5>
-                        <div className="text-sm text-dark-60 flex flex-col gap-1">
-                          <div className="flex items-center gap-2">
-                            <IoTimeOutline className="text-lg" />
-                            <div className="">
-                              {dayjs(item.date).format("YYYY-MM-DD")}, 共
-                              {item.hours}小時
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </>
-            ) : (
-              <div className="text-dark-60 w-full h-full flex justify-center items-center">
-                沒有申請資料
-              </div>
-            )}
-          </div>
-          <div className="w-full flex justify-end">
-            <button
-              onClick={() => {
-                setToggle((prev) => ({ ...prev, application: false }));
-                setApplicationData([]);
-              }}
-              className="bg-wine text-white px-4 py-1.5 rounded-lg shadow-md"
-            >
-              關閉
-            </button>
           </div>
         </ModalLayout>
       )}

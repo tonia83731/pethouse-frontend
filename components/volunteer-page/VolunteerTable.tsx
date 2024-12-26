@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   PaginationState,
   SortingState,
@@ -9,12 +10,14 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { VolunteersProps } from "@/pages/volunteer";
-import { possible_weekday } from "@/pages/volunteer";
-
-import { BsPhoneVibrateFill } from "react-icons/bs";
-import { MdEmail } from "react-icons/md";
-import { IoLocationSharp } from "react-icons/io5";
+import { convertMinToTime } from "@/helpers/time-helpers";
+import { VolunteerTableProps } from "@/types/volunteer";
+import { clientFetch } from "@/lib/fetch";
+import {
+  getVolunteerDetail,
+  updatedFormInput,
+  updatedModalShowed,
+} from "@/slices/volunteerSlice";
 
 const VOLUNTEERTABLEMAP = [
   ["partner", "需求夥伴"], // 2          //m
@@ -25,115 +28,70 @@ const VOLUNTEERTABLEMAP = [
   ["apply", ""], // 1               //t//m
 ];
 
-type VolunteerTableProps = {
-  tableData: VolunteersProps[];
-  onDetailClick: (id: number) => void;
-  onApplyClick: (id: number) => void;
-};
-
-const converMinToTime = (time: number) => {
-  const hours = Math.floor(time / 60);
-  const minutes = time % 60;
-
-  const formattedHours = String(hours).padStart(2, "0");
-  const formattedMinutes = String(minutes).padStart(2, "0");
-
-  return `${formattedHours}:${formattedMinutes}`;
-};
-
 const VolunteerTable = ({
   tableData,
-  onDetailClick,
-  onApplyClick,
-}: VolunteerTableProps) => {
+}: {
+  tableData: VolunteerTableProps[];
+}) => {
   // console.log(tableData);
+  const dispatch = useDispatch();
+
   const [sourceSorting, setSourceSorting] = useState<SortingState>([]);
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
     pageSize: 50,
   });
   const columnHelper = createColumnHelper<any>();
-  const columns = VOLUNTEERTABLEMAP.map((tHead: string[]) => {
-    if (tHead[0] === "partner") {
-      return columnHelper.accessor(tHead[0], {
-        id: tHead[0],
-        header: () => <span>{tHead[1]}</span>,
-        cell: (info) => (
-          <div className="flex flex-col gap-2 px-2">
-            <h5 className="font-medium">{info.getValue()["name"]}</h5>
-            <ul className="text-xs">
-              <li className="flex items-start gap-1">
-                <BsPhoneVibrateFill className="text-lg" />
-                <a
-                  href={`tel:${info.getValue()["phone"]}`}
-                  className="text-dark-60 hover:underline hover:underline-offset-2"
-                >
-                  {info.getValue()["phone"]}
-                </a>
-              </li>
-              <li className="flex items-start gap-1">
-                <MdEmail className="text-lg" />
-                <a
-                  href={`mailto:${info.getValue()["email"]}`}
-                  className="text-dark-60 hover:underline hover:underline-offset-2"
-                >
-                  {info.getValue()["email"]}
-                </a>
-              </li>
-              <li className="flex items-start gap-1">
-                <IoLocationSharp className="text-lg" />
-                <p className="text-dark-60">{info.getValue()["address"]}</p>
-              </li>
-            </ul>
-          </div>
-        ),
-      });
-    } else if (tHead[0] === "time") {
-      return columnHelper.accessor(tHead[0], {
-        id: tHead[0],
-        header: () => <span>{tHead[1]}</span>,
-        cell: (info) => (
-          <div className="flex flex-col items-center gap-2">
-            <div className="font-medium">
-              {info.getValue()["weekday"]
-                ? possible_weekday[info.getValue()["weekday"]]
-                : "每日"}
+  const columns = VOLUNTEERTABLEMAP.map(([key, label]) => {
+    switch (key) {
+      case "partner":
+        return columnHelper.accessor(key, {
+          id: key,
+          header: () => <span>{label}</span>,
+          cell: (info) => <div className="">{info.getValue()["name"]}</div>,
+        });
+      case "time":
+        return columnHelper.accessor(key, {
+          id: key,
+          header: () => <span>{label}</span>,
+          cell: (info) => (
+            <div className="flex flex-col items-center gap-2">
+              <div className="font-medium">{info.getValue()["date"]}</div>
+              <div className="flex items-center gap-1">
+                <p>{convertMinToTime(info.getValue()["startTime"])}</p>
+                <p>~</p>
+                <p>{convertMinToTime(info.getValue()["endTime"])}</p>
+              </div>
             </div>
-            <div className="flex items-center gap-1">
-              <p>{converMinToTime(info.getValue()["startTime"])}</p>
-              <p>~</p>
-              <p>{converMinToTime(info.getValue()["endTime"])}</p>
+          ),
+        });
+      case "apply":
+        return columnHelper.accessor(key, {
+          id: key,
+          header: () => <span>{label}</span>,
+          cell: (info) => (
+            <div className="flex flex-col gap-2">
+              <button
+                onClick={() => handleDetailClick(info.row.original.id)}
+                className="bg-taro text-white px-4 py-1 rounded-lg lg:hidden hover:shadow-md"
+              >
+                More
+              </button>
+              <button
+                onClick={() => handleApplyClick(info.row.original.id)}
+                className="bg-skin text-white px-4 py-1 rounded-lg hover:shadow-md"
+              >
+                報名
+              </button>
             </div>
-          </div>
-        ),
-      });
-    } else if (tHead[0] === "apply") {
-      return columnHelper.accessor(tHead[0], {
-        id: tHead[0],
-        header: () => <span>{tHead[1]}</span>,
-        cell: (info) => (
-          <div className="flex flex-col gap-2">
-            <button
-              onClick={() => onDetailClick(info.row.original.id)}
-              className="bg-taro text-white px-4 py-1 rounded-lg lg:hidden hover:shadow-md"
-            >
-              More
-            </button>
-            <button
-              onClick={() => onApplyClick(info.row.original.id)}
-              className="bg-skin text-white px-4 py-1 rounded-lg hover:shadow-md"
-            >
-              報名
-            </button>
-          </div>
-        ),
-      });
-    } else {
-      return columnHelper.accessor(tHead[0], {
-        id: tHead[0],
-        header: () => <span>{tHead[1]}</span>,
-        cell: (info) => <span className="px-2">{info.getValue()}</span>,
-      });
+          ),
+        });
+      default:
+        return columnHelper.accessor(key, {
+          id: key,
+          header: () => <span>{label}</span>,
+          cell: (info) => <span className="px-2">{info.getValue()}</span>,
+        });
     }
   });
 
@@ -151,6 +109,31 @@ const VolunteerTable = ({
     onPaginationChange: setPagination,
     debugTable: true,
   });
+
+  const handleDetailClick = async (id: number | null) => {
+    try {
+      const response = await clientFetch(`/volunteers/${id}`);
+      if (response.success) {
+        dispatch(getVolunteerDetail({ data: response.data }));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleApplyClick = async (id: number | null) => {
+    try {
+      const response = await clientFetch(`/volunteers/${id}`);
+      if (response.success) {
+        dispatch(getVolunteerDetail({ data: response.data }));
+        dispatch(updatedModalShowed({ id }));
+        // dispatch(
+        //   updatedFormInput({ name: "findVolunteerId", value: id as number })
+        // );
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <table>

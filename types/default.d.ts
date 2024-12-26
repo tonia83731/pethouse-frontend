@@ -10,3 +10,9 @@ export type InputErrorType = {
 
 export type ButtonType = "create" | "edit";
 export type ModalToggleType = boolean;
+
+export type PaginationProps = {
+  currentPage: number;
+  totalPages: number;
+  itemsPerPage: number;
+};

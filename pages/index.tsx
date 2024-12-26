@@ -1,6 +1,6 @@
 import { GetServerSideProps } from "next";
 import { serverFetch } from "@/lib/fetch";
-import { PartnerProps } from "@/components/home-section/PartnerSection";
+import { PartnerProps } from "@/types/partner";
 import FrontLayout from "@/components/common/layout/FrontLayout";
 import AdoptionSection from "@/components/home-section/AdoptionSection";
 import AdoptionStepSection from "@/components/home-section/AdoptionStepSection";

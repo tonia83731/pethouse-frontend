@@ -30,7 +30,7 @@ const initialState: FurkidState = {
       label: "",
       value: null,
     },
-    avatar: null,
+    avatar: "https://i.imgur.com/UZ1sYRu.jpeg",
   },
   furkidData: [],
 };

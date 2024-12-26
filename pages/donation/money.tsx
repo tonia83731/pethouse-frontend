@@ -1,22 +1,19 @@
 import { useState, ChangeEvent } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/store";
+import { updatedFormInput } from "@/slices/moneySlice";
 import DonationLayout from "@/components/common/layout/DonationLayout";
 import DefaultInput from "@/components/common/input/DefaultInput";
+import DefaultCheckbox from "@/components/common/input/DefaultCheckbox";
 
 const MoneyPage = () => {
-  const [donateForm, setDonateForm] = useState({
-    name: "",
-    phone: "",
-    email: "",
-    amount: 0,
-    idNumber: "",
-    invoice: false,
-  });
-  const handleFormInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setDonateForm((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
+  const dispatch = useDispatch();
+  const { donateValue } = useSelector((state: RootState) => state.money);
+
+  const handleInputChange = (name: string, value: any) => {
+    dispatch(updatedFormInput({ name, value }));
   };
+
   return (
     <DonationLayout>
       <form className="flex flex-col gap-4">
@@ -25,8 +22,8 @@ const MoneyPage = () => {
           id="name"
           name="name"
           placeholder="請輸入姓名"
-          inputValue={donateForm.name}
-          onInputChange={handleFormInputChange}
+          inputValue={donateValue.name}
+          onInputChange={handleInputChange}
         />
         <div className="flex flex-col gap-4 md:grid md:grid-cols-2">
           <DefaultInput
@@ -35,8 +32,8 @@ const MoneyPage = () => {
             id="phone"
             name="phone"
             placeholder="請輸入電話"
-            inputValue={donateForm.phone}
-            onInputChange={handleFormInputChange}
+            inputValue={donateValue.phone}
+            onInputChange={handleInputChange}
           />
           <DefaultInput
             label="電子郵件"
@@ -44,8 +41,8 @@ const MoneyPage = () => {
             id="email"
             name="email"
             placeholder="請輸入電子郵件"
-            inputValue={donateForm.email}
-            onInputChange={handleFormInputChange}
+            inputValue={donateValue.email}
+            onInputChange={handleInputChange}
           />
         </div>
         <div className="flex flex-col gap-4 md:grid md:grid-cols-2">
@@ -55,33 +52,25 @@ const MoneyPage = () => {
             id="amount"
             name="amount"
             placeholder="請輸入捐贈金額"
-            inputValue={donateForm.amount}
-            onInputChange={handleFormInputChange}
+            inputValue={donateValue.amount}
+            onInputChange={handleInputChange}
           />
           <DefaultInput
             label="統一編號"
             id="idNumber"
             name="idNumber"
             placeholder="請輸入統一編號"
-            inputValue={donateForm.idNumber}
-            onInputChange={handleFormInputChange}
+            inputValue={donateValue.idNumber}
+            onInputChange={handleInputChange}
           />
         </div>
-        <div className="flex items-center gap-2">
-          <input
-            type="checkbox"
-            id="invoice"
-            name="invoice"
-            checked={donateForm.invoice}
-            className="w-4 h-5 accent-wine"
-            onChange={() => {
-              setDonateForm((prev) => ({ ...prev, invoice: !prev.invoice }));
-            }}
-          />
-          <label htmlFor="invoice" className="">
-            是否需要統一發票?
-          </label>
-        </div>
+        <DefaultCheckbox
+          id="invoice"
+          name="invoice"
+          inputValue={donateValue.invoice}
+          label="是否需要統一發票?"
+          onCheckboxChange={handleInputChange}
+        />
         <div className="w-full flex justify-end">
           <button className="font-medium py-1 px-6 bg-wine text-white rounded-lg hover:drop-shadow-lg">
             前往付款

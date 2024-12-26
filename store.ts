@@ -5,6 +5,7 @@ import supplyReducer from "@/slices/supplySlice";
 import partnerReducer from "@/slices/partnerSlice";
 import volunteerReducer from "@/slices/volunteerSlice";
 import dashboardVolunteerReducer from "./slices/dashboarVolunteerSlice";
+import MoneyReducer from "@/slices/moneySlice";
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
     partner: partnerReducer,
     volunteer: volunteerReducer,
     dashboardVolunteer: dashboardVolunteerReducer,
+    money: MoneyReducer,
   },
 });
 

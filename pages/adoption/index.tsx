@@ -9,8 +9,6 @@ import FrontLayout from "@/components/common/layout/FrontLayout";
 import Pagination from "@/components/common/Pagination";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import { animal_options } from "@/datas/animal-option";
-import { SelectOptionType } from "@/types/default";
-import { FurkidProps } from "@/types/furkid";
 import {
   TransformGender,
   TransformAge,
@@ -22,23 +20,10 @@ import { IoLocationSharp } from "react-icons/io5";
 import { FaPhone } from "react-icons/fa6";
 import { MdPets } from "react-icons/md";
 
-export type PartnerProps = {
-  id: number;
-  name: string;
-  email: string;
-  phone: string;
-  weekStart: number;
-  weekEnd: number;
-  openingTime: number;
-  closingTime: number;
-  address: string;
-};
-export type PaginationProps = {
-  currentPage: number;
-  totalPages: number;
-  // totalItems: number;
-  itemsPerPage: number;
-};
+import { FurkidProps } from "@/types/furkid";
+import { SelectOptionType } from "@/types/default";
+import { PaginationProps } from "@/types/default";
+import { PartnerProps } from "@/types/partner";
 interface AdoptionPageProps {
   furkids: FurkidProps[];
   partners: SelectOptionType[];
@@ -49,12 +34,16 @@ type CategoryState = {
   partner: SelectOptionType;
   animal: SelectOptionType;
 };
-
+// furkids, pagination,
 const AdoptionPage = ({ furkids, pagination, partners }: AdoptionPageProps) => {
   const [currPage, setCurrPage] = useState(pagination?.currentPage | 1);
+  const [totalPage, setTotalPage] = useState(pagination?.totalPages | 1);
   const [furkidsData, setFurkidsData] = useState(furkids);
   const [category, setCategory] = useState<CategoryState>({
-    partner: partners[0],
+    partner: {
+      label: "全部分店",
+      value: null,
+    },
     animal: {
       label: "全部動物",
       value: null,
@@ -134,7 +123,9 @@ const AdoptionPage = ({ furkids, pagination, partners }: AdoptionPageProps) => {
                   return;
                 }
                 if (response.success) {
+                  // console.log(response.data);
                   const data = response.data.furkids;
+                  const page = response.data.pagination;
                   setFurkidsData(data);
                   setCategory((prev) => ({
                     ...prev,
@@ -143,6 +134,10 @@ const AdoptionPage = ({ furkids, pagination, partners }: AdoptionPageProps) => {
                       value: null,
                     },
                   }));
+                  // setTotalPage(page.to)
+                  // console.log(page);
+                  setTotalPage(page?.totalPages);
+                  setCurrPage(1);
                 }
               } catch (error) {
                 console.log(error);
@@ -176,11 +171,14 @@ const AdoptionPage = ({ furkids, pagination, partners }: AdoptionPageProps) => {
                 }
                 if (response.success) {
                   const data = response.data.furkids;
+                  const page = response.data.pagination;
                   setFurkidsData(data);
                   setCategory((prev) => ({
                     ...prev,
                     animal: newValue || partners[0],
                   }));
+                  setTotalPage(page?.totalPages);
+                  setCurrPage(1);
                 }
               } catch (error) {
                 console.log(error);
@@ -203,9 +201,6 @@ const AdoptionPage = ({ furkids, pagination, partners }: AdoptionPageProps) => {
         </form>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-6">
-        {/* {furkidsData.map((item) => {
-          return <AdoptionCard {...item} key={item.id} />;
-        })} */}
         {furkidsData.map(
           ({
             id,
@@ -318,129 +313,15 @@ const AdoptionPage = ({ furkids, pagination, partners }: AdoptionPageProps) => {
             );
           }
         )}
-        {/* {furkidsData.map(({
-  id,
-  name,
-  animal,
-  gender,
-  size,
-  age,
-  isNeutured,
-  isVaccinated,
-  partner,
-  avatar,
-}) => {
-          const trans_gender = TransformGender(gender);
-  const trans_size = TransformSize(size);
-  const trans_age = TransformAge(age);
-  const trans_animal = TransformAnimal(animal);
-  const is_neutured = TransforTrueFalse(isNeutured);
-  const is_vaccinated = TransforTrueFalse(isVaccinated);
-  return (
-    <div className="">
-      <div className="relative w-full h-[200px]">
-        <Image
-          src={avatar}
-          alt={name}
-          width={300}
-          height={250}
-          className="w-full h-full object-cover"
-        ></Image>
-        <Link
-          // href={`/adoption/application/1`}
-          // href={`/adoption/application/${encodeURIComponent(id)}`}
-          href={{
-            pathname: "/adoption/application/[slug]",
-            query: { slug: id },
-          }}
-          title="我要領養"
-          className="absolute top-2 right-2 w-8 h-8 rounded-full text-xl bg-white-60 text-wine-60 hover:bg-white hover:text-wine flex justify-center items-center"
-        >
-          <MdPets />
-        </Link>
       </div>
-      <div className="relative z-[60] bg-white-80 hover:bg-white-40 drop-shadow-md rounded-lg px-4 py-2 mt-[-60px] mx-2 flex flex-col gap-2">
-        <div className="flex justify-between items-center gap-2">
-          <div className="font-bold flex items-center gap-0.5">
-            <div
-              className={`
-                ${
-                  gender === "M"
-                    ? "text-sky"
-                    : gender === "F"
-                    ? "text-berry"
-                    : "text-neutral"
-                }
-                `}
-            >
-              {trans_gender}
-            </div>
-            <div className="text-lg">
-              {name} | {trans_animal}
-            </div>
-          </div>
-          <div className="text-sm flex items-center gap-1">
-            <div className="text-center py-0.5 w-[40px] bg-wine text-white rounded-md">
-              {trans_size}
-            </div>
-            <div className="text-center py-0.5 w-[40px] bg-wine text-white rounded-md">
-              {trans_age}
-            </div>
-          </div>
-        </div>
-        <div className="flex items-center gap-6 text-sm">
-          <div className="flex items-center gap-2">
-            <div
-              className={`
-                ${is_neutured ? "text-neutral" : "text-berry"}
-                `}
-            >
-              {is_neutured}
-            </div>
-            <div className="text-dark-60">{is_neutured ? "已" : "未"}絕育</div>
-          </div>
-          <div className="flex items-center gap-2">
-            <div
-              className={`
-                ${is_vaccinated ? "text-neutral" : "text-berry"}
-                `}
-            >
-              {is_vaccinated}
-            </div>
-            <div className="text-dark-60">
-              {is_vaccinated ? "已" : "未"}施打狂犬疫苗
-            </div>
-          </div>
-        </div>
-        <div className="border-b border-dotted border-dark-40"></div>
-        <div className="flex items-center gap-2 text-dark-60">
-          <div className="">
-            <IoLocationSharp />
-          </div>
-          <div className="text-sm">{partner.name}</div>
-        </div>
-        <div className="flex items-center gap-2 text-dark-60">
-          <div className="">
-            <FaPhone />
-          </div>
-          <Link href={`tel:${partner.address}`} className="text-sm">
-            {partner.address}
-          </Link>
-        </div>
+      <div className="w-full flex justify-center md:justify-end">
+        <Pagination
+          currPage={currPage}
+          totalPage={totalPage}
+          onArrowClick={handleArrowClick}
+          onNumClick={handleNumberClick}
+        />
       </div>
-    </div>
-        })} */}
-      </div>
-      {pagination && (
-        <div className="w-full flex justify-center md:justify-end">
-          <Pagination
-            currPage={currPage}
-            totalPage={pagination?.totalPages}
-            onArrowClick={handleArrowClick}
-            onNumClick={handleNumberClick}
-          />
-        </div>
-      )}
     </FrontLayout>
   );
 };
@@ -448,14 +329,16 @@ const AdoptionPage = ({ furkids, pagination, partners }: AdoptionPageProps) => {
 export default AdoptionPage;
 export const getServerSideProps: GetServerSideProps = async () => {
   try {
-    // const response = await serverFetch("/furkids");
-    const [furkid_res, partner_res] = await Promise.all([
+    // const furkids_res = await serverFetch("/furkids");
+    // const partners_res = await serverFetch("/partners");
+    const [furkids_res, partners_res] = await Promise.all([
       serverFetch("/furkids"),
       serverFetch("/partners"),
     ]);
+    // console.log(furkids_res, partners_res);
     // console.log(response);
 
-    if (!furkid_res.success || !partner_res.success)
+    if (!furkids_res.success || !partners_res.success)
       return {
         props: {
           partners: [],
@@ -464,23 +347,23 @@ export const getServerSideProps: GetServerSideProps = async () => {
         },
       };
 
-    const partners = partner_res?.data.map((item: any) => ({
-      value: item.id,
-      label: item.name.split(" ")[1],
+    const partners_data = partners_res?.data.map((partner: PartnerProps) => ({
+      value: partner.id,
+      label: partner.name.split(" ")[1],
     }));
+    const partners = [
+      {
+        value: null,
+        label: "全部分店",
+      },
+      ...partners_data,
+    ];
 
-    // console.log(furkid_res.data);
     return {
       props: {
-        partners: [
-          {
-            value: null,
-            label: "全部分店",
-          },
-          ...partners,
-        ],
-        furkids: furkid_res.data.furkids,
-        pagination: furkid_res.data.pagination,
+        partners,
+        furkids: furkids_res.data.furkids,
+        pagination: furkids_res.data.pagination,
       },
     };
   } catch (error) {
