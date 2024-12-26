@@ -41,40 +41,47 @@ const SuppliesForm = ({ partners }: SuppliesFormProps) => {
   };
 
   const inputErrorChecked = (inputValue: SupplyInputType) => {
-    const { name, number, location } = inputValue;
-    if (!name || !location.value) {
-      dispatch(
-        updatedErrorStatus({
+    const { name, number, location, intro } = inputValue;
+
+    let error = { status: false, message: "" };
+
+    switch (true) {
+      case !name || !location.value:
+        error = {
           status: true,
           message: "請確實填寫以下資訊: 物資名稱、寄送地點",
-        })
-      );
-      return;
-    }
+        };
+        break;
 
-    if (number <= 1) {
-      dispatch(
-        updatedErrorStatus({
+      case number < 1:
+        error = {
           status: true,
           message: "最低數量需大於1",
-        })
-      );
-      return;
+        };
+        break;
+      case intro.length > 300:
+        error = {
+          status: true,
+          message: "簡介字數需介於0-300之間",
+        };
+        break;
+      default:
+        error = {
+          status: false,
+          message: "",
+        };
+        break;
     }
 
-    dispatch(
-      updatedErrorStatus({
-        status: false,
-        message: "",
-      })
-    );
+    dispatch(updatedErrorStatus(error));
+    return error.status;
   };
 
   const handleFormSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    inputErrorChecked(inputValue);
-
-    if (isError.status) return;
+    if (inputErrorChecked(inputValue)) {
+      return;
+    }
 
     const method = type === "create" ? "POST" : "PUT";
     const url =

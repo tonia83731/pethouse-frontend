@@ -50,7 +50,7 @@ const CollaborationPage = ({
       <button
         disabled={!currentUser?.isAdmin}
         onClick={() => handleModalShowed("create")}
-        className="w-full lg:w-1/5 lg:max-w-[140px] py-2 bg-heart text-white lg:text-lg rounded-lg disabled:bg-dark-40 disabled:text-white"
+        className="w-full lg:w-1/5 lg:max-w-[140px] py-2 bg-heart text-white lg:text-lg rounded-lg disabled:bg-gray-200 disabled:text-gray-400"
       >
         新增夥伴
       </button>

@@ -49,10 +49,12 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
       };
     }
 
-    const partners = partner_res.data.map((partner: PartnerProps) => ({
-      label: partner.name,
-      value: partner.id,
-    }));
+    const partners = partner_res.data
+      .filter((partner: PartnerProps) => !partner.isAdmin)
+      .map((partner: PartnerProps) => ({
+        label: partner.name,
+        value: partner.id,
+      }));
 
     return {
       props: {

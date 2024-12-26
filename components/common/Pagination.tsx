@@ -18,7 +18,7 @@ const Pagination = ({
   return (
     <div className="flex items-center gap-2 font-medium">
       <button
-        className="border border-dark-60 text-dark-60 rounded-md w-7 h-7 flex justify-center items-center disabled:bg-dark-40 disabled:border-0 disabled:text-white hover:border-wine hover:text-wine"
+        className="border border-dark-60 text-dark-60 rounded-md w-7 h-7 flex justify-center items-center disabled:bg-gray-200 disabled:text-gray-400 disabled:border-0 hover:border-wine hover:text-wine"
         onClick={() => onArrowClick("prev")}
         disabled={currPage === 1}
       >
@@ -29,7 +29,7 @@ const Pagination = ({
         return (
           <button
             key="page"
-            className={`border rounded-md w-7 h-7 flex justify-center items-center disabled:bg-dark-40 disabled:text-white hover:border-wine hover:text-wine ${
+            className={`border rounded-md w-7 h-7 flex justify-center items-center disabled:bg-gray-200 disabled:text-gray-400 hover:border-wine hover:text-wine ${
               currPage === page
                 ? "border-wine text-wine font-bold"
                 : "border-dark-60 text-dark-60"
@@ -42,7 +42,7 @@ const Pagination = ({
       })}
 
       <button
-        className="border border-dark-60 text-dark-60 rounded-md w-7 h-7 flex justify-center items-center disabled:bg-dark-40 disabled:border-0 disabled:text-white hover:border-wine hover:text-wine"
+        className="border border-dark-60 text-dark-60 rounded-md w-7 h-7 flex justify-center items-center disabled:bg-gray-200 disabled:text-gray-400 disabled:border-0 hover:border-wine hover:text-wine"
         onClick={() => onArrowClick("next")}
         disabled={currPage === totalPage}
       >

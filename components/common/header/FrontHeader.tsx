@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { ImCross } from "react-icons/im";
-import PethouseLogo from "@/public/icons/logo.svg";
+import PethouseLogo from "@/public/icons/Logo.svg";
 
 const nav_link = [
   {

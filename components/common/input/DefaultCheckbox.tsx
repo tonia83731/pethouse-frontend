@@ -5,6 +5,7 @@ interface DefaultCheckboxProps {
   inputValue: boolean;
   // onCheckboxChange: (e: ChangeEvent<HTMLInputElement>) => void;
   onCheckboxChange: (name: string, value: boolean) => void;
+  customClass?: string;
 }
 
 const DefaultCheckbox = ({
@@ -13,9 +14,10 @@ const DefaultCheckbox = ({
   name,
   inputValue,
   onCheckboxChange,
+  customClass = "",
 }: DefaultCheckboxProps) => {
   return (
-    <div className="flex gap-4 items-center">
+    <div className={`flex gap-4 items-center ${customClass}`}>
       <input
         id={id}
         name={name}

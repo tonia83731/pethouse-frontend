@@ -110,30 +110,28 @@ const DashboardPartnerCard = ({
       </h5>
       {!isAdmin && <div className="text-sm">{address}</div>}
       <div className="text-sm flex flex-col gap-1">
-        {!isAdmin && (
-          <div className="flex flex-row gap-2 items-center">
-            <IoTimeOutline />
-            <div className="flex flex-row gap-2">
-              <div className="">
-                {week_start} 至 {week_end}
-              </div>
-              <div className="">
-                {opening}~{closing}
-              </div>
+        <div
+          className={isAdmin ? "hidden" : "flex flex-row gap-2 items-center"}
+        >
+          <IoTimeOutline />
+          <div className="flex flex-row gap-2">
+            <div className="">
+              {week_start} 至 {week_end}
+            </div>
+            <div className="">
+              {opening}~{closing}
             </div>
           </div>
-        )}
-        {!isAdmin && (
-          <div className="flex items-center gap-2">
-            <MdPhoneAndroid />
-            <a
-              href={`tel:${phone}`}
-              className="hover:underline hover:underline-offset-2"
-            >
-              {phone}
-            </a>
-          </div>
-        )}
+        </div>
+        <div className="flex items-center gap-2">
+          <MdPhoneAndroid />
+          <a
+            href={`tel:${phone}`}
+            className="hover:underline hover:underline-offset-2"
+          >
+            {phone}
+          </a>
+        </div>
         <div className="flex items-center gap-2">
           <HiOutlineMailOpen />
           <a
@@ -149,14 +147,14 @@ const DashboardPartnerCard = ({
           <button
             disabled={!currentUser?.isAdmin}
             onClick={() => handleDeleteClick(id)}
-            className="bg-taro text-dark w-full px-4 py-1.5 rounded-lg hover:shadow-md disabled:bg-dark-40 disabled:text-white disabled:hover:shadow-none"
+            className="bg-taro text-dark w-full px-4 py-1.5 rounded-lg hover:shadow-md disabled:bg-gray-200 disabled:text-gray-400 disabled:hover:shadow-none"
           >
             刪除
           </button>
           <button
             disabled={!currentUser?.isAdmin && currentUser?.id !== id}
             onClick={() => handleEditClick(id)}
-            className="bg-skin text-dark w-full px-4 py-1.5 rounded-lg hover:shadow-md disabled:bg-dark-40 disabled:text-white disabled:hover:shadow-none"
+            className="bg-skin text-dark w-full px-4 py-1.5 rounded-lg hover:shadow-md disabled:bg-gray-200 disabled:text-gray-400 disabled:hover:shadow-none"
           >
             修改
           </button>

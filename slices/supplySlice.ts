@@ -48,6 +48,7 @@ const supplySlice = createSlice({
       state.type = "create";
       state.isShowed = false;
       state.inputValue = initialState.inputValue;
+      state.isError = initialState.isError;
     },
     updatedFormInput(
       state: SupplyState,

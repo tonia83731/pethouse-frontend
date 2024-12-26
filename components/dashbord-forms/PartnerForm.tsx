@@ -56,62 +56,49 @@ const PartnerForm = () => {
       closingTime,
     } = inputValue;
 
-    if (!name || !account || !email) {
-      dispatch(
-        updatedErrorStatus({
+    let error = { status: false, message: "" };
+
+    switch (true) {
+      case !name || !account || !email:
+        error = {
           status: true,
           message: "請確實填寫以下資訊: 店名、帳號、電子郵件、密碼",
-        })
-      );
-      return;
-    }
-
-    if (!validator.isEmail(email)) {
-      // console.log(email, validator.isEmail(email));
-      dispatch(
-        updatedErrorStatus({
+        };
+        break;
+      case !validator.isEmail(email):
+        error = {
           status: true,
           message: "無效電子郵件",
-        })
-      );
-      return;
-    }
-
-    if (account.length < 6 || account.length > 20) {
-      dispatch(
-        updatedErrorStatus({
+        };
+        break;
+      case account.length < 6 || account.length > 20:
+        error = {
           status: true,
           message: "帳號請介於6-20字之間",
-        })
-      );
-      return;
-    }
-
-    if (weekStart.value > weekEnd.value) {
-      dispatch(
-        updatedErrorStatus({
+        };
+        break;
+      case weekStart.value > weekEnd.value:
+        error = {
           status: true,
           message: `營業時間錯誤: ${weekStart.label}不可大於${weekEnd.label}`,
-        })
-      );
-      return;
-    }
-    if (openingTime >= closingTime) {
-      dispatch(
-        updatedErrorStatus({
+        };
+        break;
+      case openingTime >= closingTime:
+        error = {
           status: true,
           message: `營業時間錯誤: ${openingTime}不可大於${closingTime}`,
-        })
-      );
-      return;
+        };
+        break;
+      default:
+        error = {
+          status: false,
+          message: "",
+        };
+        break;
     }
 
-    dispatch(
-      updatedErrorStatus({
-        status: false,
-        message: "",
-      })
-    );
+    dispatch(updatedErrorStatus(error));
+    return error.status;
   };
   const handleFormSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -130,9 +117,9 @@ const PartnerForm = () => {
       return;
     }
 
-    inputErrorChecked(inputValue);
-
-    if (isError.status) return;
+    if (inputErrorChecked(inputValue)) {
+      return;
+    }
 
     const method = type === "create" ? "POST" : "PUT";
     const url =

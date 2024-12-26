@@ -61,8 +61,8 @@ const DashboardLayout = ({
   };
 
   return (
-    <div className="w-full h-full min-h-screen grid grid-cols-[60px_2fr] lg:grid-cols-[200px_2fr] bg-skin">
-      <header className="relative w-[60px] lg:w-[200px] h-full min-h-screen pt-12 pb-6 text-white flex flex-col justify-between">
+    <div className="w-full h-screen overflow-y-hidden grid grid-cols-[60px_2fr] lg:grid-cols-[200px_2fr] bg-skin">
+      <header className="relative w-[60px] lg:w-[200px] h-screen pt-12 pb-6 text-white flex flex-col justify-between">
         <nav className="flex flex-col gap-8">
           <Link
             href="/dashboard/furkids"
@@ -101,7 +101,7 @@ const DashboardLayout = ({
         </button>
       </header>
       <main className="w-full h-screen overflow-y-auto bg-white rounded-tl-[60px]">
-        <div className="w-9/12 max-w-[1280px] mx-auto pt-[60px] flex flex-col gap-8">
+        <div className="w-9/12 max-w-[1280px] mx-auto pt-[60px] pb-[90px] flex flex-col gap-8">
           {title && <h1 className="font-bold text-2xl">{title}</h1>}
           <div className="flex flex-col gap-6">{children}</div>
         </div>

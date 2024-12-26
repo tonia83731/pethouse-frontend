@@ -121,7 +121,7 @@ const SuppliesTable = ({ tableData }: ISupplyTable) => {
 
       if (response.success) {
         const { id, introduction, number, partner, supplyName } = response.data;
-        console.log(response.data);
+        // console.log(response.data);
         const formData = {
           supplyId: id,
           name: supplyName,

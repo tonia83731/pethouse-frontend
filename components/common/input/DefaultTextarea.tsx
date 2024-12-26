@@ -26,7 +26,7 @@ const DefaultTextarea = ({
         name={name}
         id={id}
         placeholder={placeholder}
-        className="w-full h-20 leading-10 p-4 rounded-lg border-0 bg-skin-60 text-wine placeholder:text-xs placeholder:text-dark-40"
+        className="w-full leading-10 px-4 py-1 rounded-lg border-0 bg-skin-60 text-wine placeholder:py-1 placeholder:text-xs placeholder:text-dark-40"
         onChange={(e) => {
           const { name, value } = e.target;
           onInputChange(name, value);

@@ -4,7 +4,7 @@ export type VolunteerInputType = {
   volunteerId: null | number;
   startTime: number;
   endTime: number;
-  date: string;
+  date: string | null;
   perPerson: number;
   minHour: number;
   intro: string;
@@ -24,21 +24,39 @@ export type VolunteerApplyInputType = {
 
 export type VolunteersProps = {
   id: number;
+  userId: number;
+  perPerson: number;
+  date: null | string;
+  startTime: number;
+  endTime: number;
+  minHour: number;
+  introduction: string;
   partner: {
-    id: number;
     name: string;
     phone: string;
     email: string;
     address: string;
   };
-  perPerson: number;
-  time: {
-    date: string;
-    startTime: number;
-    endTime: number;
-  };
-  minHour: number;
-  introduction: string;
+  Volunteers: any[];
   createdAt: string;
   updatedAt: string;
+};
+
+export type VolunteerTableProps = {
+  id: number;
+  perPerson: number;
+  introduction: string;
+  partner: {
+    id: number;
+    name: string;
+    // phone: string;
+    // email: string;
+    // address: string;
+  };
+  time: {
+    date: string;
+    startTime: string;
+    endTime: string;
+  };
+  minHour: number;
 };

@@ -17,43 +17,51 @@ import { CiCircleMore } from "react-icons/ci";
 import { MdPhoneAndroid } from "react-icons/md";
 import { HiOutlineMailOpen } from "react-icons/hi";
 import { IoTimeOutline } from "react-icons/io5";
+import { VolunteerTableProps } from "@/types/volunteer";
+import { useDispatch, useSelector } from "react-redux";
+// import { updateEditClick } from "@/slices/partnerSlice";
+import { toast } from "react-toastify";
+import { RootState } from "@/store";
+import {
+  getVolunteerData,
+  updatedEditClick,
+} from "@/slices/dashboarVolunteerSlice";
+import Link from "next/link";
 
-export type VolunteerTableProps = {
-  id: number;
-  partnerId: number;
-  partner: string;
-  time: {
-    weekday: string;
-    startTime: string;
-    endTime: string;
-  };
-  minHour: number;
-  perPerson: number;
-  introduction: string;
-};
+// export type VolunteerTableProps = {
+//   id: number;
+//   partnerId: number;
+//   partner: string;
+//   time: {
+//     weekday: string;
+//     startTime: string;
+//     endTime: string;
+//   };
+//   minHour: number;
+//   perPerson: number;
+//   introduction: string;
+// };
 
 interface IVolunteerTable {
   tableData: VolunteerTableProps[];
-  onEditClick: (id: number) => void;
-  onDeleteClick: (id: number) => void;
 }
 
 const VOLUNTEERTABLEMAP = [
   ["partner", "需求夥伴"], // 2
   ["introduction", "工作內容"],
-  // ["time", "工作時間"],
+  ["time", "工作時間"],
   ["minHour", "最低時數"],
   ["perPerson", "需求人數"], // 1
   ["application", "報名列表"],
   ["button", ""], // 2
 ];
 
-const VolunteerDashboardTable = ({
-  tableData,
-  onEditClick,
-  onDeleteClick,
-}: IVolunteerTable) => {
+const VolunteerDashboardTable = ({ tableData }: IVolunteerTable) => {
   const token = getCookie("staffToken");
+  const dispatch = useDispatch();
+  const { volunteerData } = useSelector(
+    (state: RootState) => state.dashboardVolunteer
+  );
   const [toggle, setToggle] = useState({
     detail: false,
     application: false,
@@ -74,7 +82,7 @@ const VolunteerDashboardTable = ({
           header: () => <span>{label}</span>,
           cell: (info) => (
             <div className="flex items-center gap-0.5">
-              <div className="">{info.getValue()}</div>
+              <div className="">{info.getValue()["name"]}</div>
               <button
                 onClick={() => handleDetailClick(info.row.original.id)}
                 className="lg:hidden text-lg"
@@ -84,33 +92,39 @@ const VolunteerDashboardTable = ({
             </div>
           ),
         });
-      // case "time":
-      //   return columnHelper.accessor(key, {
-      //     id: key,
-      //     header: () => <span>{label}</span>,
-      //     cell: (info) => (
-      //       <div className="flex flex-col items-start gap-2">
-      //         <div className="font-medium">{info.getValue()["weekday"]}</div>
-      //         <div className="flex items-center gap-1">
-      //           <p>{info.getValue()["startTime"]}</p>
-      //           <p>~</p>
-      //           <p>{info.getValue()["endTime"]}</p>
-      //         </div>
-      //       </div>
-      //     ),
-      //   });
+      case "time":
+        return columnHelper.accessor(key, {
+          id: key,
+          header: () => <span>{label}</span>,
+          cell: (info) => (
+            <div className="flex flex-col items-center gap-2">
+              <div className="font-medium">{info.getValue()["date"]}</div>
+              <div className="flex items-center gap-1">
+                <p>{info.getValue()["startTime"]}</p>
+                <p>~</p>
+                <p>{info.getValue()["endTime"]}</p>
+              </div>
+            </div>
+          ),
+        });
       case "application":
         return columnHelper.display({
           id: key,
           header: () => <span>{label}</span>,
           cell: (info) => (
-            <button
-              // onClick={() => onEditClick(info.row.original.id)}
-              onClick={() => handleApplicationClick(info.row.original.id)}
+            // <button
+            //   // onClick={() => onEditClick(info.row.original.id)}
+            //   onClick={() => handleApplicationClick(info.row.original.id)}
+            //   className="text-dark-60 hover:text-dark hover:underline hover:underline-offset-2 text-xs lg:text-sm"
+            // >
+            //   查看
+            // </button>
+            <Link
+              href={`/dashboard/volunteers/${info.row.original.id}`}
               className="text-dark-60 hover:text-dark hover:underline hover:underline-offset-2 text-xs lg:text-sm"
             >
               查看
-            </button>
+            </Link>
           ),
         });
       case "button":
@@ -120,13 +134,13 @@ const VolunteerDashboardTable = ({
           cell: (info) => (
             <div className="flex flex-col gap-2">
               <button
-                onClick={() => onEditClick(info.row.original.id)}
+                onClick={() => handleEditClick(info.row.original.id)}
                 className="bg-skin text-dark w-full px-4 py-1.5 rounded-lg hover:shadow-md"
               >
                 修改
               </button>
               <button
-                onClick={() => onDeleteClick(info.row.original.id)}
+                onClick={() => handleDeleteClick(info.row.original.id)}
                 className="bg-taro text-dark w-full px-4 py-1.5 rounded-lg hover:shadow-md"
               >
                 刪除
@@ -158,6 +172,61 @@ const VolunteerDashboardTable = ({
     debugTable: true,
   });
 
+  const handleEditClick = async (id: number | null) => {
+    try {
+      const response = await clientFetch(`/admin/volunteers/${id}`, {
+        token,
+      });
+      if (response.success) {
+        const {
+          startTime,
+          endTime,
+          date,
+          introduction,
+          minHour,
+          partner,
+          perPerson,
+        } = response.data;
+        const formData = {
+          volunteerId: id,
+          startTime,
+          endTime,
+          date: date ? date : null,
+          intro: introduction,
+          minHour,
+          perPerson,
+          location: {
+            label: partner.name,
+            value: partner.id,
+          },
+        };
+        dispatch(updatedEditClick({ formData }));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleDeleteClick = async (id: number | null) => {
+    try {
+      const response = await clientFetch(`/admin/volunteers/${id}`, {
+        method: "DELETE",
+        token,
+      });
+
+      if (!response.success) {
+        toast.error("刪除尋找志工資料失敗，請在試一次");
+        return;
+      }
+
+      const updated_data = volunteerData.filter((item) => item.id !== id);
+      dispatch(getVolunteerData(updated_data));
+      toast.success("刪除尋找志工資料成功");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const handleDetailClick = (id: number | null) => {
     const volunteer = tableData.find((item) => item.id === id);
     if (volunteer) {
@@ -166,23 +235,23 @@ const VolunteerDashboardTable = ({
     }
   };
 
-  const handleApplicationClick = async (id: number | null) => {
-    try {
-      const response = await clientFetch(
-        `/admin/volunteers/${id}/application`,
-        {
-          token,
-        }
-      );
+  // const handleApplicationClick = async (id: number | null) => {
+  //   try {
+  //     const response = await clientFetch(
+  //       `/admin/volunteers/${id}/application`,
+  //       {
+  //         token,
+  //       }
+  //     );
 
-      if (response.success) {
-        setApplicationData(response.data);
-        setToggle((prev) => ({ ...prev, application: true }));
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //     if (response.success) {
+  //       setApplicationData(response.data);
+  //       setToggle((prev) => ({ ...prev, application: true }));
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
   return (
     <>
       <table>
@@ -278,14 +347,23 @@ const VolunteerDashboardTable = ({
           <div className="flex flex-col gap-4">
             <p className="">{toggleData.introduction}</p>
             <div className="flex flex-col md:grid md:grid-cols-[2fr_1fr] gap-4 mt-2">
-              <div className="flex flex-col gap-2 relative">
-                <h5 className="font-medium bg-white absolute left-4 -top-3">
-                  工作時間
-                </h5>
-                <div className="flex items-center gap-2 border border-wine rounded-lg p-4">
-                  <div className="">{toggleData.time.weekday}</div>
-                  <div className="">
-                    {toggleData.time.startTime} ~ {toggleData.time.endTime}
+              <div className="grid grid-cols-2 gap-4">
+                <div className="flex flex-col gap-2 relative">
+                  <h5 className="font-medium bg-white absolute left-4 -top-3">
+                    工作日期
+                  </h5>
+                  <div className="flex items-center gap-2 border border-wine rounded-lg p-4">
+                    <div className="">{toggleData.time.date}</div>
+                  </div>
+                </div>
+                <div className="flex flex-col gap-2 relative">
+                  <h5 className="font-medium bg-white absolute left-4 -top-3">
+                    工作時間
+                  </h5>
+                  <div className="flex items-center gap-2 border border-wine rounded-lg p-4">
+                    <div className="">
+                      {toggleData.time.startTime} ~ {toggleData.time.endTime}
+                    </div>
                   </div>
                 </div>
               </div>

@@ -1,14 +1,17 @@
-import dayjs from "dayjs";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { InputErrorType, ButtonType, ModalToggleType } from "@/types/default";
-import { VolunteerInputType, VolunteersProps } from "@/types/volunteer";
+import {
+  VolunteerInputType,
+  // VolunteersProps,
+  VolunteerTableProps,
+} from "@/types/volunteer";
 
 interface DashboardVolunteerState {
   type: ButtonType;
   isShowed: ModalToggleType;
   isError: InputErrorType;
   inputValue: VolunteerInputType;
-  volunteerData: VolunteersProps[];
+  volunteerData: VolunteerTableProps[];
 }
 
 const initialState: DashboardVolunteerState = {
@@ -22,7 +25,7 @@ const initialState: DashboardVolunteerState = {
     volunteerId: null,
     startTime: 0,
     endTime: 1439,
-    date: dayjs().format("YYYY-MM-DD"),
+    date: null,
     perPerson: 1,
     minHour: 4,
     intro: "",
@@ -38,27 +41,39 @@ const dashboardVolunteerSlice = createSlice({
   name: "dashboardVolunteer",
   initialState,
   reducers: {
+    getVolunteerData(state, action) {
+      const { data } = action.payload;
+      state.volunteerData = data;
+    },
     resetForm(state) {
       state.type = "create";
       state.isShowed = false;
       state.inputValue = initialState.inputValue;
+      state.isError = initialState.isError;
     },
     updatedModalShowed(state) {
       state.type = "create";
-      if (state.isShowed) state.inputValue = initialState.inputValue;
+      if (state.isShowed) {
+        state.inputValue = initialState.inputValue;
+        state.isError = initialState.isError;
+      }
       state.isShowed = !state.isShowed;
     },
-    updatedModalCanceled(state) {
-      state.type = "create";
-      state.isShowed = false;
-      state.inputValue = initialState.inputValue;
-    },
+    // updatedModalCanceled(state) {
+    //   state.type = "create";
+    //   state.isShowed = false;
+    //   state.inputValue = initialState.inputValue;
+    // },
     updatedFormInput(
       state: DashboardVolunteerState,
       action: PayloadAction<{ name: string; value: any }>
     ) {
       const { name, value } = action.payload;
-      state.inputValue[name] = value;
+      if (name in state.inputValue) {
+        (state.inputValue as Record<string, any>)[name] = value;
+      } else {
+        console.warn(`Invalid input field: ${name}`);
+      }
     },
     updatedEditClick(state, action) {
       const { formData } = action.payload;
@@ -73,10 +88,11 @@ const dashboardVolunteerSlice = createSlice({
 });
 
 export const {
+  getVolunteerData,
   resetForm,
   updatedFormInput,
   updatedModalShowed,
-  updatedModalCanceled,
+  // updatedModalCanceled,
   updatedEditClick,
   updatedErrorStatus,
 } = dashboardVolunteerSlice.actions;
